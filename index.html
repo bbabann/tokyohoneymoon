@@ -239,7 +239,7 @@ img { max-width: 100%; }
 
 
 /* ===== INTRO (removable) — CSS ===== */
-.stage.intro-hold .paper { animation: none; opacity: 0; transition: none; }
+.stage.intro-hold .paper, .stage.intro-papers .paper { animation: none; opacity: 0; transition: none; }
 .stage.intro-hold .pocket { transform-origin: 50% 50%; }
 /* drop shadow for the cropped passport (set on the stage, because clip-path would cut a shadow on the wallet itself) */
 .stage { transition: filter 0.5s; }
@@ -1246,7 +1246,7 @@ a[target="_blank"]::after {
       var pocketEl = document.getElementById('pocket');
       var crestEl = pocketEl.querySelector('.crest');
       var T = 2400, timers = [], anims = [], finished = false, released = false, began = false;
-      stage.classList.add('intro-hold', 'intro-booklet', 'intro-pockets');
+      stage.classList.add('intro-hold', 'intro-booklet', 'intro-pockets', 'intro-papers');
       intro.hidden = false;
       var rect = pocketEl.getBoundingClientRect();
       var sr = stage.getBoundingClientRect(), W = sr.width, H = sr.height;
@@ -1296,7 +1296,7 @@ a[target="_blank"]::after {
         anims.forEach(function (a) { try { a.cancel(); } catch (e) {} });
         intro.remove();
         grow();
-        stage.classList.remove('intro-pockets');
+        stage.classList.remove('intro-pockets', 'intro-papers');
         release();
       }
 
@@ -1325,6 +1325,7 @@ a[target="_blank"]::after {
       timers.push(setTimeout(function () { puff(0.3); }, 0.54 * T));
       timers.push(setTimeout(grow, 0.62 * T));
       timers.push(setTimeout(release, 0.78 * T));
+      timers.push(setTimeout(function () { stage.classList.remove('intro-papers'); }, 0.97 * T));   // index tabs only appear after the whole intro has finished
       timers.push(setTimeout(function () { stage.classList.remove('intro-pockets'); }, 0.93 * T));   // pockets fade in once the passport has settled
       timers.push(setTimeout(finish, T + 1000));
       intro.addEventListener('click', finish);
