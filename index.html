@@ -20,7 +20,7 @@
 <style>
 /* Layout: a desk seen from above. Six coloured papers are tucked into a navy passport wallet, fanned and tilted, each with an index tab. Press or drag a tab up and the paper slides out of the wallet and fills the screen; the wallet drops away. */
 :root {
-  --desk: #ccd1c8;
+  --desk: #eaeee6;
   --leather: #1b2f4f;
   --leather-deep: #101c31;
   --foil: #d4b06a;
@@ -47,11 +47,6 @@ body {
   -webkit-font-smoothing: antialiased;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
-}
-body::before {
-  content: ""; position: fixed; inset: 0; pointer-events: none;
-  background-image: radial-gradient(rgba(22, 35, 58, 0.17) 1.1px, transparent 1.5px);
-  background-size: 18px 18px;
 }
 h1, h2, h3, p, ul, ol, dl, dd { margin: 0; padding: 0; }
 button { font: inherit; color: inherit; }
@@ -348,7 +343,7 @@ a[target="_blank"]::after {
 .modal-body img + img { margin-top: 16px; }
 .modal-body.zoomed img { width: 260%; max-width: none; margin: 0; }
 
-/* map links on the desk */
+/* desk: Mickey search bar and chat */
 .desk {
   position: absolute; z-index: 0; top: calc(22px + env(safe-area-inset-top, 0px));
   left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); padding: 4px 4px 0;
@@ -357,18 +352,6 @@ a[target="_blank"]::after {
 }
 .desk::-webkit-scrollbar { display: none; }
 .stage.has-open .desk, .stage.intro-hold .desk { opacity: 0; visibility: hidden; pointer-events: none; }
-.desk-maps h2 { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; padding-bottom: 6px; border-bottom: 1.5px solid var(--ink); font-family: var(--font-ko); font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
-.desk-maps h2 small { font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.14em; color: var(--ink-soft); }
-.dm-g { display: grid; grid-template-columns: 64px 1fr; gap: 6px; padding: 7px 0; border-bottom: 1px dotted var(--rule); }
-.dm-g > span { padding-top: 6px; font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
-.dm-g > div { display: flex; flex-wrap: wrap; gap: 5px; min-width: 0; }
-.desk-maps a {
-  display: inline-flex; align-items: center; min-height: 34px; padding: 0 11px; border: 1px solid rgba(22, 35, 58, 0.5); border-radius: 999px;
-  background: transparent; color: var(--ink); font-size: 13.5px; text-decoration: none;
-}
-.desk-maps a::after { display: none; }
-.desk-maps a:active { background: rgba(22, 35, 58, 0.12); }
-.desk-maps a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 /* Mickey search bar on the desk */
 .ask { display: grid; grid-template-columns: minmax(0, 1fr) 44px; gap: 8px; align-items: center; margin-bottom: 16px; }
@@ -420,8 +403,6 @@ a[target="_blank"]::after {
   .ask-log .row, .ask-log .av, .dots i, .ask-mk { animation: none !important; }
 }
 .ask-log button { justify-self: end; min-height: 32px; font-size: 12.5px; border-width: 1px; }
-.desk-maps { margin-top: 4px; }
-.desk.chatting .desk-maps { display: none; }
 
 /* currency calculator: bottom of the passport, shown when it is swiped up */
 .stage { --ph: 596px; }
@@ -486,13 +467,6 @@ a[target="_blank"]::after {
     <div class="ask-log" id="ask-log" role="log" aria-live="polite" hidden></div>
   </section>
 
-  <!-- map links on the desk (visible while every paper is folded) -->
-  <nav class="desk-maps" aria-label="지도 링크">
-    <h2>지도<small>MAPS</small></h2>
-    <div class="dm-g"><span>공항</span><div><a href="https://www.google.com/maps/search/?api=1&amp;query=Gimpo%20International%20Airport%20International%20Terminal" target="_blank" rel="noopener">김포공항</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Haneda%20Airport%20Terminal%202" target="_blank" rel="noopener">하네다 터미널 2</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Haneda%20Airport%20Terminal%203" target="_blank" rel="noopener">하네다 터미널 3</a></div></div>
-    <div class="dm-g"><span>호텔·파크</span><div><a href="https://www.google.com/maps/search/?api=1&amp;query=Sheraton%20Grande%20Tokyo%20Bay%20Hotel" target="_blank" rel="noopener">쉐라톤 도쿄베이</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Disneyland" target="_blank" rel="noopener">디즈니랜드</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20DisneySea" target="_blank" rel="noopener">디즈니씨</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Ikspiari" target="_blank" rel="noopener">이크스피아리</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Maihama%20Station" target="_blank" rel="noopener">마이하마역</a></div></div>
-    <div class="dm-g"><span>시내</span><div><a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Station" target="_blank" rel="noopener">도쿄역</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Station%20Yaesu%20North%20Exit%20bus%20terminal" target="_blank" rel="noopener">도쿄역 버스터미널</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=KITTE%20Marunouchi" target="_blank" rel="noopener">킷테</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Ginza" target="_blank" rel="noopener">긴자</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Akihabara" target="_blank" rel="noopener">아키하바라</a></div></div>
-  </nav>
   </div>
 
   <!-- 0 Docs -->
@@ -1371,7 +1345,7 @@ a[target="_blank"]::after {
       row.appendChild(av);
     }
     row.appendChild(d);
-    log.hidden = false; desk.classList.add('chatting'); log.insertBefore(row, log.querySelector('.clr'));
+    log.hidden = false; log.insertBefore(row, log.querySelector('.clr'));
     log.scrollTop = log.scrollHeight;
     return d;
   }
@@ -1382,7 +1356,7 @@ a[target="_blank"]::after {
   var clr = document.createElement('button');
   clr.type = 'button'; clr.className = 'clr'; clr.textContent = '대화 지우기';
   clr.addEventListener('click', function () {
-    history = []; log.querySelectorAll('.row').forEach(function (n) { n.remove(); }); log.hidden = true; desk.classList.remove('chatting');
+    history = []; log.querySelectorAll('.row').forEach(function (n) { n.remove(); }); log.hidden = true;
   });
   log.appendChild(clr);
 
