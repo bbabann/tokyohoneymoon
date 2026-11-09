@@ -260,6 +260,8 @@ img { max-width: 100%; }
   inset: calc(var(--bt, 129px) + 8px) calc(var(--bs, 120px) + 8px); border: 1.5px dashed rgba(212, 176, 106, 0.5); border-radius: 9px; transition: none;
 }
 .pocket .slots, .pocket .grip, .crest span { transition: opacity 0.5s ease 0.25s; }
+.pocket .slots { transition: opacity 0.7s ease; }
+.stage.intro-pockets .slots, .stage.intro-pockets .fx { opacity: 0; transition: none; }
 .crest { transition: transform 0.7s cubic-bezier(0.45, 0, 0.25, 1); }
 #intro { position: fixed; inset: 0; z-index: 90; overflow: hidden; cursor: pointer; touch-action: none; }
 #intro .puff { position: absolute; border-radius: 50%; background: rgba(132, 118, 94, 0.5); filter: blur(5px); pointer-events: none; will-change: transform, opacity; }
@@ -417,7 +419,7 @@ a[target="_blank"]::after {
   position: relative; z-index: 1; margin-top: 12px; padding: 10px 12px 8px; touch-action: manipulation; cursor: auto;
   border: 0; border-radius: 12px; background: transparent; color: rgba(255, 255, 255, 0.75);
 }
-.stage:not(.expanded) .fx { visibility: hidden; transition: visibility 0s linear 0.7s; }
+.stage:not(.expanded) .fx { visibility: hidden; transition: visibility 0s linear 0.7s, opacity 0.7s ease; }
 .fx-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; }
 .fx-row b { font-family: var(--font-mono); font-weight: 500; }
 .fx-f { position: relative; display: block; min-width: 0; }
@@ -449,6 +451,18 @@ a[target="_blank"]::after {
 }
 .slot { background-color: var(--leather-deep); background-image: var(--grain); background-size: 200px 200px; background-blend-mode: hard-light; border-radius: 14px; }
 .slot .lip { background-color: var(--leather); background-image: var(--grain); background-size: 200px 200px; background-blend-mode: hard-light; border-radius: 0 0 13px 13px; }
+
+/* confirm before dialling */
+.call-dlg { position: fixed; inset: 0; z-index: 110; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(6, 10, 20, 0.55); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); animation: dim 0.2s ease-out; }
+.call-dlg[hidden] { display: none; }
+.call-card { width: min(100%, 320px); padding: 22px 20px 16px; border-radius: 18px; background: #f3f1e8; color: var(--ink); text-align: center; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4); animation: pop 0.3s cubic-bezier(0.2, 1, 0.3, 1); }
+.call-card h2 { font-size: 17px; font-weight: 700; }
+.call-card .num { margin-top: 6px; font-size: 22px; font-weight: 700; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+.call-card .who { margin-top: 2px; font-size: 13px; color: var(--ink-soft); }
+.call-card .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+.call-card button { height: 46px; border-radius: 12px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); font-size: 15px; font-weight: 500; cursor: pointer; }
+.call-card button.go { background: var(--leather); border-color: var(--leather); color: #fff; }
+.call-card button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 /* ===== magic checklist ===== */
 .checks label { position: relative; }
@@ -556,6 +570,7 @@ a[target="_blank"]::after {
             <li><label><input type="checkbox" data-k="b-7"><span>eSIM 또는 로밍, 디즈니 공식 앱 설치</span></label></li>
             <li><label><input type="checkbox" data-k="b-8"><span>엔화 소액 현금, 해외결제 카드</span></label></li>
             <li><label><input type="checkbox" data-k="b-9"><span>보조배터리 (기내와 버스 안에 휴대, 짐칸 금지), 겹쳐 입을 옷 (11월 중순은 아침저녁이 쌀쌀)</span></label></li>
+            <li><label><input type="checkbox" data-k="b-13"><span>일본용 변환 플러그 (일본 콘센트는 납작한 2핀이라 한국 충전기는 그대로 안 꽂혀요)</span></label></li>
           </ul>
         </div>
 
@@ -596,6 +611,16 @@ a[target="_blank"]::after {
             <li><a href="https://www.tokyodisneyresort.jp/kr/hotel/oh/sheraton.html" target="_blank" rel="noopener">쉐라톤 그랑데 도쿄베이 호텔 (공식)</a></li>
             <li><a href="https://www.tokyodisneyresort.jp/kr/hotel/dch/access/airport" target="_blank" rel="noopener">하네다공항 ⇔ 호텔 (공식)</a></li>
             <li><a href="https://www.tokyodisneyresort.jp/en/tdr/resortline/station" target="_blank" rel="noopener">디즈니 리조트 라인 (공식)</a></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <h3 class="lbl">비상 연락처<small>EMERGENCY</small></h3>
+          <ul class="rows">
+            <li><span class="k">경찰</span><span class="v"><a href="tel:110">110</a><small>일본 현지에서 바로 걸 수 있어요</small></span></li>
+            <li><span class="k">화재 · 구급</span><span class="v"><a href="tel:119">119</a></span></li>
+            <li><span class="k">영사콜센터</span><span class="v"><a href="tel:+82232100404">+82-2-3210-0404</a><small>외교부, 해외에서 사건·사고가 났을 때 (항공권 안내 문구의 번호)</small></span></li>
+            <li><span class="k">직접 저장</span><span class="v">호텔, 항공사, 카드 분실 신고 번호는 폰 연락처에 미리 저장해 두세요</span></li>
           </ul>
         </div>
 
@@ -881,6 +906,15 @@ a[target="_blank"]::after {
 <!-- ===== INTRO (removable) — HTML ===== -->
 <div id="intro" hidden aria-hidden="true"></div>
 <!-- ===== /INTRO — HTML ===== -->
+
+<div class="call-dlg" id="call-dlg" role="dialog" aria-modal="true" aria-labelledby="call-title" hidden>
+  <div class="call-card">
+    <h2 id="call-title">전화를 걸까요?</h2>
+    <p class="num" id="call-num"></p>
+    <p class="who" id="call-who"></p>
+    <div class="btns"><button type="button" id="call-no">취소</button><button type="button" class="go" id="call-go">전화하기</button></div>
+  </div>
+</div>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
  <div class="modal-card">
@@ -1220,7 +1254,7 @@ a[target="_blank"]::after {
       var pocketEl = document.getElementById('pocket');
       var crestEl = pocketEl.querySelector('.crest');
       var T = 2400, timers = [], anims = [], finished = false, released = false, began = false;
-      stage.classList.add('intro-hold', 'intro-booklet');
+      stage.classList.add('intro-hold', 'intro-booklet', 'intro-pockets');
       intro.hidden = false;
       var rect = pocketEl.getBoundingClientRect();
       var sr = stage.getBoundingClientRect(), W = sr.width, H = sr.height;
@@ -1270,6 +1304,7 @@ a[target="_blank"]::after {
         anims.forEach(function (a) { try { a.cancel(); } catch (e) {} });
         intro.remove();
         grow();
+        stage.classList.remove('intro-pockets');
         release();
       }
 
@@ -1298,6 +1333,7 @@ a[target="_blank"]::after {
       timers.push(setTimeout(function () { puff(0.3); }, 0.54 * T));
       timers.push(setTimeout(grow, 0.62 * T));
       timers.push(setTimeout(release, 0.78 * T));
+      timers.push(setTimeout(function () { stage.classList.remove('intro-pockets'); }, 0.93 * T));   // pockets fade in once the passport has settled
       timers.push(setTimeout(finish, T + 1000));
       intro.addEventListener('click', finish);
     };
@@ -1520,6 +1556,28 @@ a[target="_blank"]::after {
     var list = t.closest('.checks'), blk = list && list.closest('.blk');
     if (blk && Array.prototype.every.call(list.querySelectorAll('input[type="checkbox"]'), function (c) { return c.checked; })) celebrate(blk);
   });
+})();
+</script>
+<script>
+(function () {
+  var dlg = document.getElementById('call-dlg'), num = document.getElementById('call-num'), who = document.getElementById('call-who');
+  var go = document.getElementById('call-go'), no = document.getElementById('call-no');
+  var target = '', opener = null;
+  function close() { dlg.hidden = true; if (opener) { try { opener.focus({ preventScroll: true }); } catch (e) {} } }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="tel:"]');
+    if (!a) return;
+    e.preventDefault();
+    target = a.getAttribute('href'); opener = a;
+    num.textContent = a.textContent.trim();
+    var row = a.closest('li'), k = row && row.querySelector('.k');
+    who.textContent = k ? k.textContent.trim() : '';
+    dlg.hidden = false; no.focus();
+  });
+  go.addEventListener('click', function () { var t = target; close(); if (t) window.location.href = t; });
+  no.addEventListener('click', close);
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !dlg.hidden) close(); });
 })();
 </script>
 <script>
