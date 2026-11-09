@@ -452,6 +452,18 @@ a[target="_blank"]::after {
 .slot { background-color: var(--leather-deep); background-image: var(--grain); background-size: 200px 200px; background-blend-mode: hard-light; border-radius: 14px; }
 .slot .lip { background-color: var(--leather); background-image: var(--grain); background-size: 200px 200px; background-blend-mode: hard-light; border-radius: 0 0 13px 13px; }
 
+/* confirm before dialling */
+.call-dlg { position: fixed; inset: 0; z-index: 110; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(6, 10, 20, 0.55); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); animation: dim 0.2s ease-out; }
+.call-dlg[hidden] { display: none; }
+.call-card { width: min(100%, 320px); padding: 22px 20px 16px; border-radius: 18px; background: #f3f1e8; color: var(--ink); text-align: center; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4); animation: pop 0.3s cubic-bezier(0.2, 1, 0.3, 1); }
+.call-card h2 { font-size: 17px; font-weight: 700; }
+.call-card .num { margin-top: 6px; font-size: 22px; font-weight: 700; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+.call-card .who { margin-top: 2px; font-size: 13px; color: var(--ink-soft); }
+.call-card .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+.call-card button { height: 46px; border-radius: 12px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); font-size: 15px; font-weight: 500; cursor: pointer; }
+.call-card button.go { background: var(--leather); border-color: var(--leather); color: #fff; }
+.call-card button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
 /* ===== magic checklist ===== */
 .checks label { position: relative; }
 .blk { position: relative; }
@@ -894,6 +906,15 @@ a[target="_blank"]::after {
 <!-- ===== INTRO (removable) — HTML ===== -->
 <div id="intro" hidden aria-hidden="true"></div>
 <!-- ===== /INTRO — HTML ===== -->
+
+<div class="call-dlg" id="call-dlg" role="dialog" aria-modal="true" aria-labelledby="call-title" hidden>
+  <div class="call-card">
+    <h2 id="call-title">전화를 걸까요?</h2>
+    <p class="num" id="call-num"></p>
+    <p class="who" id="call-who"></p>
+    <div class="btns"><button type="button" id="call-no">취소</button><button type="button" class="go" id="call-go">전화하기</button></div>
+  </div>
+</div>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
  <div class="modal-card">
@@ -1535,6 +1556,28 @@ a[target="_blank"]::after {
     var list = t.closest('.checks'), blk = list && list.closest('.blk');
     if (blk && Array.prototype.every.call(list.querySelectorAll('input[type="checkbox"]'), function (c) { return c.checked; })) celebrate(blk);
   });
+})();
+</script>
+<script>
+(function () {
+  var dlg = document.getElementById('call-dlg'), num = document.getElementById('call-num'), who = document.getElementById('call-who');
+  var go = document.getElementById('call-go'), no = document.getElementById('call-no');
+  var target = '', opener = null;
+  function close() { dlg.hidden = true; if (opener) { try { opener.focus({ preventScroll: true }); } catch (e) {} } }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="tel:"]');
+    if (!a) return;
+    e.preventDefault();
+    target = a.getAttribute('href'); opener = a;
+    num.textContent = a.textContent.trim();
+    var row = a.closest('li'), k = row && row.querySelector('.k');
+    who.textContent = k ? k.textContent.trim() : '';
+    dlg.hidden = false; no.focus();
+  });
+  go.addEventListener('click', function () { var t = target; close(); if (t) window.location.href = t; });
+  no.addEventListener('click', close);
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !dlg.hidden) close(); });
 })();
 </script>
 <script>
