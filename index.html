@@ -429,7 +429,6 @@ a[target="_blank"]::after {
 .fx-meta input { width: 76px; height: 32px; padding: 0 8px; font-size: 14px; }
 .fx-meta button { height: 32px; padding: 0 12px; border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 999px; background: transparent; color: rgba(255, 255, 255, 0.7); font-size: 12px; cursor: pointer; }
 .fx-meta button:active { background: rgba(212, 176, 106, 0.16); }
-#fx-note { flex: 1 1 100%; font-size: 10.5px; }
 @media (max-height: 720px) {
   .stage { --ph: 524px; }
   .slot { height: 84px; }
@@ -892,7 +891,6 @@ a[target="_blank"]::after {
       <div class="fx-meta">
         <label>100엔 =&nbsp;<input id="fx-rate" type="text" inputmode="decimal" autocomplete="off" aria-label="100엔당 원화 환율">&nbsp;원</label>
         <button id="fx-auto" type="button">자동</button>
-        <span id="fx-note" aria-live="polite"></span>
       </div>
     </section>
   </div>
@@ -1330,7 +1328,7 @@ a[target="_blank"]::after {
 <script>
 (function () {
   var jpy = document.getElementById('fx-jpy'), krw = document.getElementById('fx-krw'), rateEl = document.getElementById('fx-rate');
-  var note = document.getElementById('fx-note'), autoBtn = document.getElementById('fx-auto');
+  var note = {}, autoBtn = document.getElementById('fx-auto');
   var KEY = 'tokyo-honeymoon-fx';
   var rate = 920, manual = false, stamp = '';   // KRW per 100 JPY
   try { var sv = JSON.parse(localStorage.getItem(KEY) || 'null'); if (sv && sv.rate > 0) { rate = sv.rate; manual = !!sv.manual; stamp = sv.stamp || ''; } } catch (e) {}
