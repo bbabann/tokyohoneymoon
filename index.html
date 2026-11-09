@@ -56,7 +56,7 @@ img { max-width: 100%; }
   position: fixed; inset: 0; overflow: hidden;
   --open-top: calc(132px + env(safe-area-inset-top, 0px));   /* leaves room for the Mickey search bar above the open paper */
   --ph: 468px;
-  --peek: calc(158px + env(safe-area-inset-bottom, 0px));
+  --peek: calc(116px + env(safe-area-inset-bottom, 0px));
   --vis: var(--peek);
   --rest: calc(100% + var(--open-top) - var(--vis) + 14px);
 }
@@ -304,7 +304,7 @@ a[target="_blank"]::after {
 .slots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 .slot {
   position: relative; height: 108px; padding: 0; overflow: visible; cursor: pointer;
-  border: 1px solid rgba(212, 176, 106, 0.45); border-radius: 12px 12px 6px 6px;
+  border: 1px solid rgba(212, 176, 106, 0.45); border-radius: 14px;
   background: var(--leather-deep); color: var(--foil);
 }
 .slot img { position: absolute; left: 10px; top: 9px; width: calc(100% - 20px); height: 84px; object-fit: cover; object-position: top; border-radius: 5px 5px 0 0; transform: rotate(-1.6deg); transition: transform 0.25s; }
@@ -408,7 +408,7 @@ a[target="_blank"]::after {
 .ask-log button { justify-self: end; min-height: 32px; font-size: 12.5px; border-width: 1px; }
 
 /* currency calculator: bottom of the passport, shown when it is swiped up */
-.stage { --ph: 644px; }
+.stage { --ph: 596px; }
 .fx {
   position: relative; z-index: 1; margin-top: 12px; padding: 10px 12px 8px; touch-action: manipulation; cursor: auto;
   border: 0; border-radius: 12px; background: transparent; color: rgba(255, 255, 255, 0.75);
@@ -429,17 +429,24 @@ a[target="_blank"]::after {
 .fx-meta input { width: 76px; height: 32px; padding: 0 8px; font-size: 14px; }
 .fx-meta button { height: 32px; padding: 0 12px; border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 999px; background: transparent; color: rgba(255, 255, 255, 0.7); font-size: 12px; cursor: pointer; }
 .fx-meta button:active { background: rgba(212, 176, 106, 0.16); }
-#fx-note { flex: 1 1 100%; font-size: 10.5px; }
 @media (max-height: 720px) {
-  .stage { --ph: 560px; }
-  .slot { height: 72px; }
-  .slot img { height: 50px; }
-  .slots { gap: 8px; }
-  .slot .lip { height: 38px; }
+  .stage { --ph: 524px; }
+  .slot { height: 84px; }
+  .slot img { height: 60px; }
+  .slots { gap: 10px; }
 }
 
 
-/* ===== magic checklist + travel stamps ===== */
+/* ===== leather passport: flat color with a subtle grain pattern (no gradients) ===== */
+:root { --grain: url("data:image/svg+xml;utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='256'%20height='256'%3E%3Cfilter%20id='g'%20x='0'%20y='0'%20width='100%25'%20height='100%25'%20color-interpolation-filters='sRGB'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.16'%20numOctaves='2'%20seed='11'%20stitchTiles='stitch'%20result='base'/%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.7'%20numOctaves='1'%20seed='4'%20stitchTiles='stitch'%20result='fine'/%3E%3CfeComposite%20in='base'%20in2='fine'%20operator='arithmetic'%20k1='0'%20k2='1.1'%20k3='0.22'%20k4='-0.12'%20result='h'/%3E%3CfeDiffuseLighting%20in='h'%20surfaceScale='1.7'%20diffuseConstant='1'%20lighting-color='%23ffffff'%20result='lit'%3E%3CfeDistantLight%20azimuth='235'%20elevation='55'/%3E%3C/feDiffuseLighting%3E%3CfeColorMatrix%20in='lit'%20type='matrix'%20values='0.062%200%200%200%200.451%20%200%200.062%200%200%200.451%20%200%200%200.062%200%200.451%20%200%200%200%200%201'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23g)'/%3E%3C/svg%3E"); }
+.pocket {
+  background-color: var(--leather); background-image: var(--grain); background-size: 200px 200px; background-blend-mode: hard-light;
+  box-shadow: 0 -4px 0 #2a4670, 0 -4px 6px rgba(4, 12, 28, 0.38), 0 -8px 0 #4a6d99, 0 -8px 7px rgba(4, 12, 28, 0.3), 0 -14px 26px rgba(4, 12, 28, 0.32);
+}
+.slot { background-color: var(--leather-deep); background-image: var(--grain); background-size: 200px 200px; background-blend-mode: hard-light; border-radius: 14px; }
+.slot .lip { background-color: var(--leather); background-image: var(--grain); background-size: 200px 200px; background-blend-mode: hard-light; border-radius: 0 0 13px 13px; }
+
+/* ===== magic checklist ===== */
 .checks label { position: relative; }
 .blk { position: relative; }
 .sparks { position: absolute; left: 11px; top: 23px; width: 0; height: 0; pointer-events: none; }
@@ -474,47 +481,8 @@ a[target="_blank"]::after {
 }
 @keyframes sweep { 0% { opacity: 0; transform: translate(-14px, 0) rotate(0deg); } 15% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--w), var(--dy)) rotate(200deg); } }
 
-/* stamp button in each DAY card */
-.stampbtn { position: relative; flex: none; width: 56px; height: 56px; margin: -4px 0; padding: 0; border: 0; background: transparent; color: var(--sc); cursor: pointer; }
-.stampbtn svg { width: 100%; height: 100%; overflow: visible; }
-.sb-ph { fill: none; stroke: var(--ink-soft); stroke-width: 1.6; stroke-dasharray: 3 4.5; opacity: 0.5; transition: opacity 0.3s; }
-.sb-t { fill: var(--ink-soft); font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; opacity: 0.55; transition: opacity 0.3s; }
-.sb-art { opacity: 0; transform-box: fill-box; transform-origin: 50% 50%; transform: rotate(var(--sr)); mix-blend-mode: multiply; transition: opacity 0.25s; }
-.sb-ink { fill: currentColor; opacity: 0; filter: blur(3px); }
-.stampbtn[aria-pressed="true"] .sb-art { opacity: 0.92; }
-.stampbtn[aria-pressed="true"] .sb-ph, .stampbtn[aria-pressed="true"] .sb-t { opacity: 0; }
-.stampbtn:active:not([aria-pressed="true"]) .sb-ph { opacity: 0.9; }
-.stampbtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 50%; }
-.stampbtn.stamping .sb-art { animation: stamp-in 0.85s cubic-bezier(0.2, 0.9, 0.3, 1) both; }
-.stampbtn.stamping .sb-ink { animation: ink 0.9s ease-out; }
-.stampbtn.stamping { animation: shake 0.45s ease-in-out 0.36s; }
-@keyframes stamp-in {
-  0% { opacity: 0; transform: translateY(-46px) scale(1.55) rotate(calc(var(--sr) - 14deg)); }
-  48% { opacity: 1; transform: translateY(2px) scale(0.9) rotate(var(--sr)); }
-  62% { transform: translateY(0) scale(1.06) rotate(var(--sr)); }
-  80% { transform: scale(0.98) rotate(var(--sr)); }
-  100% { opacity: 0.92; transform: scale(1) rotate(var(--sr)); }
-}
-@keyframes ink { 0%, 44% { opacity: 0; transform: scale(0.85); } 52% { opacity: 0.34; transform: scale(0.95); } 100% { opacity: 0; transform: scale(1.18); } }
-@keyframes shake { 0%, 100% { transform: translate(0, 0); } 20% { transform: translate(-1.5px, 0.5px) rotate(-1.4deg); } 40% { transform: translate(1.5px, -0.5px) rotate(1.2deg); } 60% { transform: translate(-1px, 0) rotate(-0.8deg); } 80% { transform: translate(0.8px, 0); } }
-
-/* collected stamps inside the passport */
-.top { display: grid; justify-items: center; gap: 8px; margin-bottom: 22px; }
-.pstamps { position: relative; z-index: 1; display: flex; justify-content: center; gap: 12px; margin-top: 10px; }
-.ps { position: relative; width: 40px; height: 40px; border: 1px dashed rgba(212, 176, 106, 0.38); border-radius: 50%; color: var(--pc); transition: border-color 0.4s; }
-.ps svg { position: absolute; inset: -3px; width: 46px; height: 46px; overflow: visible; opacity: 0; transform: rotate(var(--sr)) scale(1.7); transition: opacity 0.3s, transform 0.5s cubic-bezier(0.2, 1.4, 0.4, 1); }
-.ps.on { border-color: transparent; }
-.ps.on svg { opacity: 0.95; transform: rotate(var(--sr)) scale(1); }
-.pstamps.noanim .ps, .pstamps.noanim .ps svg { transition: none; }
-.adv-msg {
-  position: absolute; left: 50%; bottom: calc(100% + 6px); padding: 2px 14px; border: 1px solid rgba(212, 176, 106, 0.7); border-radius: 999px; background: rgba(16, 28, 49, 0.92);
-  font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; color: #f1dc9c; white-space: nowrap; opacity: 0; pointer-events: none; transform: translateX(-50%);
-}
-.adv-msg.show { animation: msg 2.6s ease-out forwards; }
-.stage.intro-booklet .pstamps { opacity: 0; transition: none; }
 @media (prefers-reduced-motion: reduce) {
-  .sp, .sw, .stampbtn.stamping, .stampbtn.stamping .sb-art, .stampbtn.stamping .sb-ink, .checks input:checked::after { animation: none !important; }
-  .ps svg { transition: none; }
+  .sp, .sw, .checks input:checked::after { animation: none !important; }
 }
 
 @media (min-width: 640px) {
@@ -528,60 +496,6 @@ a[target="_blank"]::after {
 </style>
 </head>
 <body>
-
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
- <defs>
-  <filter id="st-rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.4"/></filter>
-  <symbol id="st-d1" viewBox="0 0 100 100">
-   
-   <g filter="url(#st-rough)" fill="currentColor" stroke="currentColor">
-    <circle cx="50" cy="50" r="47" fill="none" stroke-width="2.6"/>
-    <circle cx="50" cy="50" r="33" fill="none" stroke-width="1.2"/>
-    <path id="st-d1-t" d="M14 50A36 36 0 0 1 86 50" fill="none" stroke="none"/>
-    <path id="st-d1-b" d="M6 50A44 44 0 0 0 94 50" fill="none" stroke="none"/>
-    <text font-family="Cinzel, serif" font-size="8.6" font-weight="700" letter-spacing="1.8" stroke="none" text-anchor="middle"><textPath href="#st-d1-t" startOffset="50%">ARRIVAL</textPath></text>
-    <text font-family="Cinzel, serif" font-size="8.6" font-weight="700" letter-spacing="1.4" stroke="none" text-anchor="middle"><textPath href="#st-d1-b" startOffset="50%">DAY 1 · 11.16</textPath></text>
-    <path stroke="none" d="M50 24q3.2 0 3.2 5v13.5l17 10.5v5l-17-5v9.5l5.5 4v4.2L50 66.5l-8.7 2.2v-4.2l5.5-4v-9.5l-17 5v-5l17-10.5V29q0-5 3.2-5Z"/><path fill="none" stroke-width="1.4" stroke-dasharray="1.5 3.5" stroke-linecap="round" d="M30 70q-6-3-4-9"/>
-   </g>
-  </symbol>
-  <symbol id="st-d2" viewBox="0 0 100 100">
-   <mask id="st-d2-m" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46.5 72V63a3.5 3.5 0 0 1 7 0V72Z" fill="#000"/><rect x="35.5" y="52" width="4" height="6" rx="2" fill="#000"/><rect x="60.5" y="52" width="4" height="6" rx="2" fill="#000"/><rect x="48.2" y="46" width="3.6" height="6" rx="1.8" fill="#000"/></mask>
-   <g filter="url(#st-rough)" fill="currentColor" stroke="currentColor">
-    <circle cx="50" cy="50" r="47" fill="none" stroke-width="2.6"/>
-    <circle cx="50" cy="50" r="33" fill="none" stroke-width="1.2"/>
-    <path id="st-d2-t" d="M14 50A36 36 0 0 1 86 50" fill="none" stroke="none"/>
-    <path id="st-d2-b" d="M6 50A44 44 0 0 0 94 50" fill="none" stroke="none"/>
-    <text font-family="Cinzel, serif" font-size="8.6" font-weight="700" letter-spacing="1.8" stroke="none" text-anchor="middle"><textPath href="#st-d2-t" startOffset="50%">DISNEYLAND</textPath></text>
-    <text font-family="Cinzel, serif" font-size="8.6" font-weight="700" letter-spacing="1.4" stroke="none" text-anchor="middle"><textPath href="#st-d2-b" startOffset="50%">DAY 2 · 11.17</textPath></text>
-    <g mask="url(#st-d2-m)" stroke="none"><rect x="33" y="46" width="9" height="26"/><path d="M31.5 46 37.5 35.5 43.5 46Z"/><rect x="58" y="46" width="9" height="26"/><path d="M56.5 46 62.5 35.5 68.500 46Z"/><rect x="44" y="40" width="12" height="32"/><path d="M42 40 50 23 58 40Z"/></g><path fill="none" stroke-width="1.6" d="M50 23V16"/><path stroke="none" d="M50 16 57 18.500 50 21Z"/><path fill="none" stroke-width="1.6" d="M27 72H73"/>
-   </g>
-  </symbol>
-  <symbol id="st-d3" viewBox="0 0 100 100">
-   
-   <g filter="url(#st-rough)" fill="currentColor" stroke="currentColor">
-    <circle cx="50" cy="50" r="47" fill="none" stroke-width="2.6"/>
-    <circle cx="50" cy="50" r="33" fill="none" stroke-width="1.2"/>
-    <path id="st-d3-t" d="M14 50A36 36 0 0 1 86 50" fill="none" stroke="none"/>
-    <path id="st-d3-b" d="M6 50A44 44 0 0 0 94 50" fill="none" stroke="none"/>
-    <text font-family="Cinzel, serif" font-size="8.6" font-weight="700" letter-spacing="1.8" stroke="none" text-anchor="middle"><textPath href="#st-d3-t" startOffset="50%">DISNEYSEA</textPath></text>
-    <text font-family="Cinzel, serif" font-size="8.6" font-weight="700" letter-spacing="1.4" stroke="none" text-anchor="middle"><textPath href="#st-d3-b" startOffset="50%">DAY 3 · 11.18</textPath></text>
-    <circle cx="50" cy="48" r="17" fill="none" stroke-width="1.5"/><path stroke="none" d="M50 28 54.500 43.500 70 48 54.500 52.500 50 68 45.500 52.500 30 48 45.500 43.500Z"/><circle cx="50" cy="48" r="2" fill="none" stroke="none"/><path fill="none" stroke-width="1.8" stroke-linecap="round" d="M31 72q4.500-4.500 9 0t9 0 9 0 9 0"/>
-   </g>
-  </symbol>
-  <symbol id="st-d4" viewBox="0 0 100 100">
-   <mask id="st-d4-m" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><path d="M46 72V62h8V72Z" fill="#000"/><rect x="36" y="56" width="5" height="5" fill="#000"/><rect x="59" y="56" width="5" height="5" fill="#000"/></mask>
-   <g filter="url(#st-rough)" fill="currentColor" stroke="currentColor">
-    <circle cx="50" cy="50" r="47" fill="none" stroke-width="2.6"/>
-    <circle cx="50" cy="50" r="33" fill="none" stroke-width="1.2"/>
-    <path id="st-d4-t" d="M14 50A36 36 0 0 1 86 50" fill="none" stroke="none"/>
-    <path id="st-d4-b" d="M6 50A44 44 0 0 0 94 50" fill="none" stroke="none"/>
-    <text font-family="Cinzel, serif" font-size="8.6" font-weight="700" letter-spacing="1.8" stroke="none" text-anchor="middle"><textPath href="#st-d4-t" startOffset="50%">HOME</textPath></text>
-    <text font-family="Cinzel, serif" font-size="8.6" font-weight="700" letter-spacing="1.4" stroke="none" text-anchor="middle"><textPath href="#st-d4-b" startOffset="50%">DAY 4 · 11.19</textPath></text>
-    <polygon stroke="none" points="50,21 52.800,28.600 60.800,28.900 54.500,33.800 56.700,41.500 50,37 43.300,41.500 45.500,33.800 39.200,28.900 47.200,28.600"/><g mask="url(#st-d4-m)" stroke="none"><path d="M31 57 50 44 69 57V72H31Z"/></g><path fill="none" stroke-width="1.6" d="M27 72H73"/>
-   </g>
-  </symbol>
- </defs>
-</svg>
 
 <div class="stage" id="stage">
 
@@ -661,7 +575,6 @@ a[target="_blank"]::after {
     <div class="scroller">
       <div class="bar">
         <div class="bar-t"><h2>도착일</h2></div>
-        <button class="stampbtn" type="button" data-stamp="d1" aria-pressed="false" aria-label="DAY 1 스탬프 찍기" style="--sc:#2d5ba8;--sr:-9deg"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="sb-ph" cx="50" cy="50" r="44"/><text class="sb-t" x="50" y="54" text-anchor="middle">STAMP</text><g class="sb-art"><circle class="sb-ink" cx="50" cy="50" r="46"/><use href="#st-d1" width="100" height="100"/></g></svg></button>
         <button class="put" type="button" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>넣기</button>
       </div>
       <div class="in">
@@ -722,7 +635,6 @@ a[target="_blank"]::after {
     <div class="scroller">
       <div class="bar">
         <div class="bar-t"><h2>디즈니랜드</h2></div>
-        <button class="stampbtn" type="button" data-stamp="d2" aria-pressed="false" aria-label="DAY 2 스탬프 찍기" style="--sc:#b4414f;--sr:6deg"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="sb-ph" cx="50" cy="50" r="44"/><text class="sb-t" x="50" y="54" text-anchor="middle">STAMP</text><g class="sb-art"><circle class="sb-ink" cx="50" cy="50" r="46"/><use href="#st-d2" width="100" height="100"/></g></svg></button>
         <button class="put" type="button" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>넣기</button>
       </div>
       <div class="in">
@@ -780,7 +692,6 @@ a[target="_blank"]::after {
     <div class="scroller">
       <div class="bar">
         <div class="bar-t"><h2>디즈니씨</h2></div>
-        <button class="stampbtn" type="button" data-stamp="d3" aria-pressed="false" aria-label="DAY 3 스탬프 찍기" style="--sc:#2f8f8b;--sr:-4deg"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="sb-ph" cx="50" cy="50" r="44"/><text class="sb-t" x="50" y="54" text-anchor="middle">STAMP</text><g class="sb-art"><circle class="sb-ink" cx="50" cy="50" r="46"/><use href="#st-d3" width="100" height="100"/></g></svg></button>
         <button class="put" type="button" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>넣기</button>
       </div>
       <div class="in">
@@ -833,7 +744,6 @@ a[target="_blank"]::after {
     <div class="scroller">
       <div class="bar">
         <div class="bar-t"><h2>귀국일, 도쿄 시내</h2></div>
-        <button class="stampbtn" type="button" data-stamp="d4" aria-pressed="false" aria-label="DAY 4 스탬프 찍기" style="--sc:#8a6a1f;--sr:10deg"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="sb-ph" cx="50" cy="50" r="44"/><text class="sb-t" x="50" y="54" text-anchor="middle">STAMP</text><g class="sb-art"><circle class="sb-ink" cx="50" cy="50" r="46"/><use href="#st-d4" width="100" height="100"/></g></svg></button>
         <button class="put" type="button" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>넣기</button>
       </div>
       <div class="in">
@@ -941,18 +851,10 @@ a[target="_blank"]::after {
   <!-- wallet front pocket -->
   <div class="pocket" id="pocket">
     <span class="grip" aria-hidden="true"></span>
-    <div class="top">
     <div class="crest" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z"/></svg>
       <b class="foil">PASSPORT</b>
-    </div>
-    <div class="pstamps" id="pstamps" role="img" aria-label="수집한 스탬프 0/4">
-      <span class="ps" data-s="d1" style="--sr:-9deg;--pc:#8fb4ff"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#st-d1"/></svg></span>
-      <span class="ps" data-s="d2" style="--sr:6deg;--pc:#ff9aa8"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#st-d2"/></svg></span>
-      <span class="ps" data-s="d3" style="--sr:-4deg;--pc:#6fd6cf"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#st-d3"/></svg></span>
-      <span class="ps" data-s="d4" style="--sr:10deg;--pc:#e8c26a"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#st-d4"/></svg></span>
-      <span class="adv-msg" id="adv-msg" aria-live="polite"></span>
-    </div>
+      <span>TOKYO HONEYMOON · 2026</span>
     </div>
     <div class="slots">
       <button class="slot" type="button" data-doc="taxi" aria-label="택시 예약 확정 화면 보기">
@@ -989,7 +891,6 @@ a[target="_blank"]::after {
       <div class="fx-meta">
         <label>100엔 =&nbsp;<input id="fx-rate" type="text" inputmode="decimal" autocomplete="off" aria-label="100엔당 원화 환율">&nbsp;원</label>
         <button id="fx-auto" type="button">자동</button>
-        <span id="fx-note" aria-live="polite"></span>
       </div>
     </section>
   </div>
@@ -1427,7 +1328,7 @@ a[target="_blank"]::after {
 <script>
 (function () {
   var jpy = document.getElementById('fx-jpy'), krw = document.getElementById('fx-krw'), rateEl = document.getElementById('fx-rate');
-  var note = document.getElementById('fx-note'), autoBtn = document.getElementById('fx-auto');
+  var note = {}, autoBtn = document.getElementById('fx-auto');
   var KEY = 'tokyo-honeymoon-fx';
   var rate = 920, manual = false, stamp = '';   // KRW per 100 JPY
   try { var sv = JSON.parse(localStorage.getItem(KEY) || 'null'); if (sv && sv.rate > 0) { rate = sv.rate; manual = !!sv.manual; stamp = sv.stamp || ''; } } catch (e) {}
@@ -1636,61 +1537,6 @@ a[target="_blank"]::after {
     if (label && !reduce) burst(label);
     var list = t.closest('.checks'), blk = list && list.closest('.blk');
     if (blk && Array.prototype.every.call(list.querySelectorAll('input[type="checkbox"]'), function (c) { return c.checked; })) celebrate(blk);
-  });
-
-  // ---- travel stamps ----
-  var KEY = 'tokyo-honeymoon-stamps', KEYS = ['d1', 'd2', 'd3', 'd4'], st = {};
-  try { st = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { st = {}; }
-  var btns = document.querySelectorAll('.stampbtn'), row = document.getElementById('pstamps'), advMsg = document.getElementById('adv-msg');
-  var slots = {};
-  document.querySelectorAll('.ps').forEach(function (el) { slots[el.dataset.s] = el; });
-  function count() { return KEYS.filter(function (k) { return st[k]; }).length; }
-  function renderCards() {
-    btns.forEach(function (b) { b.setAttribute('aria-pressed', st[b.dataset.stamp] ? 'true' : 'false'); });
-  }
-  function renderPassport() {
-    KEYS.forEach(function (k) { if (slots[k]) slots[k].classList.toggle('on', !!st[k]); });
-    row.setAttribute('aria-label', '수집한 스탬프 ' + count() + '/4');
-  }
-  function adventure() {
-    advMsg.textContent = 'Adventure Complete!';
-    advMsg.classList.remove('show'); void advMsg.offsetWidth; advMsg.classList.add('show');
-    if (reduce) { setTimeout(function () { advMsg.classList.remove('show'); }, 2600); return; }
-    var host = document.createElement('span');
-    host.style.cssText = 'position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none';
-    for (var i = 0; i < 16; i++) {
-      var a = rnd(0, Math.PI * 2), d = rnd(40, 110), el = document.createElement('i');
-      el.className = 'sp';
-      el.style.setProperty('--dx', Math.cos(a) * d * 1.2 + 'px');
-      el.style.setProperty('--dy', Math.sin(a) * d * 0.7 + 'px');
-      el.style.setProperty('--z', rnd(6, 13) + 'px');
-      el.style.setProperty('--r', rnd(-120, 120) + 'deg');
-      el.style.setProperty('--t', rnd(0.9, 1.4) + 's');
-      el.style.setProperty('--d', rnd(0, 0.35) + 's');
-      host.appendChild(el);
-    }
-    row.appendChild(host);
-    setTimeout(function () { host.remove(); }, 2000);
-  }
-  renderCards();
-  row.classList.add('noanim'); renderPassport();
-  requestAnimationFrame(function () { requestAnimationFrame(function () { row.classList.remove('noanim'); }); });
-
-  btns.forEach(function (b) {
-    b.addEventListener('click', function () {
-      var k = b.dataset.stamp, on = !st[k];
-      st[k] = on;
-      try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {}
-      b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      if (on && !reduce) {
-        b.classList.remove('stamping'); void b.offsetWidth; b.classList.add('stamping');
-        setTimeout(function () { b.classList.remove('stamping'); }, 1000);
-      }
-      setTimeout(function () {
-        renderPassport();
-        if (on && count() === 4) adventure();
-      }, on && !reduce ? 480 : 0);
-    });
   });
 })();
 </script>
