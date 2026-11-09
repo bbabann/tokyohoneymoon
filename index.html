@@ -404,6 +404,7 @@ a[target="_blank"]::after {
 .ask-log .a.err { color: var(--stamp); }
 .ask-log button { justify-self: end; min-height: 32px; font-size: 12.5px; border-width: 1px; }
 .desk-maps { margin-top: 4px; }
+.desk.chatting .desk-maps { display: none; }
 
 /* currency calculator: bottom of the passport, shown when it is swiped up */
 .stage { --ph: 596px; }
@@ -1323,7 +1324,7 @@ a[target="_blank"]::after {
   var form = document.getElementById('ask-form'), q = document.getElementById('ask-q'), send = document.getElementById('ask-send');
   var cfgBtn = document.getElementById('ask-cfg'), keyBox = document.getElementById('ask-key');
   var keyIn = document.getElementById('ask-apikey'), modelIn = document.getElementById('ask-model');
-  var log = document.getElementById('ask-log');
+  var log = document.getElementById('ask-log'), desk = document.getElementById('desk');
   var KEY = 'tokyo-honeymoon-ai', DEFAULT_MODEL = 'gpt-4o-mini';
   var conf = { key: '', model: DEFAULT_MODEL };
   try { var sv = JSON.parse(localStorage.getItem(KEY) || 'null'); if (sv) { conf.key = sv.key || ''; conf.model = sv.model || DEFAULT_MODEL; } } catch (e) {}
@@ -1347,14 +1348,14 @@ a[target="_blank"]::after {
   function bubble(cls, text) {
     var d = document.createElement('div');
     d.className = 'm ' + cls; d.textContent = text;
-    log.hidden = false; log.insertBefore(d, log.querySelector('.clr'));
+    log.hidden = false; desk.classList.add('chatting'); log.insertBefore(d, log.querySelector('.clr'));
     log.scrollTop = log.scrollHeight;
     return d;
   }
   var clr = document.createElement('button');
   clr.type = 'button'; clr.className = 'clr'; clr.textContent = '대화 지우기';
   clr.addEventListener('click', function () {
-    history = []; log.querySelectorAll('.m').forEach(function (n) { n.remove(); }); log.hidden = true;
+    history = []; log.querySelectorAll('.m').forEach(function (n) { n.remove(); }); log.hidden = true; desk.classList.remove('chatting');
   });
   log.appendChild(clr);
 
