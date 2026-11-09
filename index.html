@@ -348,10 +348,27 @@ a[target="_blank"]::after {
 .modal-body img + img { margin-top: 16px; }
 .modal-body.zoomed img { width: 260%; max-width: none; margin: 0; }
 
-/* map links */
-.rows a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
-.maps .v { display: flex; flex-wrap: wrap; gap: 4px 16px; }
-.maps .v a { display: inline-flex; align-items: center; min-height: 32px; }
+/* map links on the desk */
+.desk-maps {
+  position: absolute; z-index: 0; top: calc(22px + env(safe-area-inset-top, 0px));
+  left: max(20px, env(safe-area-inset-left, 0px)); right: max(20px, env(safe-area-inset-right, 0px));
+  max-width: 560px; margin: 0 auto; transition: opacity 0.4s, visibility 0.4s;
+  bottom: calc(var(--peek) + 70px); overflow-y: auto; scrollbar-width: none;
+}
+.desk-maps::-webkit-scrollbar { display: none; }
+.stage.has-open .desk-maps, .stage.intro-hold .desk-maps { opacity: 0; visibility: hidden; pointer-events: none; }
+.desk-maps h2 { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; padding-bottom: 6px; border-bottom: 1.5px solid var(--ink); font-family: var(--font-ko); font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+.desk-maps h2 small { font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.14em; color: var(--ink-soft); }
+.dm-g { display: grid; grid-template-columns: 64px 1fr; gap: 6px; padding: 7px 0; border-bottom: 1px dotted var(--rule); }
+.dm-g > span { padding-top: 6px; font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
+.dm-g > div { display: flex; flex-wrap: wrap; gap: 5px; min-width: 0; }
+.desk-maps a {
+  display: inline-flex; align-items: center; min-height: 34px; padding: 0 11px; border: 1px solid var(--rule); border-radius: 999px;
+  background: rgba(255, 255, 255, 0.35); color: var(--ink); font-size: 13.5px; text-decoration: none;
+}
+.desk-maps a::after { display: none; }
+.desk-maps a:active { background: rgba(22, 35, 58, 0.12); }
+.desk-maps a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 /* currency calculator: bottom of the passport, shown when it is swiped up */
 .stage { --ph: 596px; }
@@ -398,6 +415,14 @@ a[target="_blank"]::after {
 
 <div class="stage" id="stage">
 
+  <!-- map links on the desk (visible while every paper is folded) -->
+  <nav class="desk-maps" aria-label="지도 링크">
+    <h2>지도<small>MAPS</small></h2>
+    <div class="dm-g"><span>공항</span><div><a href="https://www.google.com/maps/search/?api=1&amp;query=Gimpo%20International%20Airport%20International%20Terminal" target="_blank" rel="noopener">김포공항</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Haneda%20Airport%20Terminal%202" target="_blank" rel="noopener">하네다 터미널 2</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Haneda%20Airport%20Terminal%203" target="_blank" rel="noopener">하네다 터미널 3</a></div></div>
+    <div class="dm-g"><span>호텔·파크</span><div><a href="https://www.google.com/maps/search/?api=1&amp;query=Sheraton%20Grande%20Tokyo%20Bay%20Hotel" target="_blank" rel="noopener">쉐라톤 도쿄베이</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Disneyland" target="_blank" rel="noopener">디즈니랜드</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20DisneySea" target="_blank" rel="noopener">디즈니씨</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Ikspiari" target="_blank" rel="noopener">이크스피아리</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Maihama%20Station" target="_blank" rel="noopener">마이하마역</a></div></div>
+    <div class="dm-g"><span>시내</span><div><a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Station" target="_blank" rel="noopener">도쿄역</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Station%20Yaesu%20North%20Exit%20bus%20terminal" target="_blank" rel="noopener">도쿄역 버스터미널</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=KITTE%20Marunouchi" target="_blank" rel="noopener">킷테</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Ginza" target="_blank" rel="noopener">긴자</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Akihabara" target="_blank" rel="noopener">아키하바라</a></div></div>
+  </nav>
+
   <!-- 0 Docs -->
   <article class="paper" id="paper-docs" data-id="docs" data-ko="예약 정보" tabindex="0" role="button" aria-label="예약 정보 서류 꺼내기"
     style="--i:0;--r:0deg;--tx:0px;--paper:#f3f1e8;--tab:#e3e0d0;--edge:#16243a">
@@ -421,14 +446,6 @@ a[target="_blank"]::after {
             <li><span class="k">11/17</span><span class="v"><button class="doc-btn" type="button" data-doc="land" data-tag="QR">도쿄 디즈니랜드 1데이 패스포트</button><small>성인 2장, 인원별 QR</small></span></li>
             <li><span class="k">11/18</span><span class="v"><button class="doc-btn" type="button" data-doc="sea" data-tag="QR">도쿄 디즈니씨 1데이 패스포트</button><small>성인 2장, 인원별 QR</small></span></li>
             <li><span class="k">11/19 20:00</span><span class="v"><button class="doc-btn" type="button" data-doc="flight" data-tag="항공권">ANA NH867, 하네다 → 김포</button><small>터미널 2 출발, 22:30 도착</small></span></li>
-          </ul>
-        </div>
-        <div class="blk">
-          <h3 class="lbl">지도 링크<small>MAPS</small></h3>
-          <ul class="rows maps">
-            <li><span class="k">공항</span><span class="v"><a href="https://www.google.com/maps/search/?api=1&amp;query=Gimpo%20International%20Airport%20International%20Terminal" target="_blank" rel="noopener">김포공항 국제선</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Haneda%20Airport%20Terminal%202" target="_blank" rel="noopener">하네다 터미널 2</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Haneda%20Airport%20Terminal%203" target="_blank" rel="noopener">하네다 터미널 3</a></span></li>
-            <li><span class="k">호텔·파크</span><span class="v"><a href="https://www.google.com/maps/search/?api=1&amp;query=Sheraton%20Grande%20Tokyo%20Bay%20Hotel" target="_blank" rel="noopener">쉐라톤 그랑데 도쿄베이</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Disneyland" target="_blank" rel="noopener">도쿄 디즈니랜드</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20DisneySea" target="_blank" rel="noopener">도쿄 디즈니씨</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Ikspiari" target="_blank" rel="noopener">이크스피아리</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Maihama%20Station" target="_blank" rel="noopener">마이하마역</a></span></li>
-            <li><span class="k">시내 (Day 4)</span><span class="v"><a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Station" target="_blank" rel="noopener">도쿄역</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Station%20Yaesu%20North%20Exit%20bus%20terminal" target="_blank" rel="noopener">야에스 북쪽 출구 버스터미널</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=KITTE%20Marunouchi" target="_blank" rel="noopener">킷테</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Ginza" target="_blank" rel="noopener">긴자</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Akihabara" target="_blank" rel="noopener">아키하바라</a></span></li>
           </ul>
         </div>
         <div class="blk">
