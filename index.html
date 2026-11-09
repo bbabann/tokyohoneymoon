@@ -54,7 +54,7 @@ img { max-width: 100%; }
 
 .stage {
   position: fixed; inset: 0; overflow: hidden;
-  --open-top: calc(44px + env(safe-area-inset-top, 0px));
+  --open-top: calc(118px + env(safe-area-inset-top, 0px));   /* leaves room for the Mickey search bar above the open paper */
   --ph: 468px;
   --peek: calc(116px + env(safe-area-inset-bottom, 0px));
   --vis: var(--peek);
@@ -351,7 +351,10 @@ a[target="_blank"]::after {
   bottom: calc(var(--peek) + 70px); overflow-x: hidden; overflow-y: auto; scrollbar-width: none;
 }
 .desk::-webkit-scrollbar { display: none; }
-.stage.has-open .desk, .stage.intro-hold .desk { opacity: 0; visibility: hidden; pointer-events: none; }
+.stage.intro-hold .desk { opacity: 0; visibility: hidden; pointer-events: none; }
+.stage.has-open .desk { bottom: auto; overflow: visible; pointer-events: none; }
+.stage.has-open .ask-bar, .stage.has-open .ask-cfg { pointer-events: auto; }
+.stage.has-open .ask-log, .stage.has-open .ask-key { display: none; }
 
 /* Mickey search bar on the desk */
 .ask { display: grid; grid-template-columns: minmax(0, 1fr) 44px; gap: 8px; align-items: center; margin-bottom: 16px; }
@@ -1327,7 +1330,10 @@ a[target="_blank"]::after {
     cfgBtn.setAttribute('aria-expanded', on ? 'true' : 'false');
     if (on) { keyIn.value = conf.key; modelIn.value = conf.model; keyIn.focus(); }
   }
-  cfgBtn.addEventListener('click', function () { toggleKey(keyBox.hidden); });
+  var stage = document.getElementById('stage');
+  // a paper is out: putting it back (the main script listens to the hash) before chatting
+  function closeIfOpen() { if (stage.classList.contains('has-open')) location.hash = 'wallet'; }
+  cfgBtn.addEventListener('click', function () { closeIfOpen(); toggleKey(keyBox.hidden); });
   document.getElementById('ask-save').addEventListener('click', function () {
     conf.key = keyIn.value.trim(); conf.model = modelIn.value.trim() || DEFAULT_MODEL;
     saveConf(); toggleKey(false); q.focus();
@@ -1383,6 +1389,7 @@ a[target="_blank"]::after {
     e.preventDefault();
     var text = q.value.trim();
     if (!text || busy) return;
+    closeIfOpen();
     if (!conf.key) { toggleKey(true); return; }
     q.value = ''; busy = true; send.disabled = true;
     bubble('u', text);
