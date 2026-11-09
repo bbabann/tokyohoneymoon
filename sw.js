@@ -1,6 +1,6 @@
 // Network-first service worker: always tries the latest files, falls back to cache when offline.
-var CACHE = 'tokyo-honeymoon-v3';
-var CORE = ['./', 'index.html', 'manifest.webmanifest', 'icon-180.png', 'icon-512.png',
+var CACHE = 'tokyo-honeymoon-v4';
+var CORE = ['./', 'index.html', 'manifest.webmanifest', 'icon-180.png', 'icon-512.png', 'assets/mickey.png',
   'assets/taxi-booking.webp', 'assets/flight-ticket.webp', 'assets/bus-ticket.webp', 'assets/hotel-voucher.webp',
   'assets/land-ticket-1.webp', 'assets/land-ticket-2.webp', 'assets/sea-ticket-1.webp', 'assets/sea-ticket-2.webp'];
 
