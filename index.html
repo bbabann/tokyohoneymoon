@@ -363,21 +363,21 @@ a[target="_blank"]::after {
 .dm-g > span { padding-top: 6px; font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
 .dm-g > div { display: flex; flex-wrap: wrap; gap: 5px; min-width: 0; }
 .desk-maps a {
-  display: inline-flex; align-items: center; min-height: 34px; padding: 0 11px; border: 1px solid var(--rule); border-radius: 999px;
-  background: rgba(255, 255, 255, 0.35); color: var(--ink); font-size: 13.5px; text-decoration: none;
+  display: inline-flex; align-items: center; min-height: 34px; padding: 0 11px; border: 1px solid rgba(22, 35, 58, 0.5); border-radius: 999px;
+  background: transparent; color: var(--ink); font-size: 13.5px; text-decoration: none;
 }
 .desk-maps a::after { display: none; }
 .desk-maps a:active { background: rgba(22, 35, 58, 0.12); }
 .desk-maps a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
-/* ChatGPT search bar on the desk */
+/* Mickey search bar on the desk */
 .ask { display: grid; grid-template-columns: minmax(0, 1fr) 44px; gap: 8px; align-items: center; margin-bottom: 16px; }
 .ask-bar {
   display: flex; align-items: center; gap: 4px; height: 48px; padding: 0 5px 0 14px; border: 1px solid rgba(22, 35, 58, 0.18); border-radius: 999px;
   background: #fff; box-shadow: 0 1px 6px rgba(22, 35, 58, 0.18);
 }
 .ask-bar:focus-within { box-shadow: 0 2px 10px rgba(22, 35, 58, 0.3); }
-.ask-bar > svg { flex: none; width: 18px; height: 18px; color: var(--ink-soft); }
+.ask-mk { flex: none; width: 32px; height: 32px; margin-right: 2px; }
 .ask-bar input { flex: 1; min-width: 0; height: 100%; padding: 0 6px; border: 0; outline: 0; background: transparent; color: var(--ink); font: inherit; font-size: 16px; }
 .ask-bar input::placeholder { color: #8a93a6; }
 .ask-send, .ask-cfg { flex: none; display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink-soft); cursor: pointer; }
@@ -451,14 +451,14 @@ a[target="_blank"]::after {
 <div class="stage" id="stage">
 
   <div class="desk" id="desk">
-  <!-- ChatGPT search bar -->
-  <section class="ask" aria-label="ChatGPT에게 물어보기">
+  <!-- Ask Mickey search bar -->
+  <section class="ask" aria-label="미키에게 물어보기">
     <form class="ask-bar" id="ask-form" autocomplete="off">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="ask-q" type="text" enterkeyhint="send" placeholder="ChatGPT에게 물어보기" aria-label="ChatGPT에게 질문">
+      <img class="ask-mk" src="assets/mickey.png" alt="" width="32" height="32">
+      <input id="ask-q" type="text" enterkeyhint="send" placeholder="미키에게 물어보기" aria-label="미키에게 질문">
       <button class="ask-send" id="ask-send" type="submit" aria-label="보내기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></button>
     </form>
-    <button class="ask-cfg" id="ask-cfg" type="button" aria-label="ChatGPT 설정" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></button>
+    <button class="ask-cfg" id="ask-cfg" type="button" aria-label="미키 설정" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></button>
     <div class="ask-key" id="ask-key" hidden>
       <label>OPENAI API 키<input id="ask-apikey" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="sk-..."></label>
       <label>모델<input id="ask-model" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="gpt-4o-mini"></label>
@@ -1368,7 +1368,7 @@ a[target="_blank"]::after {
   }
   function system() {
     var now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', dateStyle: 'full', timeStyle: 'short' });
-    return '당신은 2026년 11월 16~19일 도쿄 신혼여행(디즈니 리조트 중심)을 돕는 한국어 여행 도우미입니다. 짧고 실용적으로 답하세요. 아래 일정 자료를 우선 참고하고, 자료에 없거나 불확실한 내용(운행 시간, 요금 등)은 추측하지 말고 공식 사이트에서 확인하라고 알려 주세요.\n현재 시각(한국 기준): ' + now + '\n\n[여행 일정 자료]\n' + context();
+    return '당신은 미키마우스예요. 도쿄 디즈니 리조트로 신혼여행을 떠나는 두 사람의 가장 친한 친구이자 여행 도우미로서 대답하세요. 말투는 항상 발랄하고 다정한 반말(예: "좋아!", "가보자!", "~할 거야")이고, 존댓말은 쓰지 마세요. "하하!", "오, 보이!" 같은 미키다운 감탄사와 이모지를 가끔 섞되 과하지 않게, 답은 짧고 실용적으로 하세요. 말투는 귀엽게 하되 정보는 정확해야 해요. 아래 일정 자료를 우선 참고하고, 자료에 없거나 불확실한 내용(운행 시간, 요금 등)은 추측하지 말고 공식 사이트나 앱에서 확인하라고 알려 주세요.\n현재 시각(한국 기준): ' + now + '\n\n[여행 일정 자료]\n' + context();
   }
   function errText(status, msg) {
     if (status === 401) return 'API 키가 올바르지 않아요. 오른쪽 톱니바퀴에서 키를 다시 확인해 주세요.';
