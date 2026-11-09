@@ -349,14 +349,14 @@ a[target="_blank"]::after {
 .modal-body.zoomed img { width: 260%; max-width: none; margin: 0; }
 
 /* map links on the desk */
-.desk-maps {
+.desk {
   position: absolute; z-index: 0; top: calc(22px + env(safe-area-inset-top, 0px));
-  left: max(20px, env(safe-area-inset-left, 0px)); right: max(20px, env(safe-area-inset-right, 0px));
+  left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); padding: 4px 4px 0;
   max-width: 560px; margin: 0 auto; transition: opacity 0.4s, visibility 0.4s;
-  bottom: calc(var(--peek) + 70px); overflow-y: auto; scrollbar-width: none;
+  bottom: calc(var(--peek) + 70px); overflow-x: hidden; overflow-y: auto; scrollbar-width: none;
 }
-.desk-maps::-webkit-scrollbar { display: none; }
-.stage.has-open .desk-maps, .stage.intro-hold .desk-maps { opacity: 0; visibility: hidden; pointer-events: none; }
+.desk::-webkit-scrollbar { display: none; }
+.stage.has-open .desk, .stage.intro-hold .desk { opacity: 0; visibility: hidden; pointer-events: none; }
 .desk-maps h2 { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; padding-bottom: 6px; border-bottom: 1.5px solid var(--ink); font-family: var(--font-ko); font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
 .desk-maps h2 small { font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.14em; color: var(--ink-soft); }
 .dm-g { display: grid; grid-template-columns: 64px 1fr; gap: 6px; padding: 7px 0; border-bottom: 1px dotted var(--rule); }
@@ -369,6 +369,41 @@ a[target="_blank"]::after {
 .desk-maps a::after { display: none; }
 .desk-maps a:active { background: rgba(22, 35, 58, 0.12); }
 .desk-maps a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* ChatGPT search bar on the desk */
+.ask { display: grid; grid-template-columns: minmax(0, 1fr) 44px; gap: 8px; align-items: center; margin-bottom: 16px; }
+.ask-bar {
+  display: flex; align-items: center; gap: 4px; height: 48px; padding: 0 5px 0 14px; border: 1px solid rgba(22, 35, 58, 0.18); border-radius: 999px;
+  background: #fff; box-shadow: 0 1px 6px rgba(22, 35, 58, 0.18);
+}
+.ask-bar:focus-within { box-shadow: 0 2px 10px rgba(22, 35, 58, 0.3); }
+.ask-bar > svg { flex: none; width: 18px; height: 18px; color: var(--ink-soft); }
+.ask-bar input { flex: 1; min-width: 0; height: 100%; padding: 0 6px; border: 0; outline: 0; background: transparent; color: var(--ink); font: inherit; font-size: 16px; }
+.ask-bar input::placeholder { color: #8a93a6; }
+.ask-send, .ask-cfg { flex: none; display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink-soft); cursor: pointer; }
+.ask-send svg, .ask-cfg svg { width: 20px; height: 20px; }
+.ask-send { background: var(--leather); color: #fff; }
+.ask-send:disabled { opacity: 0.4; }
+.ask-cfg { width: 44px; height: 44px; }
+.ask-cfg:active, .ask-send:active { opacity: 0.7; }
+.ask-bar:has(input:focus-visible) { outline: 2px solid var(--ink); outline-offset: 2px; }
+.ask-cfg:focus-visible, .ask-send:focus-visible, .ask-key button:focus-visible, .ask-log button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.ask-key, .ask-log { grid-column: 1 / -1; }
+.ask-key { display: grid; gap: 8px; padding: 12px; border: 1px solid var(--rule); border-radius: 12px; background: rgba(255, 255, 255, 0.55); font-size: 13px; color: var(--ink-soft); }
+.ask-key[hidden], .ask-log[hidden] { display: none; }
+.ask-key label { display: grid; gap: 3px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; }
+.ask-key input { height: 44px; padding: 0 10px; border: 1px solid var(--rule); border-radius: 8px; background: #fff; color: var(--ink); font-family: var(--font-mono); font-size: 16px; }
+.ask-key p { font-size: 12.5px; line-height: 1.5; }
+.ask-key div { display: flex; gap: 8px; }
+.ask-key button, .ask-log button { min-height: 40px; padding: 0 14px; border: 1.5px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink); font-size: 14px; cursor: pointer; }
+.ask-key button.pri { background: var(--leather); border-color: var(--leather); color: #fff; }
+.ask-log { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; max-height: 44vh; overflow-y: auto; padding: 4px 2px 2px; -webkit-overflow-scrolling: touch; }
+.ask-log .m { max-width: 92%; padding: 9px 12px; border-radius: 14px; font-size: 14.5px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ask-log .u { justify-self: end; background: var(--leather); color: #fff; border-bottom-right-radius: 4px; }
+.ask-log .a { justify-self: start; background: rgba(255, 255, 255, 0.8); border: 1px solid var(--rule); border-bottom-left-radius: 4px; }
+.ask-log .a.err { color: var(--stamp); }
+.ask-log button { justify-self: end; min-height: 32px; font-size: 12.5px; border-width: 1px; }
+.desk-maps { margin-top: 4px; }
 
 /* currency calculator: bottom of the passport, shown when it is swiped up */
 .stage { --ph: 596px; }
@@ -415,6 +450,24 @@ a[target="_blank"]::after {
 
 <div class="stage" id="stage">
 
+  <div class="desk" id="desk">
+  <!-- ChatGPT search bar -->
+  <section class="ask" aria-label="ChatGPT에게 물어보기">
+    <form class="ask-bar" id="ask-form" autocomplete="off">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="ask-q" type="text" enterkeyhint="send" placeholder="ChatGPT에게 물어보기" aria-label="ChatGPT에게 질문">
+      <button class="ask-send" id="ask-send" type="submit" aria-label="보내기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></button>
+    </form>
+    <button class="ask-cfg" id="ask-cfg" type="button" aria-label="ChatGPT 설정" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></button>
+    <div class="ask-key" id="ask-key" hidden>
+      <label>OPENAI API 키<input id="ask-apikey" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="sk-..."></label>
+      <label>모델<input id="ask-model" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="gpt-4o-mini"></label>
+      <p>키는 이 기기의 브라우저에만 저장되고, 코드나 저장소에는 올라가지 않아요. 질문과 일정 내용은 OpenAI로 전송됩니다. OpenAI 사이트에서 월 사용 한도를 꼭 걸어 두세요.</p>
+      <div><button class="pri" id="ask-save" type="button">저장</button><button id="ask-clearkey" type="button">키 삭제</button></div>
+    </div>
+    <div class="ask-log" id="ask-log" role="log" aria-live="polite" hidden></div>
+  </section>
+
   <!-- map links on the desk (visible while every paper is folded) -->
   <nav class="desk-maps" aria-label="지도 링크">
     <h2>지도<small>MAPS</small></h2>
@@ -422,6 +475,7 @@ a[target="_blank"]::after {
     <div class="dm-g"><span>호텔·파크</span><div><a href="https://www.google.com/maps/search/?api=1&amp;query=Sheraton%20Grande%20Tokyo%20Bay%20Hotel" target="_blank" rel="noopener">쉐라톤 도쿄베이</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Disneyland" target="_blank" rel="noopener">디즈니랜드</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20DisneySea" target="_blank" rel="noopener">디즈니씨</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Ikspiari" target="_blank" rel="noopener">이크스피아리</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Maihama%20Station" target="_blank" rel="noopener">마이하마역</a></div></div>
     <div class="dm-g"><span>시내</span><div><a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Station" target="_blank" rel="noopener">도쿄역</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Station%20Yaesu%20North%20Exit%20bus%20terminal" target="_blank" rel="noopener">도쿄역 버스터미널</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=KITTE%20Marunouchi" target="_blank" rel="noopener">킷테</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Ginza" target="_blank" rel="noopener">긴자</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Akihabara" target="_blank" rel="noopener">아키하바라</a></div></div>
   </nav>
+  </div>
 
   <!-- 0 Docs -->
   <article class="paper" id="paper-docs" data-id="docs" data-ko="예약 정보" tabindex="0" role="button" aria-label="예약 정보 서류 꺼내기"
@@ -1262,6 +1316,114 @@ a[target="_blank"]::after {
   autoBtn.addEventListener('click', refresh);
   showRate(); showNote();
   if (!manual && navigator.onLine !== false) refresh();
+})();
+</script>
+<script>
+(function () {
+  var form = document.getElementById('ask-form'), q = document.getElementById('ask-q'), send = document.getElementById('ask-send');
+  var cfgBtn = document.getElementById('ask-cfg'), keyBox = document.getElementById('ask-key');
+  var keyIn = document.getElementById('ask-apikey'), modelIn = document.getElementById('ask-model');
+  var log = document.getElementById('ask-log');
+  var KEY = 'tokyo-honeymoon-ai', DEFAULT_MODEL = 'gpt-4o-mini';
+  var conf = { key: '', model: DEFAULT_MODEL };
+  try { var sv = JSON.parse(localStorage.getItem(KEY) || 'null'); if (sv) { conf.key = sv.key || ''; conf.model = sv.model || DEFAULT_MODEL; } } catch (e) {}
+  function saveConf() { try { localStorage.setItem(KEY, JSON.stringify(conf)); } catch (e) {} }
+  var history = [], busy = false;
+
+  function toggleKey(on) {
+    keyBox.hidden = !on;
+    cfgBtn.setAttribute('aria-expanded', on ? 'true' : 'false');
+    if (on) { keyIn.value = conf.key; modelIn.value = conf.model; keyIn.focus(); }
+  }
+  cfgBtn.addEventListener('click', function () { toggleKey(keyBox.hidden); });
+  document.getElementById('ask-save').addEventListener('click', function () {
+    conf.key = keyIn.value.trim(); conf.model = modelIn.value.trim() || DEFAULT_MODEL;
+    saveConf(); toggleKey(false); q.focus();
+  });
+  document.getElementById('ask-clearkey').addEventListener('click', function () {
+    conf.key = ''; keyIn.value = ''; saveConf();
+  });
+
+  function bubble(cls, text) {
+    var d = document.createElement('div');
+    d.className = 'm ' + cls; d.textContent = text;
+    log.hidden = false; log.insertBefore(d, log.querySelector('.clr'));
+    log.scrollTop = log.scrollHeight;
+    return d;
+  }
+  var clr = document.createElement('button');
+  clr.type = 'button'; clr.className = 'clr'; clr.textContent = '대화 지우기';
+  clr.addEventListener('click', function () {
+    history = []; log.querySelectorAll('.m').forEach(function (n) { n.remove(); }); log.hidden = true;
+  });
+  log.appendChild(clr);
+
+  function context() {
+    var t = [];
+    document.querySelectorAll('.paper').forEach(function (p) {
+      var h = p.querySelector('.bar-t h2'), body = p.querySelector('.in');
+      if (body) t.push('## ' + (p.dataset.ko || (h && h.textContent) || '') + '\n' + body.textContent.replace(/\s+/g, ' ').trim());
+    });
+    return t.join('\n\n').slice(0, 14000);
+  }
+  function system() {
+    var now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', dateStyle: 'full', timeStyle: 'short' });
+    return '당신은 2026년 11월 16~19일 도쿄 신혼여행(디즈니 리조트 중심)을 돕는 한국어 여행 도우미입니다. 짧고 실용적으로 답하세요. 아래 일정 자료를 우선 참고하고, 자료에 없거나 불확실한 내용(운행 시간, 요금 등)은 추측하지 말고 공식 사이트에서 확인하라고 알려 주세요.\n현재 시각(한국 기준): ' + now + '\n\n[여행 일정 자료]\n' + context();
+  }
+  function errText(status, msg) {
+    if (status === 401) return 'API 키가 올바르지 않아요. 오른쪽 톱니바퀴에서 키를 다시 확인해 주세요.';
+    if (status === 429) return '요청이 너무 많거나 사용 한도를 넘었어요. 잠시 뒤에 다시 시도하거나 OpenAI 결제·한도를 확인해 주세요.';
+    if (status === 404) return '모델 이름을 찾을 수 없어요. 설정에서 모델 이름을 확인해 주세요.';
+    return msg || ('오류가 발생했어요 (' + status + ')');
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = q.value.trim();
+    if (!text || busy) return;
+    if (!conf.key) { toggleKey(true); return; }
+    q.value = ''; busy = true; send.disabled = true;
+    bubble('u', text);
+    history.push({ role: 'user', content: text });
+    var out = bubble('a', '…'), got = '';
+    fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + conf.key },
+      body: JSON.stringify({ model: conf.model, stream: true, messages: [{ role: 'system', content: system() }].concat(history.slice(-12)) })
+    }).then(function (res) {
+      if (!res.ok) {
+        return res.json().catch(function () { return {}; }).then(function (j) {
+          throw { status: res.status, msg: j && j.error && j.error.message };
+        });
+      }
+      var reader = res.body.getReader(), dec = new TextDecoder(), buf = '';
+      function pump() {
+        return reader.read().then(function (r) {
+          if (r.done) return;
+          buf += dec.decode(r.value, { stream: true });
+          var lines = buf.split('\n'); buf = lines.pop();
+          lines.forEach(function (ln) {
+            ln = ln.trim();
+            if (ln.indexOf('data:') !== 0) return;
+            var d = ln.slice(5).trim();
+            if (d === '[DONE]') return;
+            try {
+              var c = JSON.parse(d).choices[0].delta.content;
+              if (c) { got += c; out.textContent = got; log.scrollTop = log.scrollHeight; }
+            } catch (err) {}
+          });
+          return pump();
+        });
+      }
+      return pump();
+    }).then(function () {
+      if (!got) { out.textContent = '답변이 비어 있어요. 다시 시도해 주세요.'; out.classList.add('err'); history.pop(); }
+      else history.push({ role: 'assistant', content: got });
+    }).catch(function (err) {
+      out.textContent = err && err.status ? errText(err.status, err.msg) : '연결에 실패했어요. 인터넷 연결을 확인해 주세요.';
+      out.classList.add('err'); history.pop();
+    }).then(function () { busy = false; send.disabled = false; });
+  });
 })();
 </script>
 <script>
