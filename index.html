@@ -146,14 +146,14 @@ img { max-width: 100%; }
 .paper.is-open .scroller { overflow-y: auto; overflow-x: hidden; pointer-events: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 
 .bar {
-  position: relative; z-index: 2; overflow: hidden; padding: 18px 18px 12px;
+  position: relative; z-index: 2; overflow: hidden; padding: 30px 18px 12px;
   border-bottom: 1px dotted var(--rule); touch-action: none;
 }
 .bar-t { position: relative; z-index: 1; min-width: 0; }
 .bar-t h2 { font-family: var(--font-ko); font-size: 23px; line-height: 1.2; font-weight: 700; letter-spacing: -0.03em; }
 .bar-t .lead { margin-top: 4px; max-width: 30em; font-size: 14.5px; line-height: 1.5; }
 /* the DAY stamp is now a large watermark behind the title and overview */
-.bar:has(> .stamp) { min-height: 104px; }
+.bar:has(> .stamp) { min-height: 116px; }
 .bar > .stamp { position: absolute; z-index: 0; right: -8px; top: 50%; width: 100px; height: 100px; margin-top: -50px; border-width: 3px; transform: rotate(-9deg); opacity: 0.15; pointer-events: none; }
 .bar > .stamp b { font-size: 18px; }
 .bar > .stamp span { font-size: 12px; }
@@ -530,7 +530,6 @@ a[target="_blank"]::after {
     <svg class="clip" viewBox="0 0 24 64" fill="none" stroke="#8b94a6" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M7 26V12a5 5 0 0 1 10 0v34a8 8 0 0 1-16 0V20a3 3 0 0 1 6 0v22"/></svg>
     <div class="scroller">
       <div class="bar">
-        <div class="stamp" aria-hidden="true"><b>DAY 1</b><span>16 NOV</span></div>
         <div class="bar-t"><h2>예약 정보</h2></div>
       </div>
       <div class="in">
@@ -576,6 +575,7 @@ a[target="_blank"]::after {
     <span class="when">11/16 MON</span>
     <div class="scroller">
       <div class="bar">
+        <div class="stamp" aria-hidden="true"><b>DAY 1</b><span>16 NOV</span></div>
         <div class="bar-t"><h2>도착일</h2><p class="lead">새벽 5시 택시로 출발해 이동과 체크인에 집중하는 날입니다.</p></div>
       </div>
       <div class="in">
