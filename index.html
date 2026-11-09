@@ -330,22 +330,22 @@ a[target="_blank"]::after {
 .modal { flex-direction: row; align-items: center; justify-content: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: rgba(6, 10, 20, 0.66); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); animation: dim 0.25s ease-out; }
 .modal[hidden] { display: none; }
 @keyframes dim { from { opacity: 0; } }
-.modal-card { display: flex; flex-direction: column; width: min(100%, 520px); max-height: min(86vh, 760px); overflow: hidden; background: var(--leather); border: 1px solid rgba(212, 176, 106, 0.5); border-radius: 18px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); animation: pop 0.36s cubic-bezier(0.2, 1, 0.3, 1); }
+.modal-card { display: flex; flex-direction: column; gap: 10px; width: min(100%, 520px); max-height: min(92vh, 900px); animation: pop 0.36s cubic-bezier(0.2, 1, 0.3, 1); }
 @keyframes pop { from { opacity: 0; transform: translateY(48px) scale(0.92); } }
 .slot.out img { transform: translateY(-46px) rotate(0deg) scale(1.05); }
-.modal-bar { flex: none; display: flex; align-items: center; gap: 8px; padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); border-bottom: 1px solid rgba(212, 176, 106, 0.35); }
-.modal-bar h2 { flex: 1; min-width: 0; font-family: var(--font-body); font-size: 16px; font-weight: 500; line-height: 1.3; color: var(--foil); }
+.modal-bar { order: 2; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 2px; }
+.modal-bar h2 { flex: 1; min-width: 0; font-family: var(--font-body); font-size: 15px; font-weight: 500; line-height: 1.3; color: rgba(255, 255, 255, 0.92); text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6); }
 .modal-btn {
-  height: 44px; min-width: 44px; padding: 0 14px; display: inline-grid; place-items: center;
-  border: 1px solid rgba(212, 176, 106, 0.5); border-radius: 10px; background: rgba(255, 255, 255, 0.04); color: var(--foil);
-  font-size: 14px; font-weight: 500; cursor: pointer;
+  height: 48px; min-width: 48px; padding: 0 18px; display: inline-grid; place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 12px; background: rgba(255, 255, 255, 0.14); color: #fff;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); font-size: 14px; font-weight: 500; cursor: pointer;
 }
-.modal-btn:active { background: rgba(212, 176, 106, 0.16); }
-.modal-btn:focus-visible { outline: 2px solid var(--foil); outline-offset: 2px; }
+.modal-btn:active { background: rgba(255, 255, 255, 0.28); }
+.modal-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 .modal-btn svg { width: 18px; height: 18px; }
-.modal-body { flex: 1; min-height: 0; overflow: auto; -webkit-overflow-scrolling: touch; padding: 14px max(16px, env(safe-area-inset-right, 0px)) 18px max(16px, env(safe-area-inset-left, 0px)); }
-.modal-body img { display: block; width: 100%; max-width: 640px; height: auto; margin: 0 auto; border-radius: 8px; background: #fff; }
-.modal-body img + img { margin-top: 12px; }
+.modal-body { flex: 1; min-height: 0; overflow: auto; -webkit-overflow-scrolling: touch; padding: 4px 4px 20px; border-radius: 18px; }
+.modal-body img { display: block; width: 100%; max-width: 640px; height: auto; margin: 0 auto; border-radius: 16px; background: #fff; box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.3); }
+.modal-body img + img { margin-top: 16px; }
 .modal-body.zoomed img { width: 260%; max-width: none; margin: 0; }
 
 /* map links */
@@ -383,12 +383,6 @@ a[target="_blank"]::after {
   .slots { gap: 10px; }
 }
 
-/* QR tickets: bright, plain-white popup so the code scans easily */
-.modal-card.light { background: #fff; border-color: rgba(22, 35, 58, 0.2); }
-.modal-card.light .modal-bar { border-bottom-color: rgba(22, 35, 58, 0.15); background: #fff; }
-.modal-card.light .modal-bar h2 { color: var(--ink); }
-.modal-card.light .modal-btn { color: var(--ink); border-color: rgba(22, 35, 58, 0.35); background: #fff; }
-.modal-card.light .modal-body { background: #fff; }
 
 @media (min-width: 640px) {
   .paper { left: 50%; right: auto; width: 600px; margin-left: -300px; }
