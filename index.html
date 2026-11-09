@@ -75,7 +75,7 @@ img { max-width: 100%; }
 
 /* papers */
 .paper {
-  --tw: calc((100% - 20px) / 6);
+  --tw: calc((100% - 16px) / 5);
   --tabx: calc(var(--i) * (var(--tw) + 4px));
   position: absolute; top: 0; z-index: calc(var(--i) + 1);
   left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px));
@@ -128,6 +128,7 @@ img { max-width: 100%; }
 .paper.is-open .rail { display: block; }
 .rail i { position: absolute; left: 0; right: 0; top: 0; min-height: 28px; border-radius: 3px; background: var(--stamp); opacity: 0.85; }
 .rail.none { visibility: hidden; }
+.tab .home-ic { width: 22px; height: 22px; margin-top: -2px; color: var(--ink); }
 .tab b { font-family: var(--font-display); font-weight: 700; font-size: 12px; letter-spacing: 0.12em; line-height: 1.2; }
 .tab i { font-style: normal; font-size: 14px; font-weight: 500; line-height: 1.2; }
 .tab.today::after { content: ""; position: absolute; top: 4px; right: 5px; width: 7px; height: 7px; border-radius: 50%; background: var(--stamp); }
@@ -188,6 +189,7 @@ img { max-width: 100%; }
 .rows li { display: grid; grid-template-columns: 92px 1fr; gap: 12px; padding: 11px 0; border-bottom: 1px dotted var(--rule); font-size: 15px; }
 .rows .k { padding-top: 2px; font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
 .rows .v { min-width: 0; }
+.rows a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 .rows .v small { display: block; font-size: 13px; color: var(--ink-soft); }
 
 .checks { list-style: none; }
@@ -521,19 +523,51 @@ a[target="_blank"]::after {
 
   </div>
 
-  <!-- 0 Docs -->
-  <article class="paper" id="paper-docs" data-id="docs" data-ko="예약 정보" tabindex="0" role="button" aria-label="예약 정보 서류 꺼내기"
+  <!-- 0 Home -->
+  <article class="paper" id="paper-home" data-id="home" data-ko="홈" tabindex="0" role="button" aria-label="홈 서류 꺼내기"
     style="--i:0;--r:0deg;--tx:0px;--paper:#f3f1e8;--tab:#e3e0d0;--edge:#16243a">
     <span class="edge"></span>
-    <span class="tab"><b>DOCS</b></span>
-    <span class="when">BOOKINGS</span>
-    <svg class="clip" viewBox="0 0 24 64" fill="none" stroke="#8b94a6" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M7 26V12a5 5 0 0 1 10 0v34a8 8 0 0 1-16 0V20a3 3 0 0 1 6 0v22"/></svg>
+    <span class="tab"><svg class="home-ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3.2 3 10.6V20a1 1 0 0 0 1 1h5.5v-6h5v6H20a1 1 0 0 0 1-1v-9.4L12 3.2Z"/></svg></span>
+    <span class="when">HOME</span>
     <div class="scroller">
       <div class="bar">
-        <div class="bar-t"><h2>예약 정보</h2></div>
+        <div class="bar-t"><h2>홈</h2></div>
       </div>
       <div class="in">
         <div class="blk" style="margin-top:0">
+          <h3 class="lbl">미리 예약 · 등록<small>TO DO</small></h3>
+          <ul class="checks">
+            <li><label><input type="checkbox" data-k="b-0" checked><span>김포공항 택시 예약 (11/16 05:00)</span></label></li>
+            <li><label><input type="checkbox" data-k="b-3"><span><a href="https://www.keikyu-bus.co.jp/en/airport/h-tokyo" target="_blank" rel="noopener">하네다행 버스</a> 예약 (11/19 도쿄역 야에스 북쪽 출구 → 하네다 터미널 2, 15:45~16:00 출발편, 1,200엔). 하루 운행이 적다는 자료가 있어 미리</span></label></li>
+            <li><label><input type="checkbox" data-k="b-10"><span><a href="https://jr-east.ecbo.io/en" target="_blank" rel="noopener">도쿄역 짐 보관 ecbo cloak</a> 예약 (11/19 캐리어 2개 1,600엔, 맡기기 10:30~ 찾기 15:30 전후)</span></label></li>
+            <li><label><input type="checkbox" data-k="b-11"><span><a href="https://www.tablecheck.com/sheratontokyobay-grandcafe/reserve" target="_blank" rel="noopener">조식 그랑 카페</a> 예약 (11/17·18·19 아침, 각각 전날 15:00~23:00. 날짜별 알림은 각 Day 서류에)</span></label></li>
+            <li><label><input type="checkbox" data-k="b-12"><span><a href="https://www.tokyodisneyresort.jp/en/tdr/guide/app_service/priorityseating.html" target="_blank" rel="noopener">레스토랑 프라이어리티 시팅</a> (선택, 랜드 11/17·씨 11/18, 각각 전날 20:59까지)</span></label></li>
+            <li><label><input type="checkbox" data-k="b-2"><span><a href="https://vjw-lp.digital.go.jp/ko/" target="_blank" rel="noopener">Visit Japan Web</a> 등록</span></label></li>
+            <li><label><input type="checkbox" data-k="b-1"><span>디즈니 티켓 2장씩 <a href="https://www.tokyodisneyresort.jp/kr/tdr/app" target="_blank" rel="noopener">공식 앱</a>에 등록 확인 (랜드 11/17, 씨 11/18)</span></label></li>
+            <li><label><input type="checkbox" data-k="b-4"><span>호텔 예약 확인서, 신혼여행 요청 사항 전달</span></label></li>
+            <li><label><input type="checkbox" data-k="b-5"><span>프리미어 액세스(입장 후 앱에서 구매) 사용 계획</span></label></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <h3 class="lbl">준비물<small>PACKING</small></h3>
+          <ul class="checks">
+            <li><label><input type="checkbox" data-k="b-6"><span>여권 유효기간, 여행자보험 확인</span></label></li>
+            <li><label><input type="checkbox" data-k="b-7"><span>eSIM 또는 로밍, 디즈니 공식 앱 설치</span></label></li>
+            <li><label><input type="checkbox" data-k="b-8"><span>엔화 소액 현금, 해외결제 카드</span></label></li>
+            <li><label><input type="checkbox" data-k="b-9"><span>보조배터리 (기내와 버스 안에 휴대, 짐칸 금지), 겹쳐 입을 옷 (11월 중순은 아침저녁이 쌀쌀)</span></label></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <h3 class="lbl">마지막 확인<small>FINAL CHECK</small></h3>
+          <ul class="checks">
+            <li><label><input type="checkbox" data-k="eve-4"><span>택시 예약 시간과 기사 연락처 한 번 더 확인 (전날 밤)</span></label></li>
+            <li><label><input type="checkbox" data-k="eve-5"><span>ANA 앱에서 도착 터미널 확인 (출발 2일 전인 11/14에 확정)</span></label></li>
+          </ul>
+        </div>
+
+        <div class="blk">
           <h3 class="lbl">예약 내역<small>BOOKINGS</small></h3>
           <ul class="rows">
             <li><span class="k">11/16 05:00</span><span class="v"><button class="doc-btn" type="button" data-doc="taxi" data-tag="확정">택시 출발</button><small>김포공항 국제선, 예약 완료</small></span></li>
@@ -545,6 +579,7 @@ a[target="_blank"]::after {
             <li><span class="k">11/19 20:00</span><span class="v"><button class="doc-btn" type="button" data-doc="flight" data-tag="항공권">ANA NH867, 하네다 → 김포</button><small>터미널 2 출발, 22:30 도착</small></span></li>
           </ul>
         </div>
+
         <div class="blk">
           <h3 class="lbl">조식<small>BREAKFAST</small></h3>
           <ul class="rows">
@@ -554,14 +589,16 @@ a[target="_blank"]::after {
             <li><span class="k">요금</span><span class="v">어른 3,500엔 (오래된 자료일 수 있어 호텔에서 확인)</span></li>
           </ul>
         </div>
-        <div class="blk">
-          <h3 class="lbl">전날 챙길 것<small>THE NIGHT BEFORE</small></h3>
-          <ul class="checks">
-            <li><label><input type="checkbox" data-k="eve-1"><span>엔화 소액 현금, 해외결제 카드, eSIM 또는 로밍</span></label></li>
-            <li><label><input type="checkbox" data-k="eve-2"><span>보조배터리 (기내와 버스 안에 휴대, 짐칸 금지)</span></label></li>
-            <li><label><input type="checkbox" data-k="eve-3"><span>겹쳐 입을 옷 (11월 중순은 아침저녁이 쌀쌀)</span></label></li>
+
+        <div class="src">
+          <p>요금, 시간표, 운영 시간은 바뀔 수 있습니다. 출발 전에 공식 사이트와 앱에서 최종 확인하세요.</p>
+          <ul>
+            <li><a href="https://www.tokyodisneyresort.jp/kr/hotel/oh/sheraton.html" target="_blank" rel="noopener">쉐라톤 그랑데 도쿄베이 호텔 (공식)</a></li>
+            <li><a href="https://www.tokyodisneyresort.jp/kr/hotel/dch/access/airport" target="_blank" rel="noopener">하네다공항 ⇔ 호텔 (공식)</a></li>
+            <li><a href="https://www.tokyodisneyresort.jp/en/tdr/resortline/station" target="_blank" rel="noopener">디즈니 리조트 라인 (공식)</a></li>
           </ul>
         </div>
+
         <button class="next" type="button" data-next="day-16">Day 1 서류 꺼내기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
       </div>
     </div>
@@ -785,64 +822,10 @@ a[target="_blank"]::after {
             <li>김포 도착이 22:30이라 입국과 짐 찾기 후 집에 가는 막차 시간을 미리 확인하세요.</li>
           </ul>
         </div>
-        <button class="next" type="button" data-next="before">출발 전 준비 서류 꺼내기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
       </div>
     </div>
   </article>
 
-  <!-- 5 Prep -->
-  <article class="paper" id="paper-before" data-id="before" data-ko="출발 전 준비" tabindex="0" role="button" aria-label="출발 전 준비 서류 꺼내기"
-    style="--i:5;--r:0deg;--tx:0px;--paper:#ebe9f4;--tab:#d7d4e8;--edge:repeating-linear-gradient(90deg,#6b63a8 0 5px,#d9d6ec 5px 10px)">
-    <span class="edge"></span>
-    <span class="tab"><b>PREP</b></span>
-    <span class="when">BEFORE</span>
-    <div class="scroller">
-      <div class="bar">
-        <div class="bar-t"><h2>출발 전 준비</h2></div>
-      </div>
-      <div class="in">
-        <div class="blk" style="margin-top:0">
-          <h3 class="lbl">예약해야 할 것<small>TO BOOK</small></h3>
-          <ul class="checks">
-            <li><label><input type="checkbox" data-k="b-0" checked><span>김포공항 택시 예약 (11/16 05:00)</span></label></li>
-            <li><label><input type="checkbox" data-k="b-3"><span><a href="https://www.keikyu-bus.co.jp/en/airport/h-tokyo" target="_blank" rel="noopener">하네다행 버스</a> 예약 (11/19 도쿄역 야에스 북쪽 출구 → 하네다 터미널 2, 15:45~16:00 출발편, 1,200엔). 하루 운행이 적다는 자료가 있어 미리</span></label></li>
-            <li><label><input type="checkbox" data-k="b-10"><span><a href="https://jr-east.ecbo.io/en" target="_blank" rel="noopener">도쿄역 짐 보관 ecbo cloak</a> 예약 (11/19 캐리어 2개 1,600엔, 맡기기 10:30~ 찾기 15:30 전후)</span></label></li>
-            <li><label><input type="checkbox" data-k="b-11"><span><a href="https://www.tablecheck.com/sheratontokyobay-grandcafe/reserve" target="_blank" rel="noopener">조식 그랑 카페</a> 예약 (11/17·18·19 아침, 각각 전날 15:00~23:00)</span></label></li>
-            <li><label><input type="checkbox" data-k="b-12"><span><a href="https://www.tokyodisneyresort.jp/en/tdr/guide/app_service/priorityseating.html" target="_blank" rel="noopener">레스토랑 프라이어리티 시팅</a> (선택, 랜드 11/17·씨 11/18, 각각 전날 20:59까지)</span></label></li>
-            <li><label><input type="checkbox" data-k="b-2"><span><a href="https://vjw-lp.digital.go.jp/ko/" target="_blank" rel="noopener">Visit Japan Web</a> 등록</span></label></li>
-          </ul>
-        </div>
-
-        <div class="blk">
-          <h3 class="lbl">서류 · 확인<small>DOCS</small></h3>
-          <ul class="checks">
-            <li><label><input type="checkbox" data-k="b-1"><span>디즈니 티켓 2장씩 <a href="https://www.tokyodisneyresort.jp/kr/tdr/app" target="_blank" rel="noopener">공식 앱</a>에 등록 확인 (랜드 11/17, 씨 11/18)</span></label></li>
-            <li><label><input type="checkbox" data-k="b-4"><span>호텔 예약 확인서, 신혼여행 요청 사항 전달</span></label></li>
-            <li><label><input type="checkbox" data-k="b-5"><span>프리미어 액세스(입장 후 앱에서 구매) 사용 계획</span></label></li>
-          </ul>
-        </div>
-
-        <div class="blk">
-          <h3 class="lbl">현지 준비<small>ON SITE</small></h3>
-          <ul class="checks">
-            <li><label><input type="checkbox" data-k="b-6"><span>여권 유효기간, 여행자보험 확인</span></label></li>
-            <li><label><input type="checkbox" data-k="b-7"><span>eSIM 또는 로밍, 디즈니 공식 앱 설치</span></label></li>
-            <li><label><input type="checkbox" data-k="b-8"><span>엔화 소액 현금, 해외결제 카드</span></label></li>
-            <li><label><input type="checkbox" data-k="b-9"><span>보조배터리, 겹쳐 입을 옷 (아침저녁 쌀쌀)</span></label></li>
-          </ul>
-        </div>
-
-        <div class="src">
-          <p>요금, 시간표, 운영 시간은 바뀔 수 있습니다. 출발 전에 공식 사이트와 앱에서 최종 확인하세요.</p>
-          <ul>
-            <li><a href="https://www.tokyodisneyresort.jp/kr/hotel/oh/sheraton.html" target="_blank" rel="noopener">쉐라톤 그랑데 도쿄베이 호텔 (공식)</a></li>
-            <li><a href="https://www.tokyodisneyresort.jp/kr/hotel/dch/access/airport" target="_blank" rel="noopener">하네다공항 ⇔ 호텔 (공식)</a></li>
-            <li><a href="https://www.tokyodisneyresort.jp/en/tdr/resortline/station" target="_blank" rel="noopener">디즈니 리조트 라인 (공식)</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </article>
 
   <div class="putbar"><button class="putbtn" type="button" data-close>넣기</button></div>
 
@@ -914,7 +897,8 @@ a[target="_blank"]::after {
 
 <script>
 (function () {
-  var IDS = ['docs', 'day-16', 'day-17', 'day-18', 'day-19', 'before'];
+  var IDS = ['home', 'day-16', 'day-17', 'day-18', 'day-19'];
+  var ALIAS = { docs: 'home', before: 'home' };   // old addresses
   var stage = document.getElementById('stage');
   var papers = {};
   IDS.forEach(function (id) { papers[id] = document.getElementById('paper-' + id); });
@@ -1113,7 +1097,7 @@ a[target="_blank"]::after {
     if (e.key === 'Escape' && modal.hidden) closePaper();
   });
   window.addEventListener('hashchange', function () {
-    var id = location.hash.replace('#', '');
+    var id = location.hash.replace('#', ''); id = ALIAS[id] || id;
     if (papers[id]) openPaper(id); else closePaper();
   });
 
@@ -1214,7 +1198,7 @@ a[target="_blank"]::after {
       if (p.dataset.date === key) { p.querySelector('.tab').classList.add('today'); todayId = id; }
     });
   }
-  var start = location.hash.replace('#', '');
+  var start = location.hash.replace('#', ''); start = ALIAS[start] || start;
   if (papers[start]) { openPaper(start, true); }
 
   // Runs once the page is settled (after the intro, if any)
