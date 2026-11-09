@@ -407,7 +407,7 @@ a[target="_blank"]::after {
 .ask-log button { justify-self: end; min-height: 32px; font-size: 12.5px; border-width: 1px; }
 
 /* currency calculator: bottom of the passport, shown when it is swiped up */
-.stage { --ph: 596px; }
+.stage { --ph: 716px; }
 .fx {
   position: relative; z-index: 1; margin-top: 12px; padding: 10px 12px 8px; touch-action: manipulation; cursor: auto;
   border: 0; border-radius: 12px; background: transparent; color: rgba(255, 255, 255, 0.75);
@@ -428,11 +428,18 @@ a[target="_blank"]::after {
 .fx-meta input { width: 76px; height: 32px; padding: 0 8px; font-size: 14px; }
 .fx-meta button { height: 32px; padding: 0 12px; border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 999px; background: transparent; color: rgba(255, 255, 255, 0.7); font-size: 12px; cursor: pointer; }
 .fx-meta button:active { background: rgba(212, 176, 106, 0.16); }
-@media (max-height: 720px) {
-  .stage { --ph: 524px; }
+@media (max-height: 760px) {
+  .stage { --ph: 618px; }
   .slot { height: 84px; }
   .slot img { height: 60px; }
   .slots { gap: 10px; }
+}
+@media (max-height: 700px) {
+  .stage { --ph: 556px; }
+  .slot { height: 70px; }
+  .slot img { height: 46px; }
+  .slot .lip { height: 34px; }
+  .slots { gap: 8px; }
 }
 
 
@@ -559,8 +566,8 @@ a[target="_blank"]::after {
         <div class="blk">
           <h3 class="lbl">준비물<small>PACKING</small></h3>
           <ul class="checks">
-            <li><label><input type="checkbox" data-k="b-6"><span>여권 유효기간, 여행자보험 확인</span></label></li>
-            <li><label><input type="checkbox" data-k="b-7"><span>eSIM 또는 로밍, 디즈니 공식 앱 설치</span></label></li>
+            <li><label><input type="checkbox" data-k="b-6"><span>여권 유효기간, 여행자보험 확인 <button class="doc-btn" type="button" data-doc="insurance" data-tag="보험">가입 내역</button></span></label></li>
+            <li><label><input type="checkbox" data-k="b-7"><span><button class="doc-btn" type="button" data-doc="esim" data-tag="eSIM">eSIM 구매 내역</button>, 디즈니 공식 앱 설치</span></label></li>
             <li><label><input type="checkbox" data-k="b-8"><span>엔화 소액 현금, 해외결제 카드</span></label></li>
             <li><label><input type="checkbox" data-k="b-9"><span>보조배터리 (기내와 버스 안에 휴대, 짐칸 금지), 겹쳐 입을 옷 (11월 중순은 아침저녁이 쌀쌀)</span></label></li>
             <li><label><input type="checkbox" data-k="b-13"><span>일본용 변환 플러그 (일본 콘센트는 납작한 2핀이라 한국 충전기는 그대로 안 꽂혀요)</span></label></li>
@@ -879,6 +886,14 @@ a[target="_blank"]::after {
         <img src="assets/thumb-sea.webp" alt="" width="480" height="267" decoding="async">
         <span class="lip"><b>SEA</b><span>11/18 · 2장</span></span>
       </button>
+      <button class="slot" type="button" data-doc="esim" aria-label="eSIM 구매 내역 보기">
+        <img src="assets/thumb-esim.webp" alt="" width="480" height="267" decoding="async">
+        <span class="lip"><b>eSIM</b><span>일본 · 2개</span></span>
+      </button>
+      <button class="slot" type="button" data-doc="insurance" aria-label="해외여행보험 가입 내역 보기">
+        <img src="assets/thumb-insurance.webp" alt="" width="480" height="267" decoding="async">
+        <span class="lip"><b>INSURANCE</b><span>11/16–19</span></span>
+      </button>
     </div>
     <section class="fx" id="fx" aria-label="환율 계산기">
       <div class="fx-row">
@@ -1130,6 +1145,8 @@ a[target="_blank"]::after {
   // Ticket popup
   var SHOW_TICKETS = true;   // false: ticket images are not shown (public version)
   var DOCS = {
+    esim: { title: 'eSIM 구매 내역 (일본 완전 무제한)', src: 'assets/esim.webp', alt: '일본 완전 무제한 eSIM 2건의 구매정보 화면, 2026년 11월 9일 결제 완료' },
+    insurance: { title: '해외여행보험 가입 내역', src: 'assets/insurance.webp', alt: '유심사 해외여행보험 가입 내역, 보험 기간 2026년 11월 16일 07:00부터 19일 22:00까지, 보장받는 분 2명' },
     bus: { qr: true, title: '리무진버스 QR 티켓', src: 'assets/bus-ticket.webp', alt: '11월 16일 11:45 하네다공항 터미널 3에서 쉐라톤 그랜드 도쿄 베이 호텔로 가는 리무진버스 QR 티켓' },
     land: { qr: true, title: '디즈니랜드 티켓 (11/17)', src: 'assets/land-ticket-1.webp', alt: '도쿄 디즈니랜드 1데이 패스포트 11월 17일 첫 번째 티켓', more: [{ src: 'assets/land-ticket-2.webp', alt: '도쿄 디즈니랜드 1데이 패스포트 11월 17일 두 번째 티켓' }] },
     sea: { qr: true, title: '디즈니씨 티켓 (11/18)', src: 'assets/sea-ticket-1.webp', alt: '도쿄 디즈니씨 1데이 패스포트 11월 18일 첫 번째 티켓', more: [{ src: 'assets/sea-ticket-2.webp', alt: '도쿄 디즈니씨 1데이 패스포트 11월 18일 두 번째 티켓' }] },
