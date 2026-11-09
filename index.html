@@ -398,10 +398,27 @@ a[target="_blank"]::after {
 .ask-key button, .ask-log button { min-height: 40px; padding: 0 14px; border: 1.5px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink); font-size: 14px; cursor: pointer; }
 .ask-key button.pri { background: var(--leather); border-color: var(--leather); color: #fff; }
 .ask-log { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; max-height: 44vh; overflow-y: auto; padding: 4px 2px 2px; -webkit-overflow-scrolling: touch; }
-.ask-log .m { max-width: 92%; padding: 9px 12px; border-radius: 14px; font-size: 14.5px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
-.ask-log .u { justify-self: end; background: var(--leather); color: #fff; border-bottom-right-radius: 4px; }
-.ask-log .a { justify-self: start; background: rgba(255, 255, 255, 0.8); border: 1px solid var(--rule); border-bottom-left-radius: 4px; }
-.ask-log .a.err { color: var(--stamp); }
+.ask-log .row { display: grid; align-items: end; gap: 6px; animation: bubble-in 0.4s cubic-bezier(0.2, 1.4, 0.4, 1) backwards; }
+.ask-log .row.u { justify-self: end; max-width: 88%; transform-origin: 100% 100%; }
+.ask-log .row.a { grid-template-columns: 34px minmax(0, 1fr); max-width: 96%; transform-origin: 0 100%; }
+@keyframes bubble-in { from { opacity: 0; transform: translateY(10px) scale(0.82); } }
+.ask-log .av { width: 34px; height: 34px; padding: 3px; border: 1.5px solid #e9c64a; border-radius: 50%; background: #fff7d1; }
+.ask-log .row.a.wait .av { animation: bob 0.7s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(-4px) rotate(-8deg); } }
+.ask-log .m { padding: 9px 14px; border-radius: 20px; font-size: 14.5px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ask-log .m.u { background: #d9363e; color: #fff; border-bottom-right-radius: 6px; box-shadow: 0 2px 0 #a8242c; }
+.ask-log .m.a { justify-self: start; background: #fff7d1; border: 1.5px solid #f0cf5a; border-bottom-left-radius: 6px; box-shadow: 0 2px 0 #e9c64a; }
+.ask-log .m.a.err { color: var(--stamp); }
+.dots { display: inline-flex; gap: 4px; align-items: center; height: 22px; }
+.dots i { width: 7px; height: 7px; border-radius: 50%; background: #c9a21e; animation: dot 0.9s ease-in-out infinite; }
+.dots i:nth-child(2) { animation-delay: 0.15s; }
+.dots i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes dot { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-5px); opacity: 1; } }
+.ask-bar:focus-within .ask-mk { animation: wiggle 0.6s ease-in-out; }
+@keyframes wiggle { 20% { transform: rotate(-14deg) scale(1.1); } 50% { transform: rotate(10deg) scale(1.1); } 80% { transform: rotate(-4deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .ask-log .row, .ask-log .av, .dots i, .ask-mk { animation: none !important; }
+}
 .ask-log button { justify-self: end; min-height: 32px; font-size: 12.5px; border-width: 1px; }
 .desk-maps { margin-top: 4px; }
 .desk.chatting .desk-maps { display: none; }
@@ -1346,16 +1363,26 @@ a[target="_blank"]::after {
   });
 
   function bubble(cls, text) {
-    var d = document.createElement('div');
-    d.className = 'm ' + cls; d.textContent = text;
-    log.hidden = false; desk.classList.add('chatting'); log.insertBefore(d, log.querySelector('.clr'));
+    var row = document.createElement('div'), d = document.createElement('div');
+    row.className = 'row ' + cls; d.className = 'm ' + cls; d.textContent = text;
+    if (cls === 'a') {
+      var av = document.createElement('img');
+      av.className = 'av'; av.src = 'assets/mickey.png'; av.alt = ''; av.width = 34; av.height = 34;
+      row.appendChild(av);
+    }
+    row.appendChild(d);
+    log.hidden = false; desk.classList.add('chatting'); log.insertBefore(row, log.querySelector('.clr'));
     log.scrollTop = log.scrollHeight;
     return d;
+  }
+  function waiting(d, on) {
+    d.parentNode.classList.toggle('wait', on);
+    if (on) d.innerHTML = '<span class="dots" role="status" aria-label="미키가 생각 중"><i></i><i></i><i></i></span>';
   }
   var clr = document.createElement('button');
   clr.type = 'button'; clr.className = 'clr'; clr.textContent = '대화 지우기';
   clr.addEventListener('click', function () {
-    history = []; log.querySelectorAll('.m').forEach(function (n) { n.remove(); }); log.hidden = true; desk.classList.remove('chatting');
+    history = []; log.querySelectorAll('.row').forEach(function (n) { n.remove(); }); log.hidden = true; desk.classList.remove('chatting');
   });
   log.appendChild(clr);
 
@@ -1369,7 +1396,7 @@ a[target="_blank"]::after {
   }
   function system() {
     var now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', dateStyle: 'full', timeStyle: 'short' });
-    return '당신은 미키마우스예요. 도쿄 디즈니 리조트로 신혼여행을 떠나는 두 사람의 가장 친한 친구이자 여행 도우미로서 대답하세요. 말투는 항상 발랄하고 다정한 반말(예: "좋아!", "가보자!", "~할 거야")이고, 존댓말은 쓰지 마세요. "하하!", "오, 보이!" 같은 미키다운 감탄사와 이모지를 가끔 섞되 과하지 않게, 답은 짧고 실용적으로 하세요. 말투는 귀엽게 하되 정보는 정확해야 해요. 아래 일정 자료를 우선 참고하고, 자료에 없거나 불확실한 내용(운행 시간, 요금 등)은 추측하지 말고 공식 사이트나 앱에서 확인하라고 알려 주세요.\n현재 시각(한국 기준): ' + now + '\n\n[여행 일정 자료]\n' + context();
+    return '당신은 미키마우스예요. 도쿄 디즈니 리조트로 신혼여행을 떠나는 두 사람의 가장 친한 친구이자 여행 도우미로서 대답하세요. 말투는 항상 발랄하고 다정한 반말(예: "좋아!", "가보자!", "~할 거야")이고, 존댓말은 쓰지 마세요. "하하!", "오, 보이!" 같은 미키다운 감탄사를 가끔 쓰고, 한 답변에 이모지를 2~4개 자연스럽게 섞으세요(🐭 ✨ 🏰 🎢 🎆 🍿 🎈 ⭐ 🎠 🚝 처럼 디즈니 여행 분위기에 어울리는 것). 답은 짧고 실용적으로 하세요. 말투는 귀엽게 하되 정보는 정확해야 해요. 아래 일정 자료를 우선 참고하고, 자료에 없거나 불확실한 내용(운행 시간, 요금 등)은 추측하지 말고 공식 사이트나 앱에서 확인하라고 알려 주세요.\n현재 시각(한국 기준): ' + now + '\n\n[여행 일정 자료]\n' + context();
   }
   function errText(status, msg) {
     if (status === 401) return 'API 키가 올바르지 않아요. 오른쪽 톱니바퀴에서 키를 다시 확인해 주세요.';
@@ -1386,7 +1413,8 @@ a[target="_blank"]::after {
     q.value = ''; busy = true; send.disabled = true;
     bubble('u', text);
     history.push({ role: 'user', content: text });
-    var out = bubble('a', '…'), got = '';
+    var out = bubble('a', ''), got = '';
+    waiting(out, true);
     fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + conf.key },
@@ -1410,7 +1438,7 @@ a[target="_blank"]::after {
             if (d === '[DONE]') return;
             try {
               var c = JSON.parse(d).choices[0].delta.content;
-              if (c) { got += c; out.textContent = got; log.scrollTop = log.scrollHeight; }
+              if (c) { if (!got) waiting(out, false); got += c; out.textContent = got; log.scrollTop = log.scrollHeight; }
             } catch (err) {}
           });
           return pump();
@@ -1418,9 +1446,11 @@ a[target="_blank"]::after {
       }
       return pump();
     }).then(function () {
+      waiting(out, false);
       if (!got) { out.textContent = '답변이 비어 있어요. 다시 시도해 주세요.'; out.classList.add('err'); history.pop(); }
       else history.push({ role: 'assistant', content: got });
     }).catch(function (err) {
+      waiting(out, false);
       out.textContent = err && err.status ? errText(err.status, err.msg) : '연결에 실패했어요. 인터넷 연결을 확인해 주세요.';
       out.classList.add('err'); history.pop();
     }).then(function () { busy = false; send.disabled = false; });
