@@ -438,44 +438,14 @@ a[target="_blank"]::after {
 }
 
 
-/* ===== leather passport: pebbled grain, shading, stitching ===== */
+/* ===== leather passport: flat color with a subtle grain pattern (no gradients) ===== */
 :root { --grain: url("data:image/svg+xml;utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='256'%20height='256'%3E%3Cfilter%20id='g'%20x='0'%20y='0'%20width='100%25'%20height='100%25'%20color-interpolation-filters='sRGB'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.16'%20numOctaves='2'%20seed='11'%20stitchTiles='stitch'%20result='base'/%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.7'%20numOctaves='1'%20seed='4'%20stitchTiles='stitch'%20result='fine'/%3E%3CfeComposite%20in='base'%20in2='fine'%20operator='arithmetic'%20k1='0'%20k2='1.1'%20k3='0.22'%20k4='-0.12'%20result='h'/%3E%3CfeDiffuseLighting%20in='h'%20surfaceScale='1.7'%20diffuseConstant='1'%20lighting-color='%23ffffff'%20result='lit'%3E%3CfeDistantLight%20azimuth='235'%20elevation='55'/%3E%3C/feDiffuseLighting%3E%3CfeColorMatrix%20in='lit'%20type='matrix'%20values='0.062%200%200%200%200.451%20%200%200.062%200%200%200.451%20%200%200%200.062%200%200.451%20%200%200%200%200%201'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23g)'/%3E%3C/svg%3E"); }
 .pocket {
-  background-color: var(--leather);
-  background-image:
-    radial-gradient(130% 50% at 50% 0%, rgba(255, 255, 255, 0.16), transparent 62%),
-    radial-gradient(110% 45% at 50% 100%, rgba(0, 0, 0, 0.42), transparent 70%),
-    linear-gradient(100deg, rgba(0, 0, 0, 0.28), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.28)),
-    var(--grain);
-  background-size: auto, auto, auto, 200px 200px;
-  background-blend-mode: normal, multiply, multiply, hard-light;
+  background-color: var(--leather); background-image: var(--grain); background-size: 200px 200px; background-blend-mode: hard-light;
+  box-shadow: 0 -4px 0 #2a4670, 0 -4px 6px rgba(4, 12, 28, 0.38), 0 -8px 0 #4a6d99, 0 -8px 7px rgba(4, 12, 28, 0.3), 0 -14px 26px rgba(4, 12, 28, 0.32);
 }
-.pocket {
-  box-shadow: 0 -4px 0 #2a4670, 0 -4px 6px rgba(4, 12, 28, 0.42), 0 -8px 0 #4a6d99, 0 -8px 7px rgba(4, 12, 28, 0.32), 0 -14px 26px rgba(4, 12, 28, 0.36),
-    inset 0 2px 0 rgba(255, 255, 255, 0.2), inset 0 -2px 0 rgba(0, 0, 0, 0.35), inset 0 0 38px rgba(0, 0, 0, 0.42);
-}
-.pocket::before { filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.7)) drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.06)); border-color: rgba(212, 176, 106, 0.62); }
-.pocket::after {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  background: linear-gradient(112deg, transparent 38%, rgba(255, 255, 255, 0.075) 49%, transparent 60%);
-}
-.grip { background: linear-gradient(#e6cf8f, #a98743); box-shadow: 0 1px 0 rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
-.foil, .crest svg { filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.7)) drop-shadow(0 0 1px rgba(0, 0, 0, 0.4)); }
-.crest span { text-shadow: 0 1px 1px rgba(0, 0, 0, 0.85), 0 0 6px rgba(0, 0, 0, 0.5); }
-.slot {
-  background-color: #0c1626; background-image: radial-gradient(90% 60% at 50% 0%, rgba(0, 0, 0, 0.5), transparent 75%), var(--grain);
-  background-size: auto, 200px 200px; background-blend-mode: multiply, hard-light;
-  box-shadow: inset 0 12px 14px -8px rgba(0, 0, 0, 0.75), inset 0 -1px 0 rgba(255, 255, 255, 0.06), 0 1px 0 rgba(255, 255, 255, 0.07);
-}
-.slot img { box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45); }
-.slot .lip {
-  background-color: var(--leather);
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.12) 40%, rgba(0, 0, 0, 0.34)), var(--grain);
-  background-size: auto, 200px 200px; background-blend-mode: normal, hard-light;
-  box-shadow: 0 -7px 9px -3px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.16), inset 0 -2px 3px rgba(0, 0, 0, 0.35);
-  border-radius: 0 0 13px 13px;
-  border-top: 1px dashed rgba(212, 176, 106, 0.7); text-shadow: 0 1px 1px rgba(0, 0, 0, 0.85), 0 0 6px rgba(0, 0, 0, 0.5);
-}
+.slot { background-color: var(--leather-deep); background-image: var(--grain); background-size: 200px 200px; background-blend-mode: hard-light; border-radius: 14px; }
+.slot .lip { background-color: var(--leather); background-image: var(--grain); background-size: 200px 200px; background-blend-mode: hard-light; border-radius: 0 0 13px 13px; }
 
 /* ===== magic checklist ===== */
 .checks label { position: relative; }
