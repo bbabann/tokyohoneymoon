@@ -1,0 +1,1139 @@
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1b2f4f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="도쿄 신혼여행">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>도쿄 신혼여행 일정</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: a desk seen from above. Six coloured papers are tucked into a navy passport wallet, fanned and tilted, each with an index tab. Press or drag a tab up and the paper slides out of the wallet and fills the screen; the wallet drops away. */
+:root {
+  --desk: #ccd1c8;
+  --leather: #1b2f4f;
+  --leather-deep: #101c31;
+  --foil: #d4b06a;
+  --ink: #16233a;
+  --ink-soft: #55607a;
+  --rule: rgba(22, 35, 58, 0.28);
+  --stamp: #a8364b;
+  --font-display: 'Cinzel', 'Noto Serif KR', serif;
+  --font-ko: 'Noto Serif KR', 'Noto Sans KR', serif;
+  --font-body: 'Noto Sans KR', system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --noise: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .14 0 0 0 0 .22 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --noise-leather: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+html { background: var(--desk); }
+body {
+  margin: 0; overflow: hidden;
+  background: var(--desk); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(22, 35, 58, 0.17) 1.1px, transparent 1.5px);
+  background-size: 18px 18px;
+}
+h1, h2, h3, p, ul, ol, dl, dd { margin: 0; padding: 0; }
+button { font: inherit; color: inherit; }
+img { max-width: 100%; }
+
+.stage {
+  position: fixed; inset: 0; overflow: hidden;
+  --open-top: calc(44px + env(safe-area-inset-top, 0px));
+  --ph: 468px;
+  --peek: calc(116px + env(safe-area-inset-bottom, 0px));
+  --vis: var(--peek);
+  --rest: calc(100% + var(--open-top) - var(--vis) + 14px);
+}
+
+/* desk heading */
+.desk-title {
+  position: absolute; z-index: 0;
+  top: calc(22px + env(safe-area-inset-top, 0px));
+  left: max(20px, env(safe-area-inset-left, 0px));
+  right: max(20px, env(safe-area-inset-right, 0px));
+  transition: opacity 0.4s;
+}
+.desk-title h1 { font-family: var(--font-ko); font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -0.035em; }
+.desk-title p { margin-top: 4px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; color: var(--ink-soft); }
+.stage.has-open .desk-title { opacity: 0; }
+
+/* papers */
+.paper {
+  --tw: calc((100% - 20px) / 6);
+  --tabx: calc(var(--i) * (var(--tw) + 4px));
+  position: absolute; top: 0; z-index: calc(var(--i) + 1);
+  left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px));
+  height: calc(100% - var(--open-top));
+  background-color: var(--paper); background-image: var(--noise);
+  border-radius: 10px;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.55), 0 -3px 0 -1px rgba(0, 0, 0, 0.08);
+  transform-origin: 50% 70%;
+  transform: translate(var(--tx, 0px), calc(var(--rest) + var(--dy, 0px) + var(--lift, 0px))) rotate(calc(var(--r) * var(--rk, 1)));
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  touch-action: none; cursor: pointer; outline: none;
+  animation: rise 0.95s cubic-bezier(0.2, 0.9, 0.2, 1) backwards;
+  animation-delay: calc(var(--i) * 80ms + 120ms);
+}
+@keyframes rise { from { transform: translate(var(--tx, 0px), calc(100% + 60px)) rotate(0deg); } }
+.paper.pressing { --lift: -12px; }
+.stage.ready .paper { animation: none; }
+.paper:last-of-type { box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.55), 0 -3px 0 -1px rgba(0, 0, 0, 0.08), 0 -10px 18px rgba(4, 12, 28, 0.4); }
+.paper.dragging { transition: none; }
+.paper:focus-visible .tab { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.paper.is-open {
+  z-index: 15; cursor: auto; touch-action: auto; animation: none;
+  transform: translate(0px, var(--open-top)) rotate(0deg);
+  box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.08), 0 -4px 10px rgba(0, 0, 0, 0.2);
+}
+.stage.has-open .paper:not(.is-open) {
+  transform: translate(0px, var(--open-top)) rotate(0deg);
+  box-shadow: none; pointer-events: none;
+}
+.stage.has-open .tab { top: -34px; height: 34px; padding-bottom: 0; pointer-events: auto; cursor: pointer; }
+.stage.has-open .paper.is-open .tab { box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.55), 0 -3px 6px rgba(4, 12, 28, 0.35); }
+.paper.closing { z-index: 15; }
+.stage .paper.is-open.swapping { animation: swapin 0.32s cubic-bezier(0.2, 0.8, 0.3, 1); }
+.stage.ready .paper.is-open.swapping { animation: swapin 0.32s cubic-bezier(0.2, 0.8, 0.3, 1); }
+@keyframes swapin { from { opacity: 0; transform: translate(0px, calc(var(--open-top) + 18px)); } }
+.stage.instant .paper, .stage.instant .pocket, .stage.instant .desk-title { transition: none; animation: none; }
+
+.edge { position: absolute; z-index: 4; left: 0; right: 0; top: 0; height: 8px; border-radius: 10px 10px 0 0; background: var(--edge); pointer-events: none; }
+.tab {
+  position: absolute; z-index: 3; left: var(--tabx); top: -58px; width: var(--tw); height: 58px; padding-bottom: 16px;
+  display: grid; place-content: center; text-align: center; gap: 0;
+  background-color: var(--tab); border: 1px solid rgba(22, 35, 58, 0.2); border-bottom: 0; border-radius: 9px 9px 0 0;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.55), 0 -3px 6px rgba(4, 12, 28, 0.35);
+}
+.tab { transition: top 0.4s, height 0.4s, padding 0.4s; }
+.scroller { scrollbar-width: none; }
+.scroller::-webkit-scrollbar { display: none; }
+.rail { position: absolute; z-index: 7; display: none; right: 5px; top: 84px; bottom: calc(var(--peek) + 12px); width: 5px; border-radius: 3px; background: rgba(22, 35, 58, 0.12); pointer-events: none; }
+.paper.is-open .rail { display: block; }
+.rail i { position: absolute; left: 0; right: 0; top: 0; min-height: 28px; border-radius: 3px; background: var(--stamp); opacity: 0.85; }
+.rail.none { visibility: hidden; }
+.tab b { font-family: var(--font-display); font-weight: 700; font-size: 12px; letter-spacing: 0.12em; line-height: 1.2; }
+.tab i { font-style: normal; font-size: 14px; font-weight: 500; line-height: 1.2; }
+.tab.today::after { content: ""; position: absolute; top: 4px; right: 5px; width: 7px; height: 7px; border-radius: 50%; background: var(--stamp); }
+.when { position: absolute; z-index: 5; top: 10px; right: 16px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--ink-soft); pointer-events: none; }
+.paper.is-open .when { display: none; }
+
+.clip { position: absolute; z-index: 6; top: -14px; right: 26px; width: 20px; transform: rotate(8deg); pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25)); }
+.tape {
+  position: absolute; z-index: 6; top: -9px; right: 12%; width: 70px; height: 22px; transform: rotate(-5deg); pointer-events: none;
+  background-color: rgba(212, 176, 106, 0.62);
+  background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0 4px, transparent 4px 8px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.scroller { position: absolute; inset: 0; border-radius: 10px; overflow: hidden; pointer-events: none; }
+.paper.is-open .scroller { overflow-y: auto; overflow-x: hidden; pointer-events: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+
+.bar {
+  position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 10px;
+  padding: 24px 14px 10px 18px; background-color: var(--paper); background-image: var(--noise);
+  border-bottom: 1px dotted var(--rule); touch-action: none;
+}
+.bar-t { flex: 1; min-width: 0; }
+.bar-t small { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--ink-soft); }
+.bar-t h2 { font-family: var(--font-ko); font-size: 23px; line-height: 1.2; font-weight: 700; letter-spacing: -0.03em; }
+.put {
+  display: none; flex: none; align-items: center; gap: 6px; height: 44px; padding: 0 14px;
+  border: 1.5px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink);
+  font-size: 14px; font-weight: 500; cursor: pointer;
+}
+.put svg { width: 16px; height: 16px; }
+.put:active { background: rgba(22, 35, 58, 0.1); }
+.paper.is-open .put { display: inline-flex; }
+.put:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.in { padding: 18px 18px calc(var(--peek) + 28px); max-width: 560px; margin: 0 auto; }
+.hd { display: flex; align-items: center; gap: 14px; }
+.stamp {
+  flex: none; width: 76px; height: 76px; display: grid; place-content: center; text-align: center;
+  border: 3px double var(--stamp); border-radius: 50%; color: var(--stamp);
+  transform: rotate(-9deg); mix-blend-mode: multiply; opacity: 0.92;
+}
+.stamp b { font-family: var(--font-display); font-weight: 700; font-size: 14px; letter-spacing: 0.1em; line-height: 1.2; }
+.stamp span { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; }
+.lead { font-size: 15px; color: var(--ink-soft); }
+.blk { margin-top: 26px; }
+.hd + .blk { margin-top: 18px; }
+.lbl {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+  font-family: var(--font-ko); font-size: 17px; font-weight: 700; letter-spacing: -0.01em;
+}
+.lbl small { font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.14em; color: var(--ink-soft); }
+
+.rows { list-style: none; }
+.rows li { display: grid; grid-template-columns: 92px 1fr; gap: 12px; padding: 11px 0; border-bottom: 1px dotted var(--rule); font-size: 15px; }
+.rows .k { padding-top: 2px; font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.rows .v { min-width: 0; }
+.rows .v small { display: block; font-size: 13px; color: var(--ink-soft); }
+
+.checks { list-style: none; }
+.checks li { border-bottom: 1px dotted var(--rule); }
+.checks label { display: flex; gap: 12px; align-items: flex-start; min-height: 44px; padding: 11px 0; cursor: pointer; font-size: 15px; }
+.checks a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.checks input {
+  appearance: none; -webkit-appearance: none; position: relative;
+  flex: none; width: 22px; height: 22px; margin: 1px 0 0;
+  border: 1.5px solid var(--ink); border-radius: 4px; background: rgba(255, 255, 255, 0.45); cursor: pointer;
+}
+.checks input::after {
+  content: ""; position: absolute; left: 6px; top: 1px; width: 6px; height: 12px;
+  border-right: 3px solid var(--stamp); border-bottom: 3px solid var(--stamp);
+  transform: rotate(40deg) scale(0); transition: transform 0.12s;
+}
+.checks input:checked::after { transform: rotate(40deg) scale(1); }
+.checks input:checked + span { color: var(--ink-soft); text-decoration: line-through; text-decoration-thickness: 1px; }
+.checks input:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.notice { position: relative; margin-top: 34px; padding: 18px 14px 6px; border: 1.5px solid var(--stamp); border-radius: 6px; }
+.notice h3 {
+  position: absolute; top: -10px; left: 12px; padding: 0 8px; background-color: var(--paper);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.14em; color: var(--stamp);
+}
+.notice ul { list-style: none; }
+.notice li { position: relative; padding: 0 0 12px 18px; font-size: 15px; }
+.notice li::before { content: "※"; position: absolute; left: 0; top: 0; color: var(--stamp); font-size: 13px; }
+
+.doc-btn {
+  appearance: none; -webkit-appearance: none; display: inline; margin: 0; padding: 0; border: 0; background: none;
+  font: inherit; text-align: left; color: inherit; cursor: pointer;
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--ink-soft);
+}
+.doc-btn::after {
+  content: attr(data-tag); display: inline-block; margin-left: 8px; padding: 0 7px;
+  border: 1px solid var(--stamp); border-radius: 999px; color: var(--stamp);
+  font-family: var(--font-mono); font-size: 10.5px; line-height: 18px; letter-spacing: 0.08em; text-decoration: none;
+}
+.doc-btn:active { opacity: 0.55; }
+.doc-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+.next {
+  margin-top: 30px; width: 100%; height: 52px; display: flex; align-items: center; justify-content: center; gap: 8px;
+  border: 1.5px dashed var(--ink); border-radius: 10px; background: transparent; color: var(--ink);
+  font-size: 15px; font-weight: 500; cursor: pointer;
+}
+.next svg { width: 18px; height: 18px; }
+.next:active { background: rgba(22, 35, 58, 0.08); }
+.next:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.src { margin-top: 30px; font-size: 13px; color: var(--ink-soft); display: grid; gap: 6px; }
+.src ul { list-style: none; display: grid; gap: 2px; }
+.src a { color: var(--ink); text-underline-offset: 3px; }
+
+
+/* ===== INTRO (removable) — CSS ===== */
+.stage.intro-hold .paper { animation: none; opacity: 0; transition: none; }
+.stage.intro-hold .pocket { transform-origin: 50% 50%; }
+/* drop shadow for the cropped passport (set on the stage, because clip-path would cut a shadow on the wallet itself) */
+.stage { transition: filter 0.5s; }
+.stage.intro-hold { transition: none; filter: drop-shadow(0 14px 10px rgba(4, 12, 28, 0.42)) drop-shadow(0 2px 2px rgba(4, 12, 28, 0.4)); }
+/* while it is a bare passport: no ticket pockets, crest enlarged to look normal inside the shrunken wallet */
+.stage.intro-booklet .slots, .stage.intro-booklet .grip, .stage.intro-booklet .crest span { opacity: 0; }
+.stage.intro-booklet .slots, .stage.intro-booklet .grip, .stage.intro-booklet .crest, .stage.intro-booklet .crest span { transition: none; }
+.stage.intro-booklet .crest { transform: translateY(var(--cdy, 170px)); }
+.pocket::before { transition: inset 0.7s cubic-bezier(0.45, 0, 0.25, 1), border-radius 0.7s; }
+.stage.intro-booklet .pocket::before {
+  inset: calc(var(--bt, 129px) + 8px) calc(var(--bs, 120px) + 8px); border: 1.5px dashed rgba(212, 176, 106, 0.5); border-radius: 9px; transition: none;
+}
+.pocket .slots, .pocket .grip, .crest span { transition: opacity 0.5s ease 0.25s; }
+.crest { transition: transform 0.7s cubic-bezier(0.45, 0, 0.25, 1); }
+#intro { position: fixed; inset: 0; z-index: 90; overflow: hidden; cursor: pointer; touch-action: none; }
+#intro .puff { position: absolute; border-radius: 50%; background: rgba(132, 118, 94, 0.5); filter: blur(5px); pointer-events: none; will-change: transform, opacity; }
+/* ===== /INTRO — CSS ===== */
+
+/* external-link icon: any link that opens a website */
+a[target="_blank"]::after {
+  content: ""; display: inline-block; width: 0.8em; height: 0.8em; margin-left: 0.22em; vertical-align: -0.04em;
+  background-color: currentColor; opacity: 0.7;
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4h6v6'/%3E%3Cpath d='M20 4 10 14'/%3E%3Cpath d='M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4h6v6'/%3E%3Cpath d='M20 4 10 14'/%3E%3Cpath d='M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.hidden-note { padding: 34px 24px; text-align: center; font-size: 15px; line-height: 1.7; color: #e8e2d0; }
+/* wallet pocket */
+.pocket {
+  position: absolute; z-index: 20; left: 0; right: 0; bottom: 0; height: var(--ph);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 20px max(18px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(18px, env(safe-area-inset-left, 0px));
+  background-color: var(--leather);
+  background-image: radial-gradient(120% 60% at 50% 0%, rgba(255, 255, 255, 0.1), transparent 65%), var(--noise-leather);
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 -12px 28px rgba(0, 0, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.14);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pocket::before {
+  content: ""; position: absolute; inset: 9px 9px 0 9px; pointer-events: none;
+  border: 1.5px dashed rgba(212, 176, 106, 0.5); border-bottom: 0; border-radius: 11px 11px 0 0;
+}
+.pocket { transform: translateY(calc(var(--ph) - var(--peek))); touch-action: none; cursor: pointer; padding-top: 28px;
+  box-shadow: 0 -4px 0 #2a4670, 0 -4px 6px rgba(4, 12, 28, 0.38), 0 -8px 0 #4a6d99, 0 -8px 7px rgba(4, 12, 28, 0.3), 0 -14px 26px rgba(4, 12, 28, 0.32), inset 0 2px 0 rgba(255, 255, 255, 0.14); }
+.crest, .slots { position: relative; z-index: 1; }
+.stage.expanded { --vis: var(--ph); }
+.stage.expanded .pocket { transform: none; }
+.stage:not(.expanded) .slot { pointer-events: none; }
+.grip { position: absolute; top: 7px; left: 50%; width: 44px; height: 4px; margin-left: -22px; border-radius: 2px; background: rgba(212, 176, 106, 0.55); }
+
+.crest { display: grid; justify-items: center; gap: 4px; text-align: center; }
+.crest svg { width: 24px; height: 24px; color: var(--foil); }
+.foil { font-family: var(--font-display); font-weight: 700; font-size: 15px; letter-spacing: 0.42em; padding-left: 0.42em; color: var(--foil); }
+.crest span { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.2em; color: rgba(212, 176, 106, 0.8); }
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .foil { background-image: linear-gradient(110deg, #9a7634, #ecd89f 30%, #b88f45 52%, #f5e6b8 74%, #a07c38); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+}
+.hint { text-align: center; font-size: 13px; color: rgba(238, 232, 214, 0.72); }
+.slots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.slot {
+  position: relative; height: 108px; padding: 0; overflow: visible; cursor: pointer;
+  border: 1px solid rgba(212, 176, 106, 0.45); border-radius: 12px 12px 6px 6px;
+  background: var(--leather-deep); color: var(--foil);
+}
+.slot img { position: absolute; left: 10px; top: 9px; width: calc(100% - 20px); height: 84px; object-fit: cover; object-position: top; border-radius: 5px 5px 0 0; transform: rotate(-1.6deg); transition: transform 0.25s; }
+.slot:nth-child(even) img { transform: rotate(1.4deg); }
+.slot.out { z-index: 3; }
+.slot:active img { transform: translateY(-6px) rotate(0deg); }
+.slot .lip {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 44px; display: grid; place-content: center; text-align: center;
+  background-color: var(--leather); background-image: var(--noise-leather);
+  border-top: 1px dashed rgba(212, 176, 106, 0.6);
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; line-height: 1.4;
+}
+.slot .lip b { font-weight: 500; }
+.slot:focus-visible { outline: 2px solid var(--foil); outline-offset: 2px; }
+
+/* ticket popup */
+.modal { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; background: var(--leather); padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.modal { flex-direction: row; align-items: center; justify-content: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: rgba(6, 10, 20, 0.66); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); animation: dim 0.25s ease-out; }
+.modal[hidden] { display: none; }
+@keyframes dim { from { opacity: 0; } }
+.modal-card { display: flex; flex-direction: column; width: min(100%, 520px); max-height: min(86vh, 760px); overflow: hidden; background: var(--leather); border: 1px solid rgba(212, 176, 106, 0.5); border-radius: 18px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); animation: pop 0.36s cubic-bezier(0.2, 1, 0.3, 1); }
+@keyframes pop { from { opacity: 0; transform: translateY(48px) scale(0.92); } }
+.slot.out img { transform: translateY(-46px) rotate(0deg) scale(1.05); }
+.modal-bar { flex: none; display: flex; align-items: center; gap: 8px; padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); border-bottom: 1px solid rgba(212, 176, 106, 0.35); }
+.modal-bar h2 { flex: 1; min-width: 0; font-family: var(--font-body); font-size: 16px; font-weight: 500; line-height: 1.3; color: var(--foil); }
+.modal-btn {
+  height: 44px; min-width: 44px; padding: 0 14px; display: inline-grid; place-items: center;
+  border: 1px solid rgba(212, 176, 106, 0.5); border-radius: 10px; background: rgba(255, 255, 255, 0.04); color: var(--foil);
+  font-size: 14px; font-weight: 500; cursor: pointer;
+}
+.modal-btn:active { background: rgba(212, 176, 106, 0.16); }
+.modal-btn:focus-visible { outline: 2px solid var(--foil); outline-offset: 2px; }
+.modal-btn svg { width: 18px; height: 18px; }
+.modal-body { flex: 1; min-height: 0; overflow: auto; -webkit-overflow-scrolling: touch; padding: 14px max(16px, env(safe-area-inset-right, 0px)) 18px max(16px, env(safe-area-inset-left, 0px)); }
+.modal-body img { display: block; width: 100%; max-width: 640px; height: auto; margin: 0 auto; border-radius: 8px; background: #fff; }
+.modal-body img + img { margin-top: 12px; }
+.modal-body.zoomed img { width: 260%; max-width: none; margin: 0; }
+
+@media (min-width: 640px) {
+  .paper { left: 50%; right: auto; width: 600px; margin-left: -300px; }
+  .pocket { left: 50%; right: auto; width: 640px; margin-left: -320px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .paper, .pocket { transition: none; animation: none; }
+  .checks input::after { transition: none; }
+}
+</style>
+
+<div class="stage" id="stage">
+
+  <!-- 0 Docs -->
+  <article class="paper" id="paper-docs" data-id="docs" data-ko="예약 정보" tabindex="0" role="button" aria-label="예약 정보 서류 꺼내기"
+    style="--i:0;--r:0deg;--tx:0px;--paper:#f3f1e8;--tab:#e3e0d0;--edge:#16243a">
+    <span class="edge"></span>
+    <span class="tab"><b>DOCS</b></span>
+    <span class="when">BOOKINGS</span>
+    <svg class="clip" viewBox="0 0 24 64" fill="none" stroke="#8b94a6" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M7 26V12a5 5 0 0 1 10 0v34a8 8 0 0 1-16 0V20a3 3 0 0 1 6 0v22"/></svg>
+    <div class="scroller">
+      <div class="bar">
+        <div class="bar-t"><h2>예약 정보</h2></div>
+        <button class="put" type="button" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>넣기</button>
+      </div>
+      <div class="in">
+        <div class="blk" style="margin-top:0">
+          <h3 class="lbl">예약 내역<small>BOOKINGS</small></h3>
+          <ul class="rows">
+            <li><span class="k">11/16 05:00</span><span class="v"><button class="doc-btn" type="button" data-doc="taxi" data-tag="확정">택시 출발</button><small>김포공항 국제선, 예약 완료</small></span></li>
+            <li><span class="k">11/16 07:45</span><span class="v"><button class="doc-btn" type="button" data-doc="flight" data-tag="항공권">ANA NH862, 김포 → 하네다</button><small>09:45 하네다 도착 (항공권 표기: 터미널 2, 출발 2일 전 확정)</small></span></li>
+            <li><span class="k">11/16 11:45</span><span class="v"><button class="doc-btn" type="button" data-doc="bus" data-tag="QR">리무진버스 QR 티켓</button><small>터미널 3 · 5번 승차장 → 호텔 12:51 도착, 2명</small></span></li>
+            <li><span class="k">11/16–11/19</span><span class="v"><button class="doc-btn" type="button" data-doc="hotel" data-tag="확인서">쉐라톤 그랑 베이 도쿄</button><small>디즈니 오피셜 호텔, 베이사이드역 도보 2분</small></span></li>
+            <li><span class="k">11/17</span><span class="v"><button class="doc-btn" type="button" data-doc="land" data-tag="QR">도쿄 디즈니랜드 1데이 패스포트</button><small>성인 2장, 인원별 QR</small></span></li>
+            <li><span class="k">11/18</span><span class="v"><button class="doc-btn" type="button" data-doc="sea" data-tag="QR">도쿄 디즈니씨 1데이 패스포트</button><small>성인 2장, 인원별 QR</small></span></li>
+            <li><span class="k">11/19 20:00</span><span class="v"><button class="doc-btn" type="button" data-doc="flight" data-tag="항공권">ANA NH867, 하네다 → 김포</button><small>터미널 2 출발, 22:30 도착</small></span></li>
+          </ul>
+        </div>
+        <div class="blk">
+          <h3 class="lbl">조식<small>BREAKFAST</small></h3>
+          <ul class="rows">
+            <li><span class="k">장소</span><span class="v">그랑 카페 (호텔 레스토랑), 조식 뷔페는 투숙객만 이용 가능</span></li>
+            <li><span class="k">시간</span><span class="v">6:00~10:00</span></li>
+            <li><span class="k">예약</span><span class="v">전날 15:00~23:00에 <a href="https://www.tablecheck.com/sheratontokyobay-grandcafe/reserve" target="_blank" rel="noopener">온라인 예약</a><small>당일 아침 예약이 되는지는 확인하지 못했어요</small></span></li>
+            <li><span class="k">요금</span><span class="v">어른 3,500엔 (오래된 자료일 수 있어 호텔에서 확인)</span></li>
+          </ul>
+        </div>
+        <div class="blk">
+          <h3 class="lbl">전날 챙길 것<small>THE NIGHT BEFORE</small></h3>
+          <ul class="checks">
+            <li><label><input type="checkbox" data-k="eve-1"><span>엔화 소액 현금, 해외결제 카드, eSIM 또는 로밍</span></label></li>
+            <li><label><input type="checkbox" data-k="eve-2"><span>보조배터리 (기내와 버스 안에 휴대, 짐칸 금지)</span></label></li>
+            <li><label><input type="checkbox" data-k="eve-3"><span>겹쳐 입을 옷 (11월 중순은 아침저녁이 쌀쌀)</span></label></li>
+          </ul>
+        </div>
+        <button class="next" type="button" data-next="day-16">Day 1 서류 꺼내기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+    </div>
+  </article>
+
+  <!-- 1 Day 1 -->
+  <article class="paper" id="paper-day-16" data-id="day-16" data-date="11-16" data-ko="Day 1 도착일" tabindex="0" role="button" aria-label="Day 1 도착일 서류 꺼내기"
+    style="--i:1;--r:0deg;--tx:0px;--paper:#e8eef6;--tab:#d3deec;--edge:repeating-linear-gradient(-45deg,#b4414f 0 9px,#f8f8f4 9px 15px,#2d5ba8 15px 24px,#f8f8f4 24px 30px)">
+    <span class="edge"></span>
+    <span class="tab"><b>DAY 1</b></span>
+    <span class="when">11/16 MON</span>
+    <div class="scroller">
+      <div class="bar">
+        <div class="bar-t"><h2>도착일</h2></div>
+        <button class="put" type="button" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>넣기</button>
+      </div>
+      <div class="in">
+        <div class="hd"><div class="stamp" aria-hidden="true"><b>DAY 1</b><span>16 NOV</span></div><p class="lead">새벽 5시 택시로 출발해 이동과 체크인에 집중하는 날입니다.</p></div>
+
+        <div class="blk">
+          <h3 class="lbl">오늘 챙길 것<small>CHECKLIST</small></h3>
+          <ul class="checks">
+            <li><label><input type="checkbox" data-k="d16-1"><span>여권, <a href="https://vjw-lp.digital.go.jp/ko/" target="_blank" rel="noopener">Visit Japan Web QR</a> (캡처해서 저장)</span></label></li>
+            <li><label><input type="checkbox" data-k="d16-2"><span><button class="doc-btn" type="button" data-doc="bus" data-tag="QR">리무진버스 QR 티켓</button> (캡처해서 저장)</span></label></li>
+            <li><label><input type="checkbox" data-k="d16-3"><span><button class="doc-btn" type="button" data-doc="hotel" data-tag="확인서">호텔 예약 확인서</button>, <a href="https://www.tokyodisneyresort.jp/kr/tdr/app" target="_blank" rel="noopener">디즈니 티켓</a> (공식 앱 설치·로그인)</span></label></li>
+            <li><label><input type="checkbox" data-k="d16-7"><span>스이카 교통카드 구입·충전 (1인 1장, 터미널 3, 3,000엔 충전 추천)</span></label></li>
+            <li><label><input type="checkbox" data-k="d16-8"><span>다음 날(11/17) 조식 <a href="https://www.tablecheck.com/sheratontokyobay-grandcafe/reserve" target="_blank" rel="noopener">예약</a> (오늘 15:00~23:00)</span></label></li>
+            <li><label><input type="checkbox" data-k="d16-9"><span>11/17 랜드 식사 <a href="https://www.tokyodisneyresort.jp/en/tdr/guide/app_service/priorityseating.html" target="_blank" rel="noopener">프라이어리티 시팅</a> 예약 (원하면, 전날인 오늘 20:59까지. 당일 9:00부터도 온라인 예약 가능)</span></label></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <h3 class="lbl">일정<small>ITINERARY</small></h3>
+          <ol class="rows">
+            <li><span class="k">05:00</span><span class="v"><button class="doc-btn" type="button" data-doc="taxi" data-tag="확정">택시 출발 (예약 완료)</button></span></li>
+            <li><span class="k">05:45 전후</span><span class="v">김포공항 도착, 수속 (07:45 출발 2시간 전 목표)</span></li>
+            <li><span class="k">07:45</span><span class="v"><button class="doc-btn" type="button" data-doc="flight" data-tag="항공권">김포 → 하네다 (ANA NH862)</button></span></li>
+            <li><span class="k">09:45</span><span class="v">하네다 도착 (항공권에는 터미널 2), 입국심사와 짐 찾기</span></li>
+            <li><span class="k">11:15 전후</span><span class="v">터미널 3 도착, 스이카 구입·충전 후 5번 승차장으로 (터미널 2 1층 9번 정류장에서 무료 연결버스 탑승)</span></li>
+            <li><span class="k">11:45</span><span class="v"><button class="doc-btn" type="button" data-doc="bus" data-tag="QR">리무진버스 출발, 탑승 시 QR 티켓 제시</button></span></li>
+            <li><span class="k">12:51</span><span class="v">호텔 도착, 체크인 전이면 짐 맡기기</span></li>
+            <li><span class="k">점심</span><span class="v">이크스피아리에서 식사·구경 (선택)</span></li>
+            <li><span class="k">오후</span><span class="v">호텔 체크인, 신혼여행 요청 사항 전달</span></li>
+            <li><span class="k">저녁</span><span class="v">휴식, 다음 날 랜드 준비</span></li>
+          </ol>
+        </div>
+
+        <div class="notice">
+          <h3>NOTICE · 주의할 것</h3>
+          <ul>
+            <li>택시는 전날 밤에 예약 시간과 기사 연락처를 한 번 더 확인하세요.</li>
+            <li>항공권에는 도착 터미널이 2로 적혀 있지만, ANA는 노선에 따라 터미널 2와 3을 모두 쓰고 출발 2일 전부터 예정 터미널을 안내합니다. 11/14에 ANA 앱이나 예약 화면에서 확인하세요. 버스 승차장은 터미널 3이며, 2에 내리면 1층 도착 로비 9번 정류장에서 무료 연결버스를 타세요. 5:00~20:00는 4분 간격이고 터미널 1을 거쳐 3으로 가니, 여유 있게 20~30분을 잡으세요.</li>
+            <li>스이카는 터미널 3 모노레일 입구 근처의 웰컴 스이카 전용 발권기나 JR동일본 여행서비스센터에서 삽니다. 줄이 길 수 있으니 11:45 버스 전에 끝낼 시간을 잡으세요. 웰컴 스이카는 보증금이 없고 첫 사용일부터 28일간 쓰며 잔액은 환불되지 않아요. 일반 스이카는 보증금 500엔에 환불 때 수수료 220엔이 듭니다. 구입처 정보는 2025년 3월 기준 자료라 현장 안내를 확인하세요.</li>
+            <li>충전은 1인 3,000엔을 추천합니다. 랜드·씨 날 모노레일 왕복 600엔씩(1,200엔), 귀국일 시내 이동 1,500엔 안팎을 합친 대략적인 추정치예요. 부족하면 현금으로 1,000엔씩 추가하고, 남으면 편의점 등에서 써서 비우세요. 공항 발권기는 첫 충전만 카드가 된다는 자료가 있으니, 처음에 3,000엔을 넣는 편이 편해요.</li>
+            <li>호텔 근처 디즈니 리조트 라인(모노레일)은 스이카로 탈 수 있어요. 어른 1회 300엔, 1일 자유승차권 700엔입니다.</li>
+            <li>버스는 11:45 출발로 예약돼 있습니다. 입국이 크게 늦어지면 변경이 필요하니 예약처 연락 방법을 저장해 두세요.</li>
+            <li>버스 티켓의 수하물 기준은 인당 2개까지입니다. 캐리어 개수를 확인하세요.</li>
+            <li>체크인할 때 대표 투숙객(예약자) 본인 사진 신분증을 보여야 하고, 예약에 쓴 결제 카드도 요구받을 수 있습니다. 도시세는 현지에서 직접 내야 할 수 있어요.</li>
+                      </ul>
+        </div>
+        <button class="next" type="button" data-next="day-17">Day 2 서류 꺼내기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+    </div>
+  </article>
+
+  <!-- 2 Day 2 -->
+  <article class="paper" id="paper-day-17" data-id="day-17" data-date="11-17" data-ko="Day 2 디즈니랜드" tabindex="0" role="button" aria-label="Day 2 디즈니랜드 서류 꺼내기"
+    style="--i:2;--r:0deg;--tx:0px;--paper:#f5e9e6;--tab:#ecd4cf;--edge:repeating-linear-gradient(90deg,#c76b7e 0 6px,#f7d9de 6px 12px)">
+    <span class="edge"></span>
+    <span class="tab"><b>DAY 2</b></span>
+    <span class="when">11/17 TUE</span>
+    <div class="scroller">
+      <div class="bar">
+        <div class="bar-t"><h2>디즈니랜드</h2></div>
+        <button class="put" type="button" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>넣기</button>
+      </div>
+      <div class="in">
+        <div class="hd"><div class="stamp" aria-hidden="true"><b>DAY 2</b><span>17 NOV</span></div><p class="lead">개장 시각에 맞춰 입장하는 것이 오늘의 핵심입니다.</p></div>
+
+        <div class="blk">
+          <h3 class="lbl">오늘 챙길 것<small>CHECKLIST</small></h3>
+          <ul class="checks">
+            <li><label><input type="checkbox" data-k="d17-1"><span><button class="doc-btn" type="button" data-doc="land" data-tag="QR">디즈니랜드 티켓 2장</button> (<a href="https://www.tokyodisneyresort.jp/kr/tdr/app" target="_blank" rel="noopener">공식 앱</a>에서 날짜 확인, 입구에서 화면 제시)</span></label></li>
+            <li><label><input type="checkbox" data-k="d17-2"><span>보조배터리, 충전 케이블 (앱으로 대기시간을 계속 확인)</span></label></li>
+            <li><label><input type="checkbox" data-k="d17-3"><span>겹쳐 입을 옷, 핫팩, 편한 신발</span></label></li>
+            <li><label><input type="checkbox" data-k="d17-4"><span>접이식 우산 또는 우비</span></label></li>
+            <li><label><input type="checkbox" data-k="d17-5"><span>소액 현금, 교통카드 또는 모노레일 이용권</span></label></li>
+            <li><label><input type="checkbox" data-k="d17-6"><span>다음 날(11/18) 조식 <a href="https://www.tablecheck.com/sheratontokyobay-grandcafe/reserve" target="_blank" rel="noopener">예약</a> (오늘 15:00~23:00)</span></label></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <h3 class="lbl">일정<small>ITINERARY</small></h3>
+          <ol class="rows">
+            <li><span class="k">개장 전</span><span class="v">기상, 6:00 이후 조식, 호텔 → 베이사이드역 → 모노레일로 랜드역 (개장 1시간 전쯤 도착이 목표)</span></li>
+            <li><span class="k">개장 시각</span><span class="v">입장 직후 앱에서 스탠바이 패스(무료) 받기, 푸의 허니 헌트·빅 썬더 마운틴·캐리비안의 해적 등 인기 어트랙션 먼저. 헌티드 맨션 홀리데이 나이트메어(시즌 한정)도 이 시간대에</span></li>
+            <li><span class="k">점심</span><span class="v">12~13시 피크를 피해 11시쯤 일찍 먹거나, 모바일 오더로 미리 주문</span></li>
+            <li><span class="k">오후</span><span class="v">컨트리 베어 징글벨 잼버리, 크리스마스 퍼레이드 (시작 40~60분 전 자리 잡기)</span></li>
+            <li><span class="k">저녁</span><span class="v">저녁 식사는 프라이어리티 시팅 예약, 드림라이츠 퍼레이드와 스타브라이트 불꽃놀이(바람 불면 취소) 후 귀가</span></li>
+          </ol>
+        </div>
+
+        <div class="notice">
+          <h3>NOTICE · 주의할 것</h3>
+          <ul>
+            <li>입장은 각자 본인 스마트폰에 자기 티켓을 띄워 QR을 스캔합니다(인쇄본 불가). 나갔다 다시 들어올 때도 같은 티켓이 필요하고, QR은 직원 외 타인에게 보여주지 마세요.</li>
+            <li>11/17은 디즈니 크리스마스 기간(11/11~12/25)입니다. 개장 시간과 퍼레이드·불꽃놀이 시각은 당일 앱에서 확인하세요.</li>
+            <li>프리미어 액세스(유료)는 입장 후 앱에서 삽니다. 어트랙션 1,000~3,000엔, 퍼레이드·공연 2,500~3,500엔이고 환불이 안 됩니다. 하나를 산 뒤 60분이 지나거나 이용 시작 시각이 되면(먼저 오는 쪽) 다음 것을 살 수 있어요.</li>
+            <li>스탠바이 패스(무료)는 앱 My Plan에서 받습니다. 같은 종류 시설은 120분이 지나거나 이용 시작 시각이 되면 다시 받을 수 있어요.</li>
+            <li>식사는 한 끼만 <a href="https://www.tokyodisneyresort.jp/en/tdr/guide/app_service/priorityseating.html" target="_blank" rel="noopener">프라이어리티 시팅</a>(무료 우선 안내)으로 잡고, 나머지는 모바일 오더로 해결하세요. 확정 예약이 아니라 우선 안내라서 시간에 맞춰 가야 합니다.</li>
+            <li>아침 모노레일은 개장 직전에 붐빕니다. 여유 있게 출발하세요.</li>
+            <li>폐장 직후 귀가하는 사람이 몰립니다. 쇼가 끝나기 전에 나오거나 잠시 쉬었다 가는 방법도 있습니다.</li>
+            <li>오늘은 많이 걷습니다. 점심 후 다리를 쉴 곳을 정해 두세요.</li>
+            <li>내일은 씨 날이므로 늦게까지 무리하지 마세요.</li>
+          </ul>
+        </div>
+        <button class="next" type="button" data-next="day-18">Day 3 서류 꺼내기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+    </div>
+  </article>
+
+  <!-- 3 Day 3 -->
+  <article class="paper" id="paper-day-18" data-id="day-18" data-date="11-18" data-ko="Day 3 디즈니씨" tabindex="0" role="button" aria-label="Day 3 디즈니씨 서류 꺼내기"
+    style="--i:3;--r:0deg;--tx:0px;--paper:#e2efed;--tab:#c9e0dc;--edge:repeating-linear-gradient(90deg,#3f9a96 0 10px,#a9d6d2 10px 20px)">
+    <span class="edge"></span>
+    <span class="tab"><b>DAY 3</b></span>
+    <span class="when">11/18 WED</span>
+    <span class="tape" aria-hidden="true"></span>
+    <div class="scroller">
+      <div class="bar">
+        <div class="bar-t"><h2>디즈니씨</h2></div>
+        <button class="put" type="button" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>넣기</button>
+      </div>
+      <div class="in">
+        <div class="hd"><div class="stamp" aria-hidden="true"><b>DAY 3</b><span>18 NOV</span></div><p class="lead">전날과 같은 방식으로 이동하고, 마지막 파크 날이라 쇼핑과 짐 정리를 함께 챙기는 날입니다.</p></div>
+
+        <div class="blk">
+          <h3 class="lbl">오늘 챙길 것<small>CHECKLIST</small></h3>
+          <ul class="checks">
+            <li><label><input type="checkbox" data-k="d18-1"><span><button class="doc-btn" type="button" data-doc="sea" data-tag="QR">디즈니씨 티켓 2장</button> (<a href="https://www.tokyodisneyresort.jp/kr/tdr/app" target="_blank" rel="noopener">공식 앱</a> 로그인 확인)</span></label></li>
+            <li><label><input type="checkbox" data-k="d18-2"><span>보조배터리, 충전 케이블</span></label></li>
+            <li><label><input type="checkbox" data-k="d18-3"><span>겹쳐 입을 옷, 핫팩, 편한 신발</span></label></li>
+            <li><label><input type="checkbox" data-k="d18-4"><span>접이식 우산 또는 우비</span></label></li>
+            <li><label><input type="checkbox" data-k="d18-5"><span>굿즈 쇼핑용 카드와 현금</span></label></li>
+            <li><label><input type="checkbox" data-k="d18-6"><span>다음 날(11/19) 조식 <a href="https://www.tablecheck.com/sheratontokyobay-grandcafe/reserve" target="_blank" rel="noopener">예약</a> (오늘 15:00~23:00)</span></label></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <h3 class="lbl">일정<small>ITINERARY</small></h3>
+          <ol class="rows">
+            <li><span class="k">개장 전</span><span class="v">기상, 조식, 호텔 → 베이사이드역 → 모노레일로 씨역까지 이동</span></li>
+            <li><span class="k">개장 시각</span><span class="v">입장, 주요 어트랙션 먼저</span></li>
+            <li><span class="k">점심</span><span class="v">휴식, 보조배터리 충전</span></li>
+            <li><span class="k">오후~저녁</span><span class="v">기념 굿즈 쇼핑, 야간 쇼 관람</span></li>
+            <li><span class="k">밤</span><span class="v">호텔 복귀, 체크아웃 전에 캐리어 정리</span></li>
+          </ol>
+        </div>
+
+        <div class="notice">
+          <h3>NOTICE · 주의할 것</h3>
+          <ul>
+            <li>입장은 각자 본인 스마트폰에 자기 티켓을 띄워 QR을 스캔합니다(인쇄본 불가). 오늘 티켓은 디즈니씨용(11/18)인지 확인하세요.</li>
+            <li>굿즈를 한꺼번에 사면 짐이 늘어납니다. 비행기 수하물 기준은 2개이니 부피를 확인하세요.</li>
+            <li>폐장 직후 모노레일과 호텔 방향이 붐빕니다. 시간을 조절하세요.</li>
+            <li>내일 아침에 체크아웃하므로, 오늘 밤에 캐리어를 미리 정리하세요.</li>
+            <li>내일 시내 이동 시간에 맞춰 알람을 설정하세요.</li>
+          </ul>
+        </div>
+        <button class="next" type="button" data-next="day-19">Day 4 서류 꺼내기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+    </div>
+  </article>
+
+  <!-- 4 Day 4 -->
+  <article class="paper" id="paper-day-19" data-id="day-19" data-date="11-19" data-ko="Day 4 귀국일" tabindex="0" role="button" aria-label="Day 4 귀국일 서류 꺼내기"
+    style="--i:4;--r:0deg;--tx:0px;--paper:#f1ead8;--tab:#e4d9b9;--edge:repeating-linear-gradient(90deg,#16243a 0 14px,#d4b06a 14px 18px)">
+    <span class="edge"></span>
+    <span class="tab"><b>DAY 4</b></span>
+    <span class="when">11/19 THU</span>
+    <div class="scroller">
+      <div class="bar">
+        <div class="bar-t"><h2>귀국일, 도쿄 시내</h2></div>
+        <button class="put" type="button" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>넣기</button>
+      </div>
+      <div class="in">
+        <div class="hd"><div class="stamp" aria-hidden="true"><b>DAY 4</b><span>19 NOV</span></div><p class="lead">오전에 체크아웃하고 시내를 둘러본 뒤 오후에 하네다로 출발합니다. 비행기는 20:00입니다.</p></div>
+
+        <div class="blk">
+          <h3 class="lbl">오늘 챙길 것<small>CHECKLIST</small></h3>
+          <ul class="checks">
+            <li><label><input type="checkbox" data-k="d19-1"><span>여권, 귀국편 항공권 (NH867, 20:00)</span></label></li>
+            <li><label><input type="checkbox" data-k="d19-2"><span>체크아웃 전 방 점검 (충전기, 여권, 귀중품)</span></label></li>
+            <li><label><input type="checkbox" data-k="d19-3"><span>도쿄역 짐 보관 QR 또는 로커 영수증(비밀번호)</span></label></li>
+            <li><label><input type="checkbox" data-k="d19-4"><span>하네다행 버스 예약 확인 (도쿄역 야에스 북쪽 출구)</span></label></li>
+            <li><label><input type="checkbox" data-k="d19-5"><span>교통카드, 시내 이동용 가벼운 가방</span></label></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <h3 class="lbl">일정<small>ITINERARY</small></h3>
+          <ol class="rows">
+            <li><span class="k">8:00 전후</span><span class="v">조식(전날 예약), 체크아웃</span></li>
+            <li><span class="k">9:30 전후</span><span class="v">호텔 무료 셔틀로 JR 마이하마역 → 게이요선으로 도쿄역 (약 15~20분)</span></li>
+            <li><span class="k">10:30 전후</span><span class="v">도쿄역에서 짐 맡기기 (ecbo 예약 또는 야에스 북쪽~중앙 출구 쪽 코인로커)</span></li>
+            <li><span class="k">11:00~12:00</span><span class="v">마루노우치 쪽 도쿄역 외관 사진, 킷테(KITTE) 구경</span></li>
+            <li><span class="k">12:00~13:00</span><span class="v">점심 (도쿄역 안이나 유라쿠초·긴자 쪽)</span></li>
+            <li><span class="k">13:00~14:30</span><span class="v">긴자 산책 또는 아키하바라 중 한 곳만</span></li>
+            <li><span class="k">14:30~15:30</span><span class="v">도쿄역에서 기념품 쇼핑, 스이카 잔액 쓰기</span></li>
+            <li><span class="k">15:30</span><span class="v">짐 찾기, 야에스 북쪽 출구 뎃코 빌딩 1층 버스터미널 2로 이동</span></li>
+            <li><span class="k">15:45~16:00</span><span class="v">하네다행 버스 출발 (약 50분)</span></li>
+            <li><span class="k">17:00 전후</span><span class="v">하네다 터미널 2 도착, 탑승 수속 (출발 3시간 전)</span></li>
+            <li><span class="k">20:00</span><span class="v"><button class="doc-btn" type="button" data-doc="flight" data-tag="항공권">하네다 → 김포 (ANA NH867)</button></span></li>
+            <li><span class="k">22:30</span><span class="v">김포공항 도착</span></li>
+          </ol>
+        </div>
+
+        <div class="notice">
+          <h3>NOTICE · 주의할 것</h3>
+          <ul>
+            <li>하네다행 버스는 도쿄역 야에스 북쪽 출구의 뎃코 빌딩 1층 버스터미널 2에서 탑니다. 하네다에서는 터미널 1·2·3에 서는데 도쿄역에서 가는 방향의 하차 터미널은 확인하지 못했어요. 탈 때 터미널 2 하차를 직원에게 확인하세요.</li>
+            <li>버스가 안 맞으면 JR 시나가와 + 게이큐선(약 40분, 536엔), 또는 JR 하마마쓰초 + 도쿄 모노레일(약 40분, 718엔)로 가세요. 터미널 1·2역은 지하 1층입니다.</li>
+            <li>짐은 ecbo cloak(1개 800엔, 예약 가능)이나 코인로커에 맡기세요. 큰 캐리어 로커는 수가 적고 일찍 찹니다. 운영 시간을 15:30에 찾을 수 있는지 미리 확인하세요.</li>
+            <li>시내 구경은 두세 곳으로 제한하세요. 도쿄역에서 멀어질수록 돌아오는 시간이 빠듯해집니다.</li>
+            <li>김포 도착이 22:30이라 입국과 짐 찾기 후 집에 가는 막차 시간을 미리 확인하세요.</li>
+          </ul>
+        </div>
+        <button class="next" type="button" data-next="before">출발 전 준비 서류 꺼내기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+    </div>
+  </article>
+
+  <!-- 5 Prep -->
+  <article class="paper" id="paper-before" data-id="before" data-ko="출발 전 준비" tabindex="0" role="button" aria-label="출발 전 준비 서류 꺼내기"
+    style="--i:5;--r:0deg;--tx:0px;--paper:#ebe9f4;--tab:#d7d4e8;--edge:repeating-linear-gradient(90deg,#6b63a8 0 5px,#d9d6ec 5px 10px)">
+    <span class="edge"></span>
+    <span class="tab"><b>PREP</b></span>
+    <span class="when">BEFORE</span>
+    <div class="scroller">
+      <div class="bar">
+        <div class="bar-t"><h2>출발 전 준비</h2></div>
+        <button class="put" type="button" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>넣기</button>
+      </div>
+      <div class="in">
+        <div class="blk" style="margin-top:0">
+          <h3 class="lbl">예약해야 할 것<small>TO BOOK</small></h3>
+          <ul class="checks">
+            <li><label><input type="checkbox" data-k="b-0" checked><span>김포공항 택시 예약 (11/16 05:00)</span></label></li>
+            <li><label><input type="checkbox" data-k="b-3"><span><a href="https://www.keikyu-bus.co.jp/en/airport/h-tokyo" target="_blank" rel="noopener">하네다행 버스</a> 예약 (11/19 도쿄역 야에스 북쪽 출구 → 하네다 터미널 2, 15:45~16:00 출발편, 1,200엔). 하루 운행이 적다는 자료가 있어 미리</span></label></li>
+            <li><label><input type="checkbox" data-k="b-10"><span><a href="https://jr-east.ecbo.io/en" target="_blank" rel="noopener">도쿄역 짐 보관 ecbo cloak</a> 예약 (11/19 캐리어 2개 1,600엔, 맡기기 10:30~ 찾기 15:30 전후)</span></label></li>
+            <li><label><input type="checkbox" data-k="b-11"><span><a href="https://www.tablecheck.com/sheratontokyobay-grandcafe/reserve" target="_blank" rel="noopener">조식 그랑 카페</a> 예약 (11/17·18·19 아침, 각각 전날 15:00~23:00)</span></label></li>
+            <li><label><input type="checkbox" data-k="b-12"><span><a href="https://www.tokyodisneyresort.jp/en/tdr/guide/app_service/priorityseating.html" target="_blank" rel="noopener">레스토랑 프라이어리티 시팅</a> (선택, 랜드 11/17·씨 11/18, 각각 전날 20:59까지)</span></label></li>
+            <li><label><input type="checkbox" data-k="b-2"><span><a href="https://vjw-lp.digital.go.jp/ko/" target="_blank" rel="noopener">Visit Japan Web</a> 등록</span></label></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <h3 class="lbl">서류 · 확인<small>DOCS</small></h3>
+          <ul class="checks">
+            <li><label><input type="checkbox" data-k="b-1"><span>디즈니 티켓 2장씩 <a href="https://www.tokyodisneyresort.jp/kr/tdr/app" target="_blank" rel="noopener">공식 앱</a>에 등록 확인 (랜드 11/17, 씨 11/18)</span></label></li>
+            <li><label><input type="checkbox" data-k="b-4"><span>호텔 예약 확인서, 신혼여행 요청 사항 전달</span></label></li>
+            <li><label><input type="checkbox" data-k="b-5"><span>프리미어 액세스(입장 후 앱에서 구매) 사용 계획</span></label></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <h3 class="lbl">현지 준비<small>ON SITE</small></h3>
+          <ul class="checks">
+            <li><label><input type="checkbox" data-k="b-6"><span>여권 유효기간, 여행자보험 확인</span></label></li>
+            <li><label><input type="checkbox" data-k="b-7"><span>eSIM 또는 로밍, 디즈니 공식 앱 설치</span></label></li>
+            <li><label><input type="checkbox" data-k="b-8"><span>엔화 소액 현금, 해외결제 카드</span></label></li>
+            <li><label><input type="checkbox" data-k="b-9"><span>보조배터리, 겹쳐 입을 옷 (아침저녁 쌀쌀)</span></label></li>
+          </ul>
+        </div>
+
+        <div class="src">
+          <p>요금, 시간표, 운영 시간은 바뀔 수 있습니다. 출발 전에 공식 사이트와 앱에서 최종 확인하세요.</p>
+          <ul>
+            <li><a href="https://www.tokyodisneyresort.jp/kr/hotel/oh/sheraton.html" target="_blank" rel="noopener">쉐라톤 그랑데 도쿄베이 호텔 (공식)</a></li>
+            <li><a href="https://www.tokyodisneyresort.jp/kr/hotel/dch/access/airport" target="_blank" rel="noopener">하네다공항 ⇔ 호텔 (공식)</a></li>
+            <li><a href="https://www.tokyodisneyresort.jp/en/tdr/resortline/station" target="_blank" rel="noopener">디즈니 리조트 라인 (공식)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- wallet front pocket -->
+  <div class="pocket" id="pocket">
+    <span class="grip" aria-hidden="true"></span>
+    <div class="crest" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z"/></svg>
+      <b class="foil">PASSPORT</b>
+      <span>TOKYO HONEYMOON · 2026</span>
+    </div>
+    <div class="slots">
+      <button class="slot" type="button" data-doc="taxi" aria-label="택시 예약 확정 화면 보기">
+        <img src="assets/taxi-booking.jpg" alt="">
+        <span class="lip"><b>TAXI</b><span>11/16 05:00</span></span>
+      </button>
+      <button class="slot" type="button" data-doc="flight" aria-label="항공권 e-티켓 보기">
+        <img src="assets/flight-ticket.jpg" alt="">
+        <span class="lip"><b>FLIGHT</b><span>NH862 · 867</span></span>
+      </button>
+      <button class="slot" type="button" data-doc="bus" aria-label="리무진버스 QR 티켓 보기">
+        <img src="assets/bus-ticket.jpg" alt="">
+        <span class="lip"><b>BUS QR</b><span>11/16 11:45</span></span>
+      </button>
+      <button class="slot" type="button" data-doc="hotel" aria-label="호텔 예약 확인서 보기">
+        <img src="assets/hotel-voucher.jpg" alt="">
+        <span class="lip"><b>HOTEL</b><span>11/16–19</span></span>
+      </button>
+      <button class="slot" type="button" data-doc="land" aria-label="디즈니랜드 티켓 보기">
+        <img src="assets/land-ticket-1.jpg" alt="">
+        <span class="lip"><b>LAND</b><span>11/17 · 2장</span></span>
+      </button>
+      <button class="slot" type="button" data-doc="sea" aria-label="디즈니씨 티켓 보기">
+        <img src="assets/sea-ticket-1.jpg" alt="">
+        <span class="lip"><b>SEA</b><span>11/18 · 2장</span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== INTRO (removable) — HTML ===== -->
+<div id="intro" hidden aria-hidden="true"></div>
+<!-- ===== /INTRO — HTML ===== -->
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+ <div class="modal-card">
+  <div class="modal-bar">
+    <h2 id="modal-title"></h2>
+    <button class="modal-btn" id="zoom" type="button">확대</button>
+    <button class="modal-btn" id="close" type="button" aria-label="닫기">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
+  <div class="modal-body" id="modal-body"><img id="modal-img" alt=""></div>
+ </div>
+</div>
+
+<script>
+(function () {
+  var IDS = ['docs', 'day-16', 'day-17', 'day-18', 'day-19', 'before'];
+  var stage = document.getElementById('stage');
+  var papers = {};
+  IDS.forEach(function (id) { papers[id] = document.getElementById('paper-' + id); });
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var modal = document.getElementById('modal');
+  var openId = null;
+
+  // Checklist state (this browser only)
+  var KEY = 'tokyo-honeymoon-checks';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+  document.querySelectorAll('input[data-k]').forEach(function (el) {
+    if (Object.prototype.hasOwnProperty.call(state, el.dataset.k)) el.checked = !!state[el.dataset.k];
+    el.addEventListener('change', function () {
+      state[el.dataset.k] = el.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+    });
+  });
+
+  function setHash(h) {
+    if (location.hash !== '#' + h) { try { location.hash = h; } catch (e) {} }
+  }
+  function quickly() {
+    stage.classList.add('instant');
+    setTimeout(function () { stage.classList.remove('instant'); }, 80);
+  }
+
+  function openPaper(id, instant) {
+    var p = papers[id];
+    if (!p || openId === id) return;
+    if (instant) quickly();
+    var switching = !!openId;
+    if (openId) {
+      var old = papers[openId];
+      old.classList.remove('is-open');
+      old.setAttribute('role', 'button');
+      old.setAttribute('tabindex', '0');
+    }
+    openId = id;
+    stage.classList.add('ready');
+    stage.classList.add('has-open');
+    setExpanded(false);
+    p.classList.add('is-open');
+    if (switching && !reduce) {
+      p.classList.add('swapping');
+      setTimeout(function () { p.classList.remove('swapping'); }, 360);
+    }
+    p.setAttribute('role', 'region');
+    p.removeAttribute('tabindex');
+    p.querySelector('.scroller').scrollTop = 0;
+    setHash(id);
+    setTimeout(function () { var b = p.querySelector('.put'); if (b && openId === id) b.focus({ preventScroll: true }); }, 60);
+  }
+
+  function closePaper(instant) {
+    if (!openId) return;
+    if (instant) quickly();
+    var p = papers[openId];
+    openId = null;
+    stage.classList.remove('has-open');
+    p.classList.remove('is-open');
+    p.classList.add('closing');   // stay on top while sliding back into the wallet
+    setTimeout(function () { p.classList.remove('closing'); }, 750);
+    p.setAttribute('role', 'button');
+    p.setAttribute('tabindex', '0');
+    setHash('wallet');
+    p.focus({ preventScroll: true });
+  }
+
+  // Drag a paper up to pull it out, or just press it
+  var drag = null;
+  IDS.forEach(function (id) {
+    var p = papers[id];
+    p.addEventListener('pointerdown', function (e) {
+      if (p.classList.contains('is-open') || openId) return;
+      drag = { p: p, id: id, y: e.clientY, moved: false };
+      try { p.setPointerCapture(e.pointerId); } catch (err) {}
+      p.classList.add('pressing');
+    });
+    p.addEventListener('pointermove', function (e) {
+      if (!drag || drag.p !== p) return;
+      var dy = e.clientY - drag.y;
+      if (!drag.moved && Math.abs(dy) > 6) { drag.moved = true; p.classList.remove('pressing'); p.classList.add('dragging'); }
+      if (drag.moved) {
+        var up = Math.min(0, dy);
+        p.style.setProperty('--dy', up + 'px');
+        p.style.setProperty('--rk', String(Math.max(0, 1 + up / 160)));
+      }
+    });
+    function finish(e, cancelled) {
+      if (!drag || drag.p !== p) return;
+      var dy = e.clientY - drag.y;
+      var moved = drag.moved;
+      drag = null;
+      p.classList.remove('pressing', 'dragging');
+      p.style.removeProperty('--dy');
+      p.style.removeProperty('--rk');
+      if (cancelled) return;
+      if (!moved || dy < -64) openPaper(id);
+    }
+    p.addEventListener('pointerup', function (e) { finish(e, false); });
+    p.addEventListener('pointercancel', function (e) { finish(e, true); });
+    p.addEventListener('keydown', function (ev) {
+      if (p.classList.contains('is-open')) return;
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openPaper(id); }
+    });
+  });
+
+  // Index tabs: while a paper is out, tapping another tab switches directly; tapping the open tab puts it back
+  IDS.forEach(function (id) {
+    var tab = papers[id].querySelector('.tab');
+    var wasOpen = null;
+    tab.addEventListener('pointerdown', function () { wasOpen = openId; });
+    tab.addEventListener('click', function () {
+      if (wasOpen === null) return;
+      if (id === openId) closePaper(); else openPaper(id);
+      wasOpen = null;
+    });
+  });
+
+  // Passport cover: tap or slide up to reveal the ticket pockets underneath
+  var pocket = document.getElementById('pocket');
+  var slotBtns = pocket.querySelectorAll('.slot');
+  function setExpanded(on) {
+    stage.classList.toggle('expanded', on);
+    slotBtns.forEach(function (s) { s.tabIndex = on ? 0 : -1; });
+  }
+  setExpanded(false);
+  var py = null;
+  pocket.addEventListener('pointerdown', function (e) {
+    if (e.target.closest('.slot')) return;
+    py = e.clientY;
+  });
+  window.addEventListener('pointerup', function (e) {
+    if (py === null) return;
+    var dy = e.clientY - py;
+    py = null;
+    if (dy < -20) setExpanded(true);
+    else if (dy > 20) setExpanded(false);
+    else setExpanded(!stage.classList.contains('expanded'));
+  });
+  window.addEventListener('pointercancel', function () { py = null; });
+
+  // Custom scroll rail (replaces the native scrollbar)
+  IDS.forEach(function (id) {
+    var p = papers[id];
+    var sc = p.querySelector('.scroller');
+    var rail = document.createElement('div');
+    rail.className = 'rail none';
+    var thumb = document.createElement('i');
+    rail.appendChild(thumb);
+    p.appendChild(rail);
+    function upd() {
+      var rh = rail.clientHeight;
+      var max = sc.scrollHeight - sc.clientHeight;
+      if (!rh || max <= 2) { rail.classList.add('none'); return; }
+      rail.classList.remove('none');
+      var th = Math.max(28, rh * sc.clientHeight / sc.scrollHeight);
+      thumb.style.height = th + 'px';
+      thumb.style.top = (sc.scrollTop / max * (rh - th)) + 'px';
+    }
+    sc.addEventListener('scroll', upd, { passive: true });
+    window.addEventListener('resize', upd);
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(upd);
+      ro.observe(sc);
+      ro.observe(sc.querySelector('.in'));
+    }
+  });
+
+
+  // Put back / next paper
+  document.querySelectorAll('[data-close]').forEach(function (b) {
+    b.addEventListener('click', function () { closePaper(); });
+  });
+  document.querySelectorAll('[data-next]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      openPaper(b.dataset.next);
+    });
+  });
+  // Pull down on the title bar to put the paper back
+  document.querySelectorAll('.bar').forEach(function (bar) {
+    var sy = null;
+    bar.addEventListener('pointerdown', function (e) {
+      if (e.target.closest('button')) return;
+      sy = e.clientY;
+      try { bar.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    bar.addEventListener('pointerup', function (e) {
+      if (sy !== null && e.clientY - sy > 70) closePaper();
+      sy = null;
+    });
+    bar.addEventListener('pointercancel', function () { sy = null; });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.hidden) closePaper();
+  });
+  window.addEventListener('hashchange', function () {
+    var id = location.hash.replace('#', '');
+    if (papers[id]) openPaper(id); else closePaper();
+  });
+
+  // Ticket popup
+  var SHOW_TICKETS = true;   // false: ticket images are not shown (public version)
+  var DOCS = {
+    bus: { title: '리무진버스 QR 티켓', src: 'assets/bus-ticket.jpg', alt: '11월 16일 11:45 하네다공항 터미널 3에서 쉐라톤 그랜드 도쿄 베이 호텔로 가는 리무진버스 QR 티켓' },
+    land: { title: '디즈니랜드 티켓 (11/17)', src: 'assets/land-ticket-1.jpg', alt: '도쿄 디즈니랜드 1데이 패스포트 11월 17일 첫 번째 티켓', more: [{ src: 'assets/land-ticket-2.jpg', alt: '도쿄 디즈니랜드 1데이 패스포트 11월 17일 두 번째 티켓' }] },
+    sea: { title: '디즈니씨 티켓 (11/18)', src: 'assets/sea-ticket-1.jpg', alt: '도쿄 디즈니씨 1데이 패스포트 11월 18일 첫 번째 티켓', more: [{ src: 'assets/sea-ticket-2.jpg', alt: '도쿄 디즈니씨 1데이 패스포트 11월 18일 두 번째 티켓' }] },
+    taxi: { title: '공항 택시 예약 (11/16 05:00)', src: 'assets/taxi-booking.jpg', alt: '11월 16일 오전 5시 서울 서초구에서 김포국제공항 국제선까지 택시 예약 확정 화면' },
+    hotel: { title: '호텔 예약 확인서 (Agoda)', src: 'assets/hotel-voucher.jpg', alt: '쉐라톤 그랑데 도쿄 베이 호텔 예약 확인서, 11월 16일 체크인 11월 19일 체크아웃, 성인 2명' },
+    flight: { title: '항공권 e-티켓 (NH862 · NH867)', src: 'assets/flight-ticket.jpg', alt: 'ANA 항공권 e-티켓 일정표, 11월 16일 NH862 김포 하네다, 11월 19일 NH867 하네다 김포' }
+  };
+  var mImg = document.getElementById('modal-img');
+  var mTitle = document.getElementById('modal-title');
+  var mBody = document.getElementById('modal-body');
+  var zoomBtn = document.getElementById('zoom');
+  var closeBtn = document.getElementById('close');
+  var lastTrigger = null;
+
+  function openDoc(key, trigger) {
+    var d = DOCS[key];
+    if (!d) return;
+    lastTrigger = trigger;
+    mTitle.textContent = d.title;
+    mBody.querySelectorAll('.hidden-note').forEach(function (n) { n.remove(); });
+    if (!SHOW_TICKETS) {
+      mImg.hidden = true; mImg.removeAttribute('src'); zoomBtn.style.display = 'none';
+      mBody.querySelectorAll('img.extra').forEach(function (n) { n.remove(); });
+      var note = document.createElement('p');
+      note.className = 'hidden-note';
+      note.textContent = '개인정보 보호를 위해 공개 버전에서는 티켓 이미지를 표시하지 않아요. 티켓은 메일·앱·사진첩에서 확인하세요.';
+      mBody.appendChild(note);
+      modal.hidden = false;
+      closeBtn.focus();
+      return;
+    }
+    mImg.hidden = false; zoomBtn.style.display = '';
+    mImg.src = d.src;
+    mImg.alt = d.alt;
+    mBody.querySelectorAll('img.extra').forEach(function (n) { n.remove(); });
+    (d.more || []).forEach(function (m) {
+      var x = document.createElement('img');
+      x.className = 'extra'; x.src = m.src; x.alt = m.alt;
+      mBody.appendChild(x);
+    });
+    mBody.classList.remove('zoomed');
+    zoomBtn.textContent = '확대';
+    mBody.scrollTop = 0;
+    mBody.scrollLeft = 0;
+    modal.hidden = false;
+    closeBtn.focus();
+  }
+  function closeDoc() {
+    modal.hidden = true;
+    slotBtns.forEach(function (s) { s.classList.remove('out'); });
+    if (lastTrigger) lastTrigger.focus({ preventScroll: true });
+  }
+  document.querySelectorAll('[data-doc]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (b.classList.contains('slot')) {
+        b.classList.add('out');
+        setTimeout(function () { openDoc(b.dataset.doc, b); }, reduce ? 0 : 320);
+      } else {
+        openDoc(b.dataset.doc, b);
+      }
+    });
+    if (b.classList.contains('slot')) b.addEventListener('pointerdown', function () {});
+  });
+  closeBtn.addEventListener('click', closeDoc);
+  modal.addEventListener('click', function (e) { if (e.target === modal) closeDoc(); });
+  zoomBtn.addEventListener('click', function () {
+    var z = mBody.classList.toggle('zoomed');
+    zoomBtn.textContent = z ? '축소' : '확대';
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !modal.hidden) closeDoc();
+  });
+
+  // Mark today's paper; on a trip day pull it out after the intro
+  var now = new Date();
+  var key = ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2);
+  var todayId = null;
+  if (now.getFullYear() === 2026) {
+    IDS.forEach(function (id) {
+      var p = papers[id];
+      if (p.dataset.date === key) { p.querySelector('.tab').classList.add('today'); todayId = id; }
+    });
+  }
+  var start = location.hash.replace('#', '');
+  if (papers[start]) { openPaper(start, true); }
+
+  // Runs once the page is settled (after the intro, if any)
+  function begin() {
+    setTimeout(function () { stage.classList.add('ready'); }, 1700);
+    if (!papers[start] && todayId) setTimeout(function () { openPaper(todayId); }, reduce ? 0 : 1300);
+  }
+  var runIntro = function (done) { done(); };
+
+  /* ===== INTRO (removable) — JS =====
+     The real wallet shows up as a bare passport, drops in from outside the screen to the screen centre,
+     bounces, then slides down while growing into the wallet and the papers slide in.
+     Remove this whole block plus the INTRO css/html blocks to delete the animation.
+     Or just set INTRO = false. */
+  var INTRO = true;
+  if (INTRO && !reduce && !papers[start] && typeof Element.prototype.animate === 'function') {
+    runIntro = function (done) {
+      var intro = document.getElementById('intro');
+      var pocketEl = document.getElementById('pocket');
+      var crestEl = pocketEl.querySelector('.crest');
+      var T = 2400, timers = [], anims = [], finished = false, released = false, began = false;
+      stage.classList.add('intro-hold', 'intro-booklet');
+      intro.hidden = false;
+      var rect = pocketEl.getBoundingClientRect();
+      var sr = stage.getBoundingClientRect(), W = sr.width, H = sr.height;
+      var BW = 150, BH = 210;                              // passport size
+      var bt = Math.round((rect.height - BH) / 2), bs = Math.round((rect.width - BW) / 2);
+      pocketEl.style.setProperty('--bt', bt + 'px');
+      pocketEl.style.setProperty('--bs', bs + 'px');
+      pocketEl.style.setProperty('--cdy', Math.round(rect.height / 2 - (crestEl.offsetTop + crestEl.offsetHeight / 2)) + 'px');
+      var dy = Math.round(Math.max(0, (H - rect.height) / 2) - rect.top);   // from resting spot up to screen centre
+      var midY = rect.top + dy + rect.height / 2;
+      var topY = midY - BH / 2, botY = midY + BH / 2;
+
+      function puff(power) {
+        var N = 16;
+        for (var n = 0; n < N; n++) {
+          var x = W / 2 + ((n + Math.random()) / N - 0.5) * (BW + 40);
+          var size = (16 + Math.random() * 18) * (0.6 + power * 0.6);
+          var el = document.createElement('i');
+          el.className = 'puff';
+          el.style.cssText = 'width:' + size + 'px;height:' + size + 'px;left:' + (x - size / 2) + 'px;top:' + ((n % 2 ? topY : botY) - size * 0.6) + 'px';
+          intro.appendChild(el);
+          var dir = x < W / 2 ? -1 : 1;
+          var dx = dir * (14 + Math.random() * 54) * (0.5 + power);
+          var ddy = (n % 2 ? -1 : 1) * (14 + Math.random() * 46) * (0.5 + power * 0.8);
+          var sc = 1.8 + Math.random() * 1.6;
+          var a = el.animate([
+            { transform: 'translate(0,0) scale(.4)', opacity: 0 },
+            { transform: 'translate(' + dx * 0.5 + 'px,' + ddy * 0.6 + 'px) scale(' + sc * 0.7 + ')', opacity: 0.55 * (0.4 + power * 0.6), offset: 0.3 },
+            { transform: 'translate(' + dx + 'px,' + ddy + 'px) scale(' + sc + ')', opacity: 0 }
+          ], { duration: 650 + Math.random() * 350, easing: 'cubic-bezier(.2,.6,.3,1)', fill: 'forwards' });
+          anims.push(a);
+          a.onfinish = (function (e) { return function () { e.remove(); }; })(el);
+        }
+      }
+      function grow() { stage.classList.remove('intro-booklet'); }
+      function release() {
+        if (released) return;
+        released = true;
+        stage.classList.remove('intro-hold');
+        intro.style.pointerEvents = 'none';
+        if (!began) { began = true; done(); }
+      }
+      function finish() {
+        if (finished) return;
+        finished = true;
+        timers.forEach(clearTimeout);
+        anims.forEach(function (a) { try { a.cancel(); } catch (e) {} });
+        intro.remove();
+        grow();
+        release();
+      }
+
+      var fall = 'cubic-bezier(.55,0,.9,.55)', up = 'cubic-bezier(.15,.7,.3,1)';
+      var c = '0px ' + dy + 'px', slide = 'cubic-bezier(.45,0,.25,1)';
+      function S(f) { return String(f); }
+      var crop = 'inset(' + bt + 'px ' + bs + 'px ' + bt + 'px ' + bs + 'px round 14px)';
+      // a bare passport starts big and close to the viewer, drops to the screen centre, then slides down and grows into the wallet
+      anims.push(pocketEl.animate([
+        { offset: 0,     translate: c, scale: S(2.6), opacity: 0, clipPath: crop, easing: fall },
+        { offset: 0.07,  translate: c, scale: S(2.4), opacity: 1, easing: fall },
+        { offset: 0.24,  translate: c, scale: S(1), easing: 'ease-out' },
+        { offset: 0.265, translate: c, scale: S(0.94), easing: up },
+        { offset: 0.34,  translate: c, scale: S(1.14), easing: fall },
+        { offset: 0.42,  translate: c, scale: S(0.97), easing: up },
+        { offset: 0.48,  translate: c, scale: S(1.06), easing: fall },
+        { offset: 0.54,  translate: c, scale: S(0.995), easing: 'ease-out' },
+        { offset: 0.58,  translate: c, scale: S(1) },
+        { offset: 0.62,  translate: c, scale: S(1), clipPath: crop, easing: slide },
+        { offset: 0.9,   translate: '0px 0px', scale: '1', clipPath: 'inset(0px 0px 0px 0px round 18px 18px 0px 0px)' },
+        { offset: 1,     translate: '0px 0px', scale: '1', clipPath: 'inset(-60px -40px 0px -40px round 0px)' }
+      ], { duration: T, fill: 'backwards' }));
+
+      timers.push(setTimeout(function () { puff(1); }, 0.24 * T));
+      timers.push(setTimeout(function () { puff(0.6); }, 0.42 * T));
+      timers.push(setTimeout(function () { puff(0.3); }, 0.54 * T));
+      timers.push(setTimeout(grow, 0.62 * T));
+      timers.push(setTimeout(release, 0.78 * T));
+      timers.push(setTimeout(finish, T + 1000));
+      intro.addEventListener('click', finish);
+    };
+  }
+  /* ===== /INTRO — JS ===== */
+
+  runIntro(begin);
+})();
+</script>
