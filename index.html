@@ -54,9 +54,9 @@ img { max-width: 100%; }
 
 .stage {
   position: fixed; inset: 0; overflow: hidden;
-  --open-top: calc(118px + env(safe-area-inset-top, 0px));   /* leaves room for the Mickey search bar above the open paper */
+  --open-top: calc(132px + env(safe-area-inset-top, 0px));   /* leaves room for the Mickey search bar above the open paper */
   --ph: 468px;
-  --peek: calc(160px + env(safe-area-inset-bottom, 0px));
+  --peek: calc(158px + env(safe-area-inset-bottom, 0px));
   --vis: var(--peek);
   --rest: calc(100% + var(--open-top) - var(--vis) + 14px);
 }
@@ -499,8 +499,8 @@ a[target="_blank"]::after {
 @keyframes shake { 0%, 100% { transform: translate(0, 0); } 20% { transform: translate(-1.5px, 0.5px) rotate(-1.4deg); } 40% { transform: translate(1.5px, -0.5px) rotate(1.2deg); } 60% { transform: translate(-1px, 0) rotate(-0.8deg); } 80% { transform: translate(0.8px, 0); } }
 
 /* collected stamps inside the passport */
-.top { display: grid; justify-items: center; gap: 8px; }
-.pstamps { position: relative; z-index: 1; display: flex; justify-content: center; gap: 12px; }
+.top { display: grid; justify-items: center; gap: 8px; margin-bottom: 22px; }
+.pstamps { position: relative; z-index: 1; display: flex; justify-content: center; gap: 12px; margin-top: 10px; }
 .ps { position: relative; width: 40px; height: 40px; border: 1px dashed rgba(212, 176, 106, 0.38); border-radius: 50%; color: var(--pc); transition: border-color 0.4s; }
 .ps svg { position: absolute; inset: -3px; width: 46px; height: 46px; overflow: visible; opacity: 0; transform: rotate(var(--sr)) scale(1.7); transition: opacity 0.3s, transform 0.5s cubic-bezier(0.2, 1.4, 0.4, 1); }
 .ps.on { border-color: transparent; }
@@ -945,7 +945,6 @@ a[target="_blank"]::after {
     <div class="crest" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z"/></svg>
       <b class="foil">PASSPORT</b>
-      <span>TOKYO HONEYMOON · 2026</span>
     </div>
     <div class="pstamps" id="pstamps" role="img" aria-label="수집한 스탬프 0/4">
       <span class="ps" data-s="d1" style="--sr:-9deg;--pc:#8fb4ff"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#st-d1"/></svg></span>
