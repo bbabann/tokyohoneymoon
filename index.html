@@ -14,7 +14,9 @@
 <title>도쿄 신혼여행 일정</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* Layout: a desk seen from above. Six coloured papers are tucked into a navy passport wallet, fanned and tilted, each with an index tab. Press or drag a tab up and the paper slides out of the wallet and fills the screen; the wallet drops away. */
 :root {
@@ -26,9 +28,9 @@
   --ink-soft: #55607a;
   --rule: rgba(22, 35, 58, 0.28);
   --stamp: #a8364b;
-  --font-display: 'Cinzel', 'Noto Serif KR', serif;
-  --font-ko: 'Noto Serif KR', 'Noto Sans KR', serif;
-  --font-body: 'Noto Sans KR', system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-display: 'Cinzel', 'Pretendard Variable', Pretendard, serif;
+  --font-ko: 'Pretendard Variable', Pretendard, system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-body: 'Pretendard Variable', Pretendard, system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --noise: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .14 0 0 0 0 .22 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --noise-leather: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -251,7 +253,7 @@ img { max-width: 100%; }
 .stage { transition: filter 0.5s; }
 .stage.intro-hold { transition: none; filter: drop-shadow(0 14px 10px rgba(4, 12, 28, 0.42)) drop-shadow(0 2px 2px rgba(4, 12, 28, 0.4)); }
 /* while it is a bare passport: no ticket pockets, crest enlarged to look normal inside the shrunken wallet */
-.stage.intro-booklet .slots, .stage.intro-booklet .grip, .stage.intro-booklet .crest span { opacity: 0; }
+.stage.intro-booklet .slots, .stage.intro-booklet .fx, .stage.intro-booklet .grip, .stage.intro-booklet .crest span { opacity: 0; }
 .stage.intro-booklet .slots, .stage.intro-booklet .grip, .stage.intro-booklet .crest, .stage.intro-booklet .crest span { transition: none; }
 .stage.intro-booklet .crest { transform: translateY(var(--cdy, 170px)); }
 .pocket::before { transition: inset 0.7s cubic-bezier(0.45, 0, 0.25, 1), border-radius 0.7s; }
@@ -346,6 +348,48 @@ a[target="_blank"]::after {
 .modal-body img + img { margin-top: 12px; }
 .modal-body.zoomed img { width: 260%; max-width: none; margin: 0; }
 
+/* map links */
+.rows a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.maps .v { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.maps .v a { display: inline-flex; align-items: center; min-height: 32px; }
+
+/* currency calculator: bottom of the passport, shown when it is swiped up */
+.stage { --ph: 596px; }
+.fx {
+  position: relative; z-index: 1; margin-top: 12px; padding: 10px 12px 8px; touch-action: manipulation; cursor: auto;
+  border: 1px solid rgba(212, 176, 106, 0.45); border-radius: 12px; background: var(--leather-deep); color: var(--foil);
+}
+.stage:not(.expanded) .fx { visibility: hidden; transition: visibility 0s linear 0.7s; }
+.fx-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; }
+.fx-row b { font-family: var(--font-mono); font-weight: 500; }
+.fx-f { position: relative; display: block; min-width: 0; }
+.fx-f i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--font-mono); opacity: 0.75; pointer-events: none; }
+.fx input {
+  width: 100%; min-width: 0; height: 44px; padding: 0 12px 0 30px; border: 1px solid rgba(212, 176, 106, 0.6); border-radius: 8px;
+  background: #f3f1e8; color: var(--ink); font-family: var(--font-mono); font-size: 18px; text-align: right;
+}
+.fx input::placeholder { color: rgba(22, 35, 58, 0.4); font-size: 14px; }
+.fx input:focus-visible { outline: 2px solid var(--foil); outline-offset: 1px; }
+.fx-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 2px 8px; margin-top: 6px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.04em; color: rgba(238, 232, 214, 0.8); }
+.fx-meta label { display: inline-flex; align-items: center; }
+.fx-meta input { width: 76px; height: 32px; padding: 0 8px; font-size: 14px; }
+.fx-meta button { height: 32px; padding: 0 12px; border: 1px solid rgba(212, 176, 106, 0.6); border-radius: 999px; background: transparent; color: var(--foil); font-size: 12px; cursor: pointer; }
+.fx-meta button:active { background: rgba(212, 176, 106, 0.16); }
+#fx-note { flex: 1 1 100%; font-size: 10.5px; }
+@media (max-height: 720px) {
+  .stage { --ph: 524px; }
+  .slot { height: 84px; }
+  .slot img { height: 60px; }
+  .slots { gap: 10px; }
+}
+
+/* QR tickets: bright, plain-white popup so the code scans easily */
+.modal-card.light { background: #fff; border-color: rgba(22, 35, 58, 0.2); }
+.modal-card.light .modal-bar { border-bottom-color: rgba(22, 35, 58, 0.15); background: #fff; }
+.modal-card.light .modal-bar h2 { color: var(--ink); }
+.modal-card.light .modal-btn { color: var(--ink); border-color: rgba(22, 35, 58, 0.35); background: #fff; }
+.modal-card.light .modal-body { background: #fff; }
+
 @media (min-width: 640px) {
   .paper { left: 50%; right: auto; width: 600px; margin-left: -300px; }
   .pocket { left: 50%; right: auto; width: 640px; margin-left: -320px; }
@@ -383,6 +427,14 @@ a[target="_blank"]::after {
             <li><span class="k">11/17</span><span class="v"><button class="doc-btn" type="button" data-doc="land" data-tag="QR">도쿄 디즈니랜드 1데이 패스포트</button><small>성인 2장, 인원별 QR</small></span></li>
             <li><span class="k">11/18</span><span class="v"><button class="doc-btn" type="button" data-doc="sea" data-tag="QR">도쿄 디즈니씨 1데이 패스포트</button><small>성인 2장, 인원별 QR</small></span></li>
             <li><span class="k">11/19 20:00</span><span class="v"><button class="doc-btn" type="button" data-doc="flight" data-tag="항공권">ANA NH867, 하네다 → 김포</button><small>터미널 2 출발, 22:30 도착</small></span></li>
+          </ul>
+        </div>
+        <div class="blk">
+          <h3 class="lbl">지도 링크<small>MAPS</small></h3>
+          <ul class="rows maps">
+            <li><span class="k">공항</span><span class="v"><a href="https://www.google.com/maps/search/?api=1&amp;query=Gimpo%20International%20Airport%20International%20Terminal" target="_blank" rel="noopener">김포공항 국제선</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Haneda%20Airport%20Terminal%202" target="_blank" rel="noopener">하네다 터미널 2</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Haneda%20Airport%20Terminal%203" target="_blank" rel="noopener">하네다 터미널 3</a></span></li>
+            <li><span class="k">호텔·파크</span><span class="v"><a href="https://www.google.com/maps/search/?api=1&amp;query=Sheraton%20Grande%20Tokyo%20Bay%20Hotel" target="_blank" rel="noopener">쉐라톤 그랑데 도쿄베이</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Disneyland" target="_blank" rel="noopener">도쿄 디즈니랜드</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20DisneySea" target="_blank" rel="noopener">도쿄 디즈니씨</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Ikspiari" target="_blank" rel="noopener">이크스피아리</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Maihama%20Station" target="_blank" rel="noopener">마이하마역</a></span></li>
+            <li><span class="k">시내 (Day 4)</span><span class="v"><a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Station" target="_blank" rel="noopener">도쿄역</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Station%20Yaesu%20North%20Exit%20bus%20terminal" target="_blank" rel="noopener">야에스 북쪽 출구 버스터미널</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=KITTE%20Marunouchi" target="_blank" rel="noopener">킷테</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Ginza" target="_blank" rel="noopener">긴자</a> <a href="https://www.google.com/maps/search/?api=1&amp;query=Akihabara" target="_blank" rel="noopener">아키하바라</a></span></li>
           </ul>
         </div>
         <div class="blk">
@@ -699,30 +751,42 @@ a[target="_blank"]::after {
     </div>
     <div class="slots">
       <button class="slot" type="button" data-doc="taxi" aria-label="택시 예약 확정 화면 보기">
-        <img src="assets/taxi-booking.jpg" alt="">
+        <img src="assets/taxi-booking.webp" alt="">
         <span class="lip"><b>TAXI</b><span>11/16 05:00</span></span>
       </button>
       <button class="slot" type="button" data-doc="flight" aria-label="항공권 e-티켓 보기">
-        <img src="assets/flight-ticket.jpg" alt="">
+        <img src="assets/flight-ticket.webp" alt="">
         <span class="lip"><b>FLIGHT</b><span>NH862 · 867</span></span>
       </button>
       <button class="slot" type="button" data-doc="bus" aria-label="리무진버스 QR 티켓 보기">
-        <img src="assets/bus-ticket.jpg" alt="">
+        <img src="assets/bus-ticket.webp" alt="">
         <span class="lip"><b>BUS QR</b><span>11/16 11:45</span></span>
       </button>
       <button class="slot" type="button" data-doc="hotel" aria-label="호텔 예약 확인서 보기">
-        <img src="assets/hotel-voucher.jpg" alt="">
+        <img src="assets/hotel-voucher.webp" alt="">
         <span class="lip"><b>HOTEL</b><span>11/16–19</span></span>
       </button>
       <button class="slot" type="button" data-doc="land" aria-label="디즈니랜드 티켓 보기">
-        <img src="assets/land-ticket-1.jpg" alt="">
+        <img src="assets/land-ticket-1.webp" alt="">
         <span class="lip"><b>LAND</b><span>11/17 · 2장</span></span>
       </button>
       <button class="slot" type="button" data-doc="sea" aria-label="디즈니씨 티켓 보기">
-        <img src="assets/sea-ticket-1.jpg" alt="">
+        <img src="assets/sea-ticket-1.webp" alt="">
         <span class="lip"><b>SEA</b><span>11/18 · 2장</span></span>
       </button>
     </div>
+    <section class="fx" id="fx" aria-label="환율 계산기">
+      <div class="fx-row">
+        <label class="fx-f"><i aria-hidden="true">¥</i><input id="fx-jpy" type="text" inputmode="decimal" autocomplete="off" placeholder="엔 입력" aria-label="엔화 금액"></label>
+        <b aria-hidden="true">=</b>
+        <label class="fx-f"><i aria-hidden="true">₩</i><input id="fx-krw" type="text" inputmode="decimal" autocomplete="off" placeholder="원 입력" aria-label="원화 금액"></label>
+      </div>
+      <div class="fx-meta">
+        <label>100엔 =&nbsp;<input id="fx-rate" type="text" inputmode="decimal" autocomplete="off" aria-label="100엔당 원화 환율">&nbsp;원</label>
+        <button id="fx-auto" type="button">자동</button>
+        <span id="fx-note" aria-live="polite"></span>
+      </div>
+    </section>
   </div>
 </div>
 
@@ -877,7 +941,7 @@ a[target="_blank"]::after {
   setExpanded(false);
   var py = null;
   pocket.addEventListener('pointerdown', function (e) {
-    if (e.target.closest('.slot')) return;
+    if (e.target.closest('.slot, .fx')) return;
     py = e.clientY;
   });
   window.addEventListener('pointerup', function (e) {
@@ -952,12 +1016,12 @@ a[target="_blank"]::after {
   // Ticket popup
   var SHOW_TICKETS = true;   // false: ticket images are not shown (public version)
   var DOCS = {
-    bus: { title: '리무진버스 QR 티켓', src: 'assets/bus-ticket.jpg', alt: '11월 16일 11:45 하네다공항 터미널 3에서 쉐라톤 그랜드 도쿄 베이 호텔로 가는 리무진버스 QR 티켓' },
-    land: { title: '디즈니랜드 티켓 (11/17)', src: 'assets/land-ticket-1.jpg', alt: '도쿄 디즈니랜드 1데이 패스포트 11월 17일 첫 번째 티켓', more: [{ src: 'assets/land-ticket-2.jpg', alt: '도쿄 디즈니랜드 1데이 패스포트 11월 17일 두 번째 티켓' }] },
-    sea: { title: '디즈니씨 티켓 (11/18)', src: 'assets/sea-ticket-1.jpg', alt: '도쿄 디즈니씨 1데이 패스포트 11월 18일 첫 번째 티켓', more: [{ src: 'assets/sea-ticket-2.jpg', alt: '도쿄 디즈니씨 1데이 패스포트 11월 18일 두 번째 티켓' }] },
-    taxi: { title: '공항 택시 예약 (11/16 05:00)', src: 'assets/taxi-booking.jpg', alt: '11월 16일 오전 5시 서울 서초구에서 김포국제공항 국제선까지 택시 예약 확정 화면' },
-    hotel: { title: '호텔 예약 확인서 (Agoda)', src: 'assets/hotel-voucher.jpg', alt: '쉐라톤 그랑데 도쿄 베이 호텔 예약 확인서, 11월 16일 체크인 11월 19일 체크아웃, 성인 2명' },
-    flight: { title: '항공권 e-티켓 (NH862 · NH867)', src: 'assets/flight-ticket.jpg', alt: 'ANA 항공권 e-티켓 일정표, 11월 16일 NH862 김포 하네다, 11월 19일 NH867 하네다 김포' }
+    bus: { qr: true, title: '리무진버스 QR 티켓', src: 'assets/bus-ticket.webp', alt: '11월 16일 11:45 하네다공항 터미널 3에서 쉐라톤 그랜드 도쿄 베이 호텔로 가는 리무진버스 QR 티켓' },
+    land: { qr: true, title: '디즈니랜드 티켓 (11/17)', src: 'assets/land-ticket-1.webp', alt: '도쿄 디즈니랜드 1데이 패스포트 11월 17일 첫 번째 티켓', more: [{ src: 'assets/land-ticket-2.webp', alt: '도쿄 디즈니랜드 1데이 패스포트 11월 17일 두 번째 티켓' }] },
+    sea: { qr: true, title: '디즈니씨 티켓 (11/18)', src: 'assets/sea-ticket-1.webp', alt: '도쿄 디즈니씨 1데이 패스포트 11월 18일 첫 번째 티켓', more: [{ src: 'assets/sea-ticket-2.webp', alt: '도쿄 디즈니씨 1데이 패스포트 11월 18일 두 번째 티켓' }] },
+    taxi: { title: '공항 택시 예약 (11/16 05:00)', src: 'assets/taxi-booking.webp', alt: '11월 16일 오전 5시 서울 서초구에서 김포국제공항 국제선까지 택시 예약 확정 화면' },
+    hotel: { title: '호텔 예약 확인서 (Agoda)', src: 'assets/hotel-voucher.webp', alt: '쉐라톤 그랑데 도쿄 베이 호텔 예약 확인서, 11월 16일 체크인 11월 19일 체크아웃, 성인 2명' },
+    flight: { title: '항공권 e-티켓 (NH862 · NH867)', src: 'assets/flight-ticket.webp', alt: 'ANA 항공권 e-티켓 일정표, 11월 16일 NH862 김포 하네다, 11월 19일 NH867 하네다 김포' }
   };
   var mImg = document.getElementById('modal-img');
   var mTitle = document.getElementById('modal-title');
@@ -965,11 +1029,21 @@ a[target="_blank"]::after {
   var zoomBtn = document.getElementById('zoom');
   var closeBtn = document.getElementById('close');
   var lastTrigger = null;
+  var modalCard = modal.querySelector('.modal-card');
+  var wake = null;
+  function keepAwake(on) {
+    try {
+      if (on && navigator.wakeLock) navigator.wakeLock.request('screen').then(function (l) { wake = l; }).catch(function () {});
+      else if (!on && wake) { wake.release(); wake = null; }
+    } catch (e) {}
+  }
 
   function openDoc(key, trigger) {
     var d = DOCS[key];
     if (!d) return;
     lastTrigger = trigger;
+    modalCard.classList.toggle('light', !!d.qr);
+    keepAwake(!!d.qr);
     mTitle.textContent = d.title;
     mBody.querySelectorAll('.hidden-note').forEach(function (n) { n.remove(); });
     if (!SHOW_TICKETS) {
@@ -1001,6 +1075,7 @@ a[target="_blank"]::after {
   }
   function closeDoc() {
     modal.hidden = true;
+    keepAwake(false);
     slotBtns.forEach(function (s) { s.classList.remove('out'); });
     if (lastTrigger) lastTrigger.focus({ preventScroll: true });
   }
@@ -1142,6 +1217,40 @@ a[target="_blank"]::after {
   /* ===== /INTRO — JS ===== */
 
   runIntro(begin);
+})();
+</script>
+<script>
+(function () {
+  var jpy = document.getElementById('fx-jpy'), krw = document.getElementById('fx-krw'), rateEl = document.getElementById('fx-rate');
+  var note = document.getElementById('fx-note'), autoBtn = document.getElementById('fx-auto');
+  var KEY = 'tokyo-honeymoon-fx';
+  var rate = 920, manual = false, stamp = '';   // KRW per 100 JPY
+  try { var sv = JSON.parse(localStorage.getItem(KEY) || 'null'); if (sv && sv.rate > 0) { rate = sv.rate; manual = !!sv.manual; stamp = sv.stamp || ''; } } catch (e) {}
+  function save() { try { localStorage.setItem(KEY, JSON.stringify({ rate: rate, manual: manual, stamp: stamp })); } catch (e) {} }
+  function num(v) { var n = parseFloat(String(v).replace(/[^0-9.]/g, '')); return isFinite(n) ? n : 0; }
+  function fmt(n) { return n ? Math.round(n).toLocaleString('ko-KR') : ''; }
+  function showRate() { rateEl.value = (Math.round(rate * 100) / 100).toString(); }
+  function showNote() { note.textContent = manual ? '직접 입력한 환율' : stamp ? '자동 환율 · ' + stamp + ' 기준 (참고용)' : '임시 환율 · 자동 환율 버튼으로 갱신'; }
+  function fromJpy() { krw.value = fmt(num(jpy.value) * rate / 100); }
+  function fromKrw() { jpy.value = fmt(num(krw.value) * 100 / rate); }
+  jpy.addEventListener('input', fromJpy);
+  krw.addEventListener('input', fromKrw);
+  rateEl.addEventListener('input', function () {
+    var r = num(rateEl.value);
+    if (r > 0) { rate = r; manual = true; save(); showNote(); if (document.activeElement === rateEl) fromJpy(); }
+  });
+  function refresh() {
+    note.textContent = '환율 불러오는 중';
+    fetch('https://open.er-api.com/v6/latest/JPY').then(function (r) { return r.json(); }).then(function (d) {
+      if (!d || !d.rates || !d.rates.KRW) throw 0;
+      rate = d.rates.KRW * 100; manual = false;
+      var t = new Date(); stamp = (t.getMonth() + 1) + '/' + t.getDate();
+      save(); showRate(); showNote(); fromJpy();
+    }).catch(function () { showNote(); });
+  }
+  autoBtn.addEventListener('click', refresh);
+  showRate(); showNote();
+  if (!manual && navigator.onLine !== false) refresh();
 })();
 </script>
 <script>

@@ -1,8 +1,8 @@
 // Network-first service worker: always tries the latest files, falls back to cache when offline.
-var CACHE = 'tokyo-honeymoon-v1';
+var CACHE = 'tokyo-honeymoon-v3';
 var CORE = ['./', 'index.html', 'manifest.webmanifest', 'icon-180.png', 'icon-512.png',
-  'assets/taxi-booking.jpg', 'assets/flight-ticket.jpg', 'assets/bus-ticket.jpg', 'assets/hotel-voucher.jpg',
-  'assets/land-ticket-1.jpg', 'assets/land-ticket-2.jpg', 'assets/sea-ticket-1.jpg', 'assets/sea-ticket-2.jpg'];
+  'assets/taxi-booking.webp', 'assets/flight-ticket.webp', 'assets/bus-ticket.webp', 'assets/hotel-voucher.webp',
+  'assets/land-ticket-1.webp', 'assets/land-ticket-2.webp', 'assets/sea-ticket-1.webp', 'assets/sea-ticket-2.webp'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) {
@@ -19,7 +19,7 @@ self.addEventListener('fetch', function (e) {
   if (req.method !== 'GET') return;
   var url = new URL(req.url);
   var sameOrigin = url.origin === location.origin;
-  var font = /fonts\.(googleapis|gstatic)\.com$/.test(url.hostname);
+  var font = /(fonts\.(googleapis|gstatic)\.com|cdn\.jsdelivr\.net)$/.test(url.hostname);
   if (!sameOrigin && !font) return;
   e.respondWith(fetch(req).then(function (res) {
     if (res && (res.ok || res.type === 'opaque')) {
