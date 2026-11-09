@@ -260,6 +260,8 @@ img { max-width: 100%; }
   inset: calc(var(--bt, 129px) + 8px) calc(var(--bs, 120px) + 8px); border: 1.5px dashed rgba(212, 176, 106, 0.5); border-radius: 9px; transition: none;
 }
 .pocket .slots, .pocket .grip, .crest span { transition: opacity 0.5s ease 0.25s; }
+.pocket .slots { transition: opacity 0.7s ease; }
+.stage.intro-pockets .slots, .stage.intro-pockets .fx { opacity: 0; transition: none; }
 .crest { transition: transform 0.7s cubic-bezier(0.45, 0, 0.25, 1); }
 #intro { position: fixed; inset: 0; z-index: 90; overflow: hidden; cursor: pointer; touch-action: none; }
 #intro .puff { position: absolute; border-radius: 50%; background: rgba(132, 118, 94, 0.5); filter: blur(5px); pointer-events: none; will-change: transform, opacity; }
@@ -417,7 +419,7 @@ a[target="_blank"]::after {
   position: relative; z-index: 1; margin-top: 12px; padding: 10px 12px 8px; touch-action: manipulation; cursor: auto;
   border: 0; border-radius: 12px; background: transparent; color: rgba(255, 255, 255, 0.75);
 }
-.stage:not(.expanded) .fx { visibility: hidden; transition: visibility 0s linear 0.7s; }
+.stage:not(.expanded) .fx { visibility: hidden; transition: visibility 0s linear 0.7s, opacity 0.7s ease; }
 .fx-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; }
 .fx-row b { font-family: var(--font-mono); font-weight: 500; }
 .fx-f { position: relative; display: block; min-width: 0; }
@@ -556,6 +558,7 @@ a[target="_blank"]::after {
             <li><label><input type="checkbox" data-k="b-7"><span>eSIM 또는 로밍, 디즈니 공식 앱 설치</span></label></li>
             <li><label><input type="checkbox" data-k="b-8"><span>엔화 소액 현금, 해외결제 카드</span></label></li>
             <li><label><input type="checkbox" data-k="b-9"><span>보조배터리 (기내와 버스 안에 휴대, 짐칸 금지), 겹쳐 입을 옷 (11월 중순은 아침저녁이 쌀쌀)</span></label></li>
+            <li><label><input type="checkbox" data-k="b-13"><span>일본용 변환 플러그 (일본 콘센트는 납작한 2핀이라 한국 충전기는 그대로 안 꽂혀요)</span></label></li>
           </ul>
         </div>
 
@@ -596,6 +599,16 @@ a[target="_blank"]::after {
             <li><a href="https://www.tokyodisneyresort.jp/kr/hotel/oh/sheraton.html" target="_blank" rel="noopener">쉐라톤 그랑데 도쿄베이 호텔 (공식)</a></li>
             <li><a href="https://www.tokyodisneyresort.jp/kr/hotel/dch/access/airport" target="_blank" rel="noopener">하네다공항 ⇔ 호텔 (공식)</a></li>
             <li><a href="https://www.tokyodisneyresort.jp/en/tdr/resortline/station" target="_blank" rel="noopener">디즈니 리조트 라인 (공식)</a></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <h3 class="lbl">비상 연락처<small>EMERGENCY</small></h3>
+          <ul class="rows">
+            <li><span class="k">경찰</span><span class="v"><a href="tel:110">110</a><small>일본 현지에서 바로 걸 수 있어요</small></span></li>
+            <li><span class="k">화재 · 구급</span><span class="v"><a href="tel:119">119</a></span></li>
+            <li><span class="k">영사콜센터</span><span class="v"><a href="tel:+82232100404">+82-2-3210-0404</a><small>외교부, 해외에서 사건·사고가 났을 때 (항공권 안내 문구의 번호)</small></span></li>
+            <li><span class="k">직접 저장</span><span class="v">호텔, 항공사, 카드 분실 신고 번호는 폰 연락처에 미리 저장해 두세요</span></li>
           </ul>
         </div>
 
@@ -1220,7 +1233,7 @@ a[target="_blank"]::after {
       var pocketEl = document.getElementById('pocket');
       var crestEl = pocketEl.querySelector('.crest');
       var T = 2400, timers = [], anims = [], finished = false, released = false, began = false;
-      stage.classList.add('intro-hold', 'intro-booklet');
+      stage.classList.add('intro-hold', 'intro-booklet', 'intro-pockets');
       intro.hidden = false;
       var rect = pocketEl.getBoundingClientRect();
       var sr = stage.getBoundingClientRect(), W = sr.width, H = sr.height;
@@ -1270,6 +1283,7 @@ a[target="_blank"]::after {
         anims.forEach(function (a) { try { a.cancel(); } catch (e) {} });
         intro.remove();
         grow();
+        stage.classList.remove('intro-pockets');
         release();
       }
 
@@ -1298,6 +1312,7 @@ a[target="_blank"]::after {
       timers.push(setTimeout(function () { puff(0.3); }, 0.54 * T));
       timers.push(setTimeout(grow, 0.62 * T));
       timers.push(setTimeout(release, 0.78 * T));
+      timers.push(setTimeout(function () { stage.classList.remove('intro-pockets'); }, 0.93 * T));   // pockets fade in once the passport has settled
       timers.push(setTimeout(finish, T + 1000));
       intro.addEventListener('click', finish);
     };
